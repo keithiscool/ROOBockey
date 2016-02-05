@@ -1,0 +1,29 @@
+﻿Build started 12/22/2015 10:09:34 PM.
+     1>Project "C:\Users\Keith\Documents\GitHub\ROObockey\ROObockeyV1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\keith\documents\github\roobockey\main.cpp(159): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\keith\documents\github\roobockey\main.cpp(161): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\keith\documents\github\roobockey\main.cpp(231): error C2664: 'void std::vector<cv::Vec3f,std::allocator<_Ty>>::push_back(const cv::Vec<float,3> &)' : cannot convert argument 1 from 'std::vector<cv::Point,std::allocator<_Ty>>' to 'cv::Vec<float,3> &&'
+                 with
+                 [
+                     _Ty=cv::Vec3f
+                 ]
+                 and
+                 [
+                     _Ty=cv::Point
+                 ]
+                 Reason: cannot convert from 'std::vector<cv::Point,std::allocator<_Ty>>' to 'cv::Vec<float,3>'
+                 with
+                 [
+                     _Ty=cv::Point
+                 ]
+                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+     1>c:\users\keith\documents\github\roobockey\main.cpp(236): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\keith\documents\github\roobockey\main.cpp(238): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>Done Building Project "C:\Users\Keith\Documents\GitHub\ROObockey\ROObockeyV1.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.52
