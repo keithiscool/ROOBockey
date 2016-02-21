@@ -24,9 +24,8 @@
 	int V_MIN = 0;
 	int V_MAX = 256;
 #endif
+
 const string trackbarWindowName = "Trackbars";
-static int CannyThresh = 300;
-static int ThreshMAX = 4000;
 
 //Tracking Library Function Declarations
 void on_trackbar(int, void*);
@@ -36,7 +35,8 @@ static double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0);
 void setLabel(cv::Mat& im, const std::string label, std::vector<cv::Point>& contour);
 void drawContours(Mat& image, const vector<vector<Point> >& contours, vector<Vec4i> hierarchy, string title);
 void shapeDetection(Mat& inputImage, vector<vector<Point>> contours, vector<Vec4i> hierarchy, Mat& outputImage);
-size_t trackColorFilteredObject(Mat &InputMat, vector<vector<Point>> &contours, vector<Vec4i> hierarchy, Mat &threshold);
+size_t calibratingTrackColorFilteredObjects(Mat &InputMat, vector<vector<Point>> &contours, vector<Vec4i> &hierarchy, Mat &threshold);
+size_t trackColorFilteredObjects(Mat &InputMat, vector<Beacon> &theBeacon, vector<vector<Point>> &contours, vector<Vec4i> hierarchy, Mat &threshold);
 void RecordBeaconPosition(Beacon &theBeacon, vector<Vec4i> &hierarchy, vector<vector<Point>> &contours, vector<Beacon> &theBeaconsVector);
 
 

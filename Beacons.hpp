@@ -35,7 +35,13 @@ private:
 	Scalar HSVmin, HSVmax;
 };
 
-#ifndef USE_EXTERNS
+#ifdef USE_EXTERNS
+	extern vector<Beacon> YellowTrianglesVector;
+	extern vector<Beacon> RedSquaresVector;
+	extern vector<Beacon> PurplePentagonsVector;
+	extern vector<Beacon> BlueHexagonsVector;
+	extern vector<Beacon> GreenCirclesVector;
+#else
 	/*Define Shapes and Colors for Known Target Beacon Colors and Shapes:
 	* create some Beacon objects so that we can use their member functions/information
 	* the text "Color_shape" tells the class definition (In "Beacons.c") what shape and color category the beacon falls in*/

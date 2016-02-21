@@ -3,6 +3,8 @@
 #ifndef DEFS_HPP
 #define DEFS_HPP
 
+//#define RaspberryPi2Used 1
+
 #include "opencv2/core/core.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/imgcodecs.hpp"

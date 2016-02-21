@@ -161,12 +161,14 @@
     <ClCompile Include="Beacons.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectTracking.cpp" />
+    <ClCompile Include="UART.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Beacons.hpp" />
     <ClInclude Include="defs.hpp" />
     <ClInclude Include="main.hpp" />
     <ClInclude Include="ObjectTracking.hpp" />
+    <ClInclude Include="UART.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
