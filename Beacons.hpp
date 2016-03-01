@@ -1,5 +1,3 @@
-//#pragma once //only compile this header once
-
 #ifndef BEACONS_HPP
 #define BEACONS_HPP
 
