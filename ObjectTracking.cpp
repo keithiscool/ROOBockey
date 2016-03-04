@@ -51,10 +51,8 @@ void morphOps(Mat &thresh) {
 }
 
 
-//CALIBRATION/TEST FUNCTION is used to calibrate HSV filter after input BGR image and output contours detected if there are not too many
-size_t calibratingTrackColorFilteredObjects(Mat &InputMat, vector<vector<Point>> &contours, vector<Vec4i> &hierarchy, Mat &threshold) {
-	Mat HSV;
-	cvtColor(InputMat, HSV, COLOR_BGR2HSV);
+//CALIBRATION TEST FUNCTION is used to calibrate HSV filter after input BGR image and output contours detected if there are not too many
+size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vector<Point>> &contours, vector<Vec4i> &hierarchy, Mat &threshold) {
 	inRange(HSV, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), threshold);
 	morphOps(threshold);
 
@@ -74,11 +72,9 @@ size_t calibratingTrackColorFilteredObjects(Mat &InputMat, vector<vector<Point>>
 
 
 //Function is used to filter input BGR image and output contours detected if there are not too many
-size_t trackColorFilteredObjects(Mat &InputMat, vector<Beacon> &theBeaconsVector, vector<vector<Point>> &contours, vector<Vec4i> hierarchy, Mat &threshold) {
-	Mat HSV;
-	cvtColor(InputMat, HSV, COLOR_BGR2HSV);
-	inRange(HSV, theBeaconsVector[0].getHSVmin(), theBeaconsVector[0].getHSVmax(), threshold);
-	morphOps(threshold);
+size_t trackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<Beacon> &theBeaconsVector, vector<vector<Point>> &contours, vector<Vec4i> hierarchy, Mat &threshold) {
+	inRange(HSV, theBeaconsVector[0].getHSVmin(), theBeaconsVector[0].getHSVmax(), threshold); //HSV input image and output a thresholded binary (black and white) image
+	morphOps(threshold); //filter the thresholded binary image
 
 	//find contours in filtered image
 	findContours(threshold, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
@@ -113,15 +109,15 @@ void clickAndDragRectangle(int event, int x, int y, int flags, void* param) {
 		Mat* videoFeed = (Mat*)param;
 
 		if (event == CV_EVENT_LBUTTONDOWN && MouseHSVCalibrationPtr->mouseIsDragging == false) {
-			MouseHSVCalibrationPtr->initialClickPoint = cv::Point(x, y); //keep track of initial point clicked
+			MouseHSVCalibrationPtr->initialClickPoint = Point(x, y); //keep track of initial point clicked
 			MouseHSVCalibrationPtr->mouseIsDragging = true; //user has begun dragging the mouse
 		}
-		/* user is dragging the mouse */
+		//user is dragging the mouse
 		if (event == CV_EVENT_MOUSEMOVE && MouseHSVCalibrationPtr->mouseIsDragging == true) {
-			MouseHSVCalibrationPtr->currentMousePoint = cv::Point(x, y); //keep track of current mouse point
+			MouseHSVCalibrationPtr->currentMousePoint = Point(x, y); //keep track of current mouse point
 			MouseHSVCalibrationPtr->mouseMove = true; //user has moved the mouse while clicking and dragging
 		}
-		/* user has released left button */
+		//user has released left button
 		if (event == CV_EVENT_LBUTTONUP && MouseHSVCalibrationPtr->mouseIsDragging == true) {
 			MouseHSVCalibrationPtr->rectangleROI = Rect(MouseHSVCalibrationPtr->initialClickPoint, MouseHSVCalibrationPtr->currentMousePoint); //set rectangle ROI to the rectangle that the user has selected
 			//reset boolean variables
@@ -159,11 +155,13 @@ void mouseRecordHSV_Values(Mat frame, Mat hsv_frame) {
 		if (MouseHSVCalibrationPtr->V_ROI.size()>0) MouseHSVCalibrationPtr->V_ROI.clear();
 
 		//if the rectangle has no width or height (user has only dragged a line) then we don't try to iterate over the width or height
-		if (MouseHSVCalibrationPtr->rectangleROI.width<1 || MouseHSVCalibrationPtr->rectangleROI.height<1) cout << "Please drag a rectangle, not a line" << endl;
-		else{
-			for (int i = MouseHSVCalibrationPtr->rectangleROI.x; i<MouseHSVCalibrationPtr->rectangleROI.x + MouseHSVCalibrationPtr->rectangleROI.width; i++){
+		if (MouseHSVCalibrationPtr->rectangleROI.width < 1 || MouseHSVCalibrationPtr->rectangleROI.height < 1) {
+			cout << "Please drag a rectangle, not a line" << endl;
+		}
+		else {
+			for (int i = MouseHSVCalibrationPtr->rectangleROI.x; i<MouseHSVCalibrationPtr->rectangleROI.x + MouseHSVCalibrationPtr->rectangleROI.width; i++) {
 				//iterate through both x and y direction and save HSV values at each and every point
-				for (int j = MouseHSVCalibrationPtr->rectangleROI.y; j<MouseHSVCalibrationPtr->rectangleROI.y + MouseHSVCalibrationPtr->rectangleROI.height; j++){
+				for (int j = MouseHSVCalibrationPtr->rectangleROI.y; j<MouseHSVCalibrationPtr->rectangleROI.y + MouseHSVCalibrationPtr->rectangleROI.height; j++) {
 					//save HSV value at this point
 					MouseHSVCalibrationPtr->H_ROI.push_back((int)hsv_frame.at<cv::Vec3b>(j, i)[0]);
 					MouseHSVCalibrationPtr->S_ROI.push_back((int)hsv_frame.at<cv::Vec3b>(j, i)[1]);
@@ -175,29 +173,29 @@ void mouseRecordHSV_Values(Mat frame, Mat hsv_frame) {
 		MouseHSVCalibrationPtr->rectangleSelected = false; //reset rectangleSelected so user can select another region if necessary
 		
 		//set min and max HSV values from min and max elements of each array
-		if (MouseHSVCalibrationPtr->H_ROI.size()>0){
+		if (MouseHSVCalibrationPtr->H_ROI.size()>0) {
 			//NOTE: min_element and max_element return iterators so we must dereference them with "*"
 			H_MIN = *std::min_element(MouseHSVCalibrationPtr->H_ROI.begin(), MouseHSVCalibrationPtr->H_ROI.end());
 			H_MAX = *std::max_element(MouseHSVCalibrationPtr->H_ROI.begin(), MouseHSVCalibrationPtr->H_ROI.end());
 			cout << "MIN 'H' VALUE: " << H_MIN << endl;
 			cout << "MAX 'H' VALUE: " << H_MAX << endl;
 		}
-		if (MouseHSVCalibrationPtr->S_ROI.size()>0){
+		if (MouseHSVCalibrationPtr->S_ROI.size()>0) {
 			S_MIN = *std::min_element(MouseHSVCalibrationPtr->S_ROI.begin(), MouseHSVCalibrationPtr->S_ROI.end());
 			S_MAX = *std::max_element(MouseHSVCalibrationPtr->S_ROI.begin(), MouseHSVCalibrationPtr->S_ROI.end());
 			cout << "MIN 'S' VALUE: " << S_MIN << endl;
 			cout << "MAX 'S' VALUE: " << S_MAX << endl;
 		}
-		if (MouseHSVCalibrationPtr->V_ROI.size()>0){
+		if (MouseHSVCalibrationPtr->V_ROI.size()>0) {
 			V_MIN = *std::min_element(MouseHSVCalibrationPtr->V_ROI.begin(), MouseHSVCalibrationPtr->V_ROI.end());
 			V_MAX = *std::max_element(MouseHSVCalibrationPtr->V_ROI.begin(), MouseHSVCalibrationPtr->V_ROI.end());
 			cout << "MIN 'V' VALUE: " << V_MIN << endl;
 			cout << "MAX 'V' VALUE: " << V_MAX << endl;
 		}
 	}
-	if (MouseHSVCalibrationPtr->mouseMove == true){
+	if (MouseHSVCalibrationPtr->mouseMove == true) {
 		//if the mouse is held down, we will draw the click and dragged rectangle to the screen
-		rectangle(frame, MouseHSVCalibrationPtr->initialClickPoint, cv::Point(MouseHSVCalibrationPtr->currentMousePoint.x, MouseHSVCalibrationPtr->currentMousePoint.y), GREEN, 1, 8, 0);
+		rectangle(frame, MouseHSVCalibrationPtr->initialClickPoint, Point(MouseHSVCalibrationPtr->currentMousePoint.x, MouseHSVCalibrationPtr->currentMousePoint.y), GREEN, 1, 8, 0);
 	}
 }
 
@@ -295,7 +293,8 @@ void shapeDetection(Mat& inputImage, vector<vector<Point>> contours, vector<Vec4
 	Beacon theBeacon;
 	vector<Point> approx; //each discovered contour (shape) found from approxPolyDP() function
 	outputImage = inputImage.clone(); //copy the input Mat image to get the size of the image
-	outputImage = Scalar(255, 255, 255); //white background for output image (overwrites the input image cloned values)
+	////////////////outputImage = Scalar(255, 255, 255); //white background for output image (overwrites the input image cloned values)
+	outputImage = Scalar(0, 0, 0); //black background for output image (overwrites the input image cloned values)
 
 	for (int i = 0; i < contours.size(); i++) {
 		// Approximate contour with accuracy proportional to the contour perimeter
@@ -322,7 +321,7 @@ void shapeDetection(Mat& inputImage, vector<vector<Point>> contours, vector<Vec4
 			// Get the lowest and the highest cosine
 			double mincos = cos.front();
 			double maxcos = cos.back();
-
+			
 			// Detect and label squares (vertices == 4)
 			// Use the degrees obtained above and the number of vertices to determine the shape of the contour
 			//if (vtc == 4 && mincos >= -0.1 && maxcos <= 0.3) {
