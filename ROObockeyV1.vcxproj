@@ -162,6 +162,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectTracking.cpp" />
     <ClCompile Include="UART.cpp" />
+    <ClCompile Include="Xbox360Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Beacons.hpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="main.hpp" />
     <ClInclude Include="ObjectTracking.hpp" />
     <ClInclude Include="UART.h" />
+    <ClInclude Include="Xbox360Controller.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

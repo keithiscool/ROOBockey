@@ -1,0 +1,597 @@
+ 1  raspi-config
+    2  sudo raspi-config
+    3  df
+    4  apt-get update
+    5  sudo apt-get update
+    6  sudo apt-get upgrade
+    7  sudo rpi-update
+    8  reboot
+    9  sudo sh
+   10  exit
+   11  su
+   12  df
+   13  history
+   14  ls -alrt
+   15  cat .bash_history 
+   16  ls
+   17  ls -al
+   18  cd ~root
+   19  sudo sh
+   20  ls -al
+   21  ls -al 
+   22  ls -alrt
+   23  ls /tmp
+   24  ifconfig
+   25  sudo apt-get install build-essential cmake cmake-curses-gui                                pkg-config libpng12-0 libpng12-dev libpng++-dev                                libpng3 libpnglite-dev zlib1g-dbg zlib1g zlib1g-dev                                pngtools libtiff4-dev libtiff4 libtiffxx0c2 libtiff-tools libeigen3-dev
+   26  dpkg --info | grep tiff
+   27  dpkg --help
+   28  dpkg -l | grep tiff
+   29  sudo apt-get install build-essential cmake cmake-curses-gui                                pkg-config libpng12-0 libpng12-dev libpng++-dev                                libpng3 libpnglite-dev zlib1g-dbg zlib1g zlib1g-dev                                pngtools libtiff5-dev libtiff5 libtiffxx0c2 libtiff-tools libeigen3-dev
+   30  sudo apt-get install libjpeg8 libjpeg8-dev libjpeg8-dbg libjpeg-progs                                ffmpeg libavcodec-dev libavcodec53 libavformat53                                libavformat-dev libxine1-ffmpeg libxine-dev libxine1-bin                                libunicap2 libunicap2-dev swig libv4l-0 libv4l-dev                                python-numpy libpython2.6 python-dev python2.6-dev libgtk2.0-dev
+   31  sudo apt-get install build-essential git cmake pkg-config
+   32  sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
+   33  sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+   34  sudo apt-get install libxvidcore-dev libx264-dev
+   35  sudo apt-get install libgtk2.0-dev
+   36  sudo apt-get install libatlas-base-dev gfortran
+   37  sudo apt-get install python2.7-dev python3-dev
+   38  wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.0.0.zip
+   39  unzip opencv.zip
+   40  wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.0.0.zip
+   41  unzip opencv_contrib.zip
+   42  wget https://bootstrap.pypa.io/get-pip.py
+   43  sudo python get-pip.py
+   44  sudo pip install virtualenv virtualenvwrapper
+   45  sudo rm -rf ~/.cache/pip
+   46  vi .profile file
+   47  source .profile
+   48  mkvirtualenv cv -p python3
+   49  source ~/.profile
+   50  workon cv
+   51  pip install numpy
+   52  workon cv
+   53  cd ~/opencv-3.0.0/
+   54  mkdir build
+   55  cd build
+   56  cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.0.0/modules -D BUILD_EXAMPLES=ON ..
+   57  make
+   58  sudo make install
+   59  sudo ldconfig
+   60  ls -l /usr/local/lib/python2.7/site-packages/
+   61  ls -l /usr/local/lib/python3.0/site-packages/
+   62  ls /usr/local/lib/python3.4/site-packages/
+   63  cd /usr/local/lib/python3.4/site-packages/
+   64  ln -s /usr/local/lib/python3.4/site-packages/cv2.so cv2.so
+   65  sudo ln -s /usr/local/lib/python3.4/site-packages/cv2.so cv2.so
+   66  cd ~/.virtualenvs/cv/lib/python3.4/site-packages/
+   67  ln -s /usr/local/lib/python3.4/site-packages/cv2.so cv2.so
+   68  workon cv
+   69  python
+   70  workon cv
+   71  python
+   72  python -v
+   73  python -v | grep cv
+   74  python
+   75  cd ~/.virtualenvs/cv/lib/python3.4/site-packages/
+   76  ln -s /usr/local/lib/python3.4/site-packages/cv2.so cv2.so
+   77  ls /usr/local/lib/python3.4/site-packages/
+   78  ls -al /usr/local/lib/python3.4/site-packages/
+   79  ls /usr/local/lib/python3.4/site-packages/cv2.so
+   80  sudo mv cv2.cpython-34m.so cv2.so
+   81  rm cv2.so 
+   82  sudo mv cv2.cpython-34m.so cv2.so
+   83  ls
+   84  cd /usr/local/lib/python3.4/site-packages/
+   85  ls
+   86  ls -al
+   87  rm cv2.so
+   88  sudo rm cv2.so
+   89  ls -al
+   90  sudo mv cv2.cpython-34m.so cv2.so
+   91  ls -al
+   92  cd ~/.virtualenvs/cv/lib/python3.4/site-packages/
+   93  ln -s /usr/local/lib/python3.4/site-packages/cv2.so cv2.so
+   94  ls -al
+   95  python
+   96  sudo sh
+   97  exit
+   98  jobs
+   99  kill %1
+  100  kill %2
+  101  kill %3
+  102  kill %4
+  103  kill %5
+  104  jobs
+  105  exit
+  106  sudo sh
+  107  su
+  108  sudo passwd
+  109  gsettings get org.gnome.Epiphany keyword-search-url
+  110  gsettings set org.gnome.Epiphany keyword-search-url='https://www.google.com#q=%s'
+  111  gsettings set org.gnome.Epiphany keyword-search-url 'https://www.google.com#q=%s'
+  112  gsettings get org.gnome.Epiphany keyword-search-url
+  113  sudo leafpad /usr/share/glib-2.0/schemas/org.gnome.epiphany.gschema.xml
+  114  sudo apt-get install libglib2.0-bin
+  115  sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+  116  top
+  117  sudo sh
+  118  sudo bash
+  119  pwd
+  120  ls
+  121  ls -al
+  122  top
+  123  ps auxw
+  124  man ps
+  125  ps axo
+  126  man ps
+  127  ps -axo
+  128  ps --help
+  129  ps --help output
+  130  pstree
+  131  top
+  132  pstree
+  133  man pstree
+  134  pstree -p
+  135  top
+  136  sudo bash
+  137  ls
+  138  cd opencv-3.0.0/
+  139  ls
+  140  cd samples/
+  141  ls
+  142  pwd
+  143  ls -s
+  144  pwd
+  145  ls
+  146  cd cpp
+  147  ls
+  148  gedit houghlines.cpp 
+  149  vim houghlines.cpp 
+  150  vm houghlines.cpp 
+  151  vi houghlines.cpp 
+  152  g++ -ggdb `pkg-config --cflags --libs opencv` facedetect.cpp -o facedetect
+  153  ./facedetect 
+  154  g++ -ggdb `pkg-config --cflags --libs opencv` houghlines.cpp -o houghlines
+  155  ./houghlines 
+  156  ls
+  157  g++ -ggdb `pkg-config --cflags --libs opencv` laplace.cpp -o laplace
+  158  ./laplace 
+  159  ./facedetect 
+  160  ./laplace 
+  161  ./facedetect -4i
+  162  vi laplace.cpp
+  163  pwd
+  164  /home/pi/opencv-3.0.0/samples/cpp
+  165  cp -i /home/pi/opencv-3.0.0/samples/cpp
+  166  cp -i /home/pi/opencv-3.0.0/samples/cpp/laplace.cpp ~/opencv-3.0.0/samples/cpp
+  167  mkdir KEITH
+  168  cp -i /home/pi/opencv-3.0.0/samples/cpp/laplace.cpp ~/opencv-3.0.0/samples/cpp/KEITH
+  169  cd KEITH
+  170  ls
+  171  //
+  172  /
+  173  ..
+  174  .
+  175  cd ..
+  176  ls
+  177  cd KE
+  178  cd KEITH/
+  179  ls
+  180  vi laplace.cpp 
+  181  g++ -ggdb `pkg-config --cflags --libs opencv` laplace.cpp -o laplace
+  182  ./laplace 
+  183  top
+  184  df
+  185  apt-get install iceweasal
+  186  sudo apt-get install iceweasal
+  187  sudo apt-get install iceweasel
+  188  sudo add-apt-repository ppa:grumbel/ppa
+  189  sudo apt-get install xboxdrv
+  190  top
+  191  shutdown now
+  192  vim
+  193  sudo shutdown now
+  194  history
+  195  cd Desktop
+  196  cd "UART test"
+  197  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  198  g++-4.9 -std=c++14 -Wall -pedantic test2.cpp -o test2
+  199  top
+  200  sudo apt-get install git-core
+  201  git clone git://git.drogon.net/wiringPi
+  202  cd wiringPi
+  203  git pull origin
+  204  cd wiringPi
+  205  cd
+  206  cd wiringPi
+  207  ./build
+  208  cd ~/wiringPi/gpio/pintest
+  209  cd ~/wiringPi/gpio
+  210  ./pintest
+  211  g++-4.9 -std=c++14 -Wall -pedantic test3.cpp -o test3
+  212  cd Desktop
+  213  ~cd
+  214  cd
+  215  cd Desktop
+  216  cd "UART test"
+  217  g++-4.9 -std=c++14 -Wall -pedantic test3.cpp -o test3
+  218  raspi-config
+  219  sudo raspi-config
+  220  cd wiringPi
+  221  ./build
+  222  gpio -v
+  223  gpio readall
+  224  cd
+  225  cd pi/wiringPi
+  226  cd /pi/wiringPi
+  227  cd /wiringPi
+  228  cd wiringPi
+  229  cd gpio
+  230  cd Desktop
+  231  cd~
+  232  ~cd
+  233  cd
+  234  cd Desktop
+  235  cd "UART test"
+  236  g++-4.9 -std=c++14 -Wall -pedantic test4.cpp -o test4
+  237  g++-4.9 -std=c++14 -Wall -pedantic test3.cpp -o test3
+  238  cd Desktop/"UART test"
+  239  g++-4.9 -std=c++14 -Wall -pedantic test3.cpp -o test3
+  240  sudo chmod a+rw /dev/ttyAMA0
+  241  cd /home/pi/Desktop/UART test
+  242  cd /home/pi/Desktop/"UART test"
+  243  cd..
+  244  cd ..
+  245  cd UARTtest/
+  246  ./pi_uart 
+  247  sudo chmod a+rw /dev/ttyAMA0
+  248  history
+  249  g++-4.9 -std=c++14 -Wall -pedantic test3.cpp -o test3
+  250  cd /home/pi/Desktop/UARTtest
+  251  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  252  sudo chmod a+rw /dev/ttyAMA0
+  253  sudo apt-get install minicom
+  254  minicom -b 19200 -o -D /dev/ttyAMA0
+  255  history
+  256  sudo chmod a+rw /dev/ttyAMA0
+  257  cd /home/pi/Desktop/UARTtest
+  258  ./pi_uart 
+  259  cd Desktop/
+  260  dir
+  261  cd UARTtest/
+  262  ls
+  263  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  264  ./pi_uart
+  265  sudo chmod a+rw /dev/ttyAMA0
+  266  ./pi_uart
+  267  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  268  ./pi_uart
+  269  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  270  cd /home/pi/Desktop/UARTtest
+  271  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  272  sudo chmod a+rw /dev/ttyAMA0
+  273  cd /home/pi/Desktop/UARTtest
+  274  ./pi_uart 
+  275  cd /home/pi/Desktop/UARTtest
+  276  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  277  sudo apt install xboxdrv
+  278  sudo xboxdrv
+  279  sudo rmmod xpad
+  280  sudo xboxdrv
+  281  cat /dev/input/event 2
+  282  cat /dev/input/event2
+  283  sud pip install evdev
+  284  sudo pip install evdev
+  285  sudo pip install --upgrade pip
+  286  xboxdrv --evdev /dev/input/event2
+  287  sudo xboxdrv --evdev /dev/input/js0
+  288  sudo rmmod xpad
+  289  sudo xboxdrv
+  290  xboxdrv --evdev /dev/input/event2
+  291  sudo xboxdrv
+  292  sudo xboxdrv --evdev /dev/input/js0
+  293  --evdev /dev/input/js0
+  294  sudo xboxdrv
+  295  sudo xboxdrv -evdev-debug
+  296  sudo xboxdrv --evdev-debug
+  297  sudo xboxdrv --jstest /dev/input/js0
+  298  --jstest /dev/input/js0
+  299  sudo xboxdrv
+  300  sudo xboxdrv --evtest /dev/input/js0
+  301  sudo xboxdrv evtest /dev/input/js0
+  302  jstest /dev/input/js0
+  303  sudo jstest /dev/input/js0
+  304  sudo xboxdrv
+  305  xboxdrv --silent
+  306  xboxdrv
+  307  sudo xboxdrv --silent
+  308  cd /home/pi/xboxdrv
+  309  g++-4.9 -std=c++14 -Wall -pedantic button_test.cpp -o button_test
+  310  jstest/dev/input/js0
+  311  /dev/input/js0
+  312  jstest /dev/input/js0
+  313  sudo jstest /dev/input/js0
+  314  jstest
+  315  sudo jstest
+  316  jstest -jtk
+  317  jstest -gtk
+  318  jstest-gtk
+  319  sudo apt get install --install-recommends jstest* joystick xboxdrv
+  320  sudo apt-get install --install-recommends jstest* joystick 
+  321  jstest-gtk
+  322  g++-4.9 -std=c++14 -Wall -pedantic joystick.cpp -o joystick
+  323  cd /home/pi/xboxdrv
+  324  g++-4.9 -std=c++14 -Wall -pedantic joystick.cpp -o joystick
+  325  jstest-gtk
+  326  jstest /dev/input/js0
+  327  jstest /dev/input/js0 -debug
+  328  evdev /dev/input/event2
+  329  evdev --event2
+  330  --evdev /dev/input/event2
+  331  sudo xboxdrv --evdev /dev/input/event2
+  332  evdev -debug /dev/input/event2
+  333  --evdev -debug
+  334  evdev /dev/input/event2
+  335  evtest /dev/input/event2
+  336  jstest /dev/input/js0
+  337  evdev-debug
+  338  evdev-debug /dev/input/event2
+  339  --evdev-debug /dev/input/event2
+  340  sudo xboxdrv --evdev-debug
+  341  sudo xboxdrv --evdev-debug --silent
+  342  cd /home/pi/xboxdrv
+  343  g++-4.9 -std=c++14 -Wall -pedantic raw_output.cpp -o raw_output
+  344  sudo xboxdrv silent
+  345  rmmod xpad
+  346  sudo xboxdrv silent
+  347  rmmod xpad
+  348  sudo xboxdrv --detach-kernel-driver
+  349  sudo xboxdrv silent
+  350  sudo xboxdrv -- silent
+  351  sudo xboxdrv --silent
+  352  sudo xboxdrv
+  353  sudo xboxdrv --silent
+  354  g++-4.9 -std=c++14 -Wall -pedantic raw_output.cpp -o raw_output
+  355  cd ~
+  356  ls
+  357  cd xboxdrv/
+  358  ls
+  359  g++-4.9 -std=c++14 -Wall -pedantic raw_output.cpp -o raw_output
+  360  ./ raw_output
+  361  sudo ./raw_output 
+  362  rmmod xpad
+  363  sudo xboxdrv
+  364  sudo xboxdrv --detach-kernel-driver
+  365  rmmod xpad
+  366  cd\
+  367  cd
+  368  rmmod xpad
+  369  cd /etc/modprobe.d
+  370  sudo vim fbdev-blacklist.conf
+  371  sudo vi fbdev-blacklist.conf
+  372  cd /etc/modprobe.d
+  373  sudo vi fbdev-blacklist.conf
+  374  cd /etc/modprobe.d
+  375  sudo vi fbdev-blacklist.conf
+  376  cd /etc/modprobe.d
+  377  sudo vi fbdev-blacklist.conf
+  378  cd /etc/modprobe.d
+  379  sudo vi fbdev-blacklist.conf
+  380  cd /etc/modprobe.d
+  381  sudo nano fbdev-blacklist.conf
+  382  cd xboxdrv/
+  383  xboxdrv
+  384  sudo xboxdrv
+  385  cd xboxdrv/
+  386  ./ raw_output
+  387  sudo ./raw_output 
+  388  g++-4.9 -std=c++14 -Wall -pedantic raw_output.cpp -o raw_output
+  389  cd /home/pi/desktop/uarttest
+  390  cd /home/pi/desktop/UARTtest
+  391  cd /home/pi/Desktop/UARTtest
+  392  g++-4.9 -std=c++14 -Wall -pedantic raw_output.cpp -o raw_output
+  393  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  394  sudo chmod a+rw /dev/ttyAMA0
+  395  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  396  sudo chmod a+rw /dev/ttyAMA0
+  397  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  398  cd Desktop/UARTtest/
+  399  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  400  sudo chmod a+rw /dev/ttyAMA0
+  401  ./pi_uart 
+  402  su
+  403  cd Desktop/UARTtest/
+  404  sudo chmod a+rw /dev/ttyAMA0
+  405  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  406  ./pi_uart 
+  407  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  408  ./pi_uart 
+  409  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  410  sudo chmod a+rw /dev/ttyAMA0
+  411  ./pi_uart
+  412  lsusb
+  413  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  414  ./pi_uart
+  415  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  416  ./pi_uart
+  417  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  418  ./pi_uart
+  419  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  420  ./pi_uart
+  421  sudo chmod a+rw /dev/ttyAMA0
+  422  ./pi_uart
+  423  sudo chmod a+rw /dev/ttyAMA0
+  424  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  425  ./pi_uart
+  426  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  427  ./pi_uart
+  428  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  429  ./pi_uart
+  430  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  431  ./pi_uart
+  432  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  433  ./pi_uart
+  434  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  435  ./pi_uart
+  436  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  437  ./pi_uart
+  438  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  439  ./pi_uart
+  440  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  441  ./pi_uart
+  442  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  443  ./pi_uart
+  444  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  445  ./pi_uart
+  446  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  447  ./pi_uart
+  448  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  449  ./pi_uart
+  450  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  451  ./pi_uart
+  452  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  453  ./pi_uart
+  454  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  455  ./pi_uart
+  456  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  457  ./pi_uart
+  458  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  459  ./pi_uart
+  460  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  461  ./pi_uart
+  462  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  463  ./pi_uart
+  464  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  465  ./pi_uart
+  466  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  467  ./pi_uart
+  468  sudo chmod a+rw /dev/ttyAMA0
+  469  ./pi_uart
+  470  sudo chmod a+rw /dev/ttyAMA0
+  471  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  472  ./pi_uart
+  473  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  474  ./pi_uart
+  475  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  476  ./pi_uart
+  477  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  478  ./pi_uart
+  479  sudo chmod a+rw /dev/ttyAMA0
+  480  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  481  ./pi_uart
+  482  sudo chmod a+rw /dev/ttyAMA0
+  483  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  484  cd Desktop/UARTtest/
+  485  ./pi_uart 
+  486  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  487  sudo chmod a+rw /dev/ttyAMA0
+  488  ./pi_uart 
+  489  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  490  ./pi_uart 
+  491  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  492  sudo chmod a+rw /dev/ttyAMA0
+  493  ./pi_uart 
+  494  cd ..
+  495  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart_working_2_18_16
+  496  g++-4.9 -std=c++14 -Wall -pedantic pi_uart_working_2_18_16.cpp -o pi_uart_working_2_18_16
+  497  cd UARTtest/
+  498  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  499  ./pi_uart 
+  500  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  501  ./pi_uart 
+  502  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  503  ./pi_uart 
+  504  sudo chmod a+rw /dev/ttyAMA0
+  505  ./pi_uart 
+  506  sudo chmod a+rw /dev/ttyAMA0
+  507  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  508  ./pi_uart 
+  509  ./pi_uart
+  510  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  511  ./pi_uart
+  512  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  513  ./pi_uart
+  514  sudo chmod a+rw /dev/ttyAMA0
+  515  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  516  ./pi_uart
+  517  sudo chmod a+rw /dev/ttyAMA0
+  518  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  519  ./pi_uart
+  520  sudo chmod a+rw /dev/ttyAMA0
+  521  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  522  ./pi_uart
+  523  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  524  ./pi_uart
+  525  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  526  ./pi_uart
+  527  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  528  ./pi_uart
+  529  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  530  ./pi_uart
+  531  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  532  ./pi_uart
+  533  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  534  ./pi_uart
+  535  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  536  ./pi_uart
+  537  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  538  ./pi_uart
+  539  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  540  ./pi_uart
+  541  nano pi_uart.cpp
+  542  cd Desktop/UARTtest/
+  543  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  544  ./pi_uart
+  545  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  546  ./pi_uart
+  547  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  548  ./pi_uart
+  549  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  550  ./pi_uart
+  551  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  552  ./pi_uart
+  553  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  554  ./pi_uart
+  555  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  556  ./pi_uart
+  557  g++-4.9 -std=c++14 -Wall -pedantic pi_uart.cpp -o pi_uart
+  558  ./pi_uart
+  559  cd ..
+  560  clear
+  561  ls
+  562  clear
+  563  ls
+  564  clear
+  565  ls
+  566  clear
+  567  ls
+  568  clear
+  569  ls
+  570  clear
+  571  ls
+  572  git clone https://github.com/dacampbell/StateTrans.git
+  573  clear
+  574  ls
+  575  cd StateTrans/
+  576  clear
+  577  mkdir build
+  578  clear
+  579  cd build/
+  580  clear
+  581  ls
+  582  claer
+  583  clear
+  584  cd ..
+  585  clear
+  586  ls
+  587  cd build/
+  588  clear
+  589  cmake ../
+  590  make
+  591  make example1
+  592  cd ..
+  593  xlwE
+  594  CLEAR
+  595  LS
+  596  CLEAR
+  597  clear

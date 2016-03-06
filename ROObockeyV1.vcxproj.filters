@@ -27,6 +27,9 @@
     <ClCompile Include="UART.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Xbox360Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UART.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Xbox360Controller.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
