@@ -15,11 +15,9 @@ cmake_minimum_required(VERSION 2.8)
 project( ROOBockey )
 find_package( OpenCV REQUIRED )
 
-include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
-include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
-include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
-include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
-include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
+
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+##include_directories( ${~/opencv-3.0.0} )
 
 
 set( NAME_SRC
@@ -42,10 +40,6 @@ set( NAME_HEADERS
 	defs.hpp
 )
 
-
-
-include_directories( ${OpenCV_INCLUDE_DIRS} )
-##include_directories( ${~/opencv-3.0.0} )
 
 
 

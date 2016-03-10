@@ -59,11 +59,11 @@ void createObjectTrackingParameterTrackbars(void);
 void morphOps(Mat &thresh);
 static double angle(Point pt1, Point pt2, Point pt0);
 void setLabel(Mat& im, const string label, vector<Point> &contour);
-void drawContours(Mat& image, const vector<vector<Point>> &contours, string title);
-void shapeDetection(Mat& inputImage, vector<vector<Point>> contours, vector<Vec4i> hierarchy, Mat& outputImage);
-size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vector<Point>> &contours, vector<Vec4i> &hierarchy, Mat &threshold);
-size_t trackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<Beacon> &theBeacon, vector<vector<Point>> &contours, vector<Vec4i> hierarchy, Mat &threshold);
-void RecordBeaconPosition(Beacon &theBeacon, vector<vector<Point>> &contours, vector<Beacon> &theBeaconsVector);
+void drawContours(Mat& image, const vector<vector<Point> > &contours, string title);
+void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec4i> hierarchy, Mat& outputImage);
+size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vector<Point> > &contours, vector<Vec4i> &hierarchy, Mat &threshold);
+size_t trackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<Beacon> &theBeacon, vector<vector<Point> > &contours, vector<Vec4i> hierarchy, Mat &threshold);
+void RecordBeaconPosition(Beacon &theBeacon, vector<vector<Point> > &contours, vector<Beacon> &theBeaconsVector);
 void DrawTarget(int x, int y, Mat &frame);
 string intToString(int number);
 

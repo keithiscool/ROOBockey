@@ -52,7 +52,7 @@ void morphOps(Mat &thresh) {
 
 
 //CALIBRATION TEST FUNCTION is used to calibrate HSV filter after input BGR image and output contours detected if there are not too many
-size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vector<Point>> &contours, vector<Vec4i> &hierarchy, Mat &threshold) {
+size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vector<Point> > &contours, vector<Vec4i> &hierarchy, Mat &threshold) {
 	inRange(HSV, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), threshold);
 	morphOps(threshold);
 
@@ -72,7 +72,7 @@ size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vect
 
 
 //Function is used to filter input BGR image and output contours detected if there are not too many
-size_t trackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<Beacon> &theBeaconsVector, vector<vector<Point>> &contours, vector<Vec4i> hierarchy, Mat &threshold) {
+size_t trackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<Beacon> &theBeaconsVector, vector<vector<Point> > &contours, vector<Vec4i> hierarchy, Mat &threshold) {
 	inRange(HSV, theBeaconsVector[0].getHSVmin(), theBeaconsVector[0].getHSVmax(), threshold); //HSV input image and output a thresholded binary (black and white) image
 	morphOps(threshold); //filter the thresholded binary image
 
@@ -220,7 +220,7 @@ void setLabel(Mat& im, const string label, vector<Point> &contour) {
 
 
 // the function draws all the contours in the image in a new window (colors in BGR, not RGB)
-void drawContours(Mat& image, const vector<vector<Point>> &contours, string title) {
+void drawContours(Mat& image, const vector<vector<Point> > &contours, string title) {
 	size_t i = 0;
 	string shape;
 	for (i = 0; i < contours.size(); i++) {
@@ -255,7 +255,7 @@ void drawContours(Mat& image, const vector<vector<Point>> &contours, string titl
 
 
 // Records the (X,Y) position of each Beacon
-void RecordBeaconPosition(Beacon &theBeacon, vector<vector<Point>> &contours, vector<Beacon> &theBeaconsVector) {
+void RecordBeaconPosition(Beacon &theBeacon, vector<vector<Point> > &contours, vector<Beacon> &theBeaconsVector) {
 	//for (int index = 0; index >= 0; index = hierarchy[index][0]) {
 	size_t numObjects = contours.size(); //counts the number of shapes detected
 	for (int index = 0; index < numObjects; index++) {
@@ -288,7 +288,7 @@ static double angle(Point pt1, Point pt2, Point pt0) {
 
 
 //Function to locate all contours (shapes) within a given image
-void shapeDetection(Mat& inputImage, vector<vector<Point>> contours, vector<Vec4i> hierarchy, Mat& outputImage) {
+void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec4i> hierarchy, Mat& outputImage) {
 
 	Beacon theBeacon;
 	vector<Point> approx; //each discovered contour (shape) found from approxPolyDP() function
