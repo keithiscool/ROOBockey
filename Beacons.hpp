@@ -6,8 +6,8 @@
 class Beacon {
 
 public:
-	Beacon::Beacon();
-	Beacon::~Beacon();
+	Beacon(); //constructor for class
+	~Beacon(); //deconstructor for class
 	Beacon(string name);
 
 	int getXPos();

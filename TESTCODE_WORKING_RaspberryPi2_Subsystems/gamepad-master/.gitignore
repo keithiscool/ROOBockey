@@ -1,8 +1,0 @@
-libgamepad.so
-test
-build
-*.ncb
-*.user
-*.suo
-*.o
-*.so.1

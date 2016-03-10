@@ -14,15 +14,10 @@
 cmake_minimum_required(VERSION 2.8)
 project( ROOBockey )
 find_package( OpenCV REQUIRED )
-
-
 include_directories( ${OpenCV_INCLUDE_DIRS} )
-##include_directories( ${~/opencv-3.0.0} )
 
 
 set( NAME_SRC
-    #src/main.cpp
-    #src/mytest.cpp
 	main.cpp
 	ObjectTracking.cpp
 	Beacons.cpp
@@ -41,11 +36,13 @@ set( NAME_HEADERS
 )
 
 
+SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
+SET( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
 
 
 # NOW ADD THE OUTPUT EXECUTABLE FILE NAME FOLLOWED BY ALL SOURCE FILES TO THE CMAKE OUTPUT
-# add_executable( ROOBockey main.cpp ObjectTracking.cpp Beacons.cpp UART.cpp Xbox360Controller.cpp)
 add_executable( ROOBockey ${NAME_SRC} ${NAME_HEADERS} )
+
 
 ##################################################################################
 #I used the following libraries (located in def.hpp)
@@ -59,5 +56,3 @@ add_executable( ROOBockey ${NAME_SRC} ${NAME_HEADERS} )
 #include <stdio.h>
 
 target_link_libraries(ROOBockey ${OpenCV_LIBS} )
-#target_link_libraries(ROOBockey ${OPENCV2_DIR} )
-

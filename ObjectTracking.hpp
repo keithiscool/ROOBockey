@@ -45,7 +45,7 @@ class MouseCalibrateFilter {
 #ifndef MAIN_CPP
 	MouseCalibrateFilter MouseInfo; //create class declaration (create the object that stores the mouse information)
 	MouseCalibrateFilter *MouseHSVCalibrationPtr = &MouseInfo; //use pointer to modify the values within the functions "clickAndDragRectangle() and mouseRecordHSV_Values()"
-#endif // !MAIN_CPP
+#endif
 
 
 //functions used for calibrating the HSV values used for filtering the color detections

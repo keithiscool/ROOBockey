@@ -23,6 +23,8 @@
 #ifdef RaspberryPi2Used
 	#include "uart.h"
 #endif
+#include <thread>
+#include <mutex>
 
 
 
@@ -46,11 +48,15 @@ void main(void) {
 	//src0 = imread("circlesOnWall.png").clone(); //clone used to pass the Mat around in functions as a "deep copy"
 	//src0 = imread("pic3.png").clone(); //clone used to pass the Mat around in functions as a "deep copy"
 	//src0 = imread("pic5.png").clone(); //clone used to pass the Mat around in functions as a "deep copy"
-#endif USING_WEBCAM
+#endif
 
 
 #ifdef CALIBRATION_MODE
-	createObjectTrackingParameterTrackbars();
+	//Create trackbars that you can manually change in order to alter the HSV filter minimum & maximum values
+	//I commented this out beacuse it will not run in Linux (Raspberry Pi2)
+	//The HSV filter is calibrated using the mouse in calibration mode or hardcoded to the class HSV values in Beacons.cpp when each beacon object is created
+	//createObjectTrackingParameterTrackbars();
+	
 	const string mouseWindowName = "Mouse Operations";
 	//create a window before setting mouse callback
 	namedWindow(mouseWindowName);
@@ -58,7 +64,7 @@ void main(void) {
 	//we pass the handle to our "frame" matrix so that we can draw a rectangle to it as the user clicks and drags the mouse
 	//NOTE: THE "OnMouse" function parameter for "setMouseCallback()" for setMouseCallback is a function with parameters: (int, int, int, void*);
 	setMouseCallback(mouseWindowName, clickAndDragRectangle, &src);
-#endif CALIBRATION_MODE
+#endif
 	
 
 	while (1) {
@@ -66,7 +72,7 @@ void main(void) {
 
 #ifdef USING_WEBCAM
 		cap >> src0; //get a new frame from camera
-#endif USING_WEBCAM
+#endif
 
 
 		src = src0.clone(); //get a "deep copy" (physical, not pointer) copy the input video frame
@@ -90,14 +96,14 @@ void main(void) {
 			shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
 			outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
 		}
-#endif CALIBRATION_MODE
+#endif
 
 
 		imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
 		imshow("ColorThresholdedImg", ColorThresholded_Img0);
 		imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
 		imshow("OutputImg", outputImg);
-		waitKey(30); //delay in milliseconds so OpenCV does not consume all processor time. "imshow" will not appear without this waitKey() command
+		waitKey(15); //delay in milliseconds so OpenCV does not consume all processor time. "imshow" will not appear without this waitKey() command
 	}
 }
 

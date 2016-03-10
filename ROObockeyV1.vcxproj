@@ -167,7 +167,6 @@
   <ItemGroup>
     <ClInclude Include="Beacons.hpp" />
     <ClInclude Include="defs.hpp" />
-    <ClInclude Include="main.hpp" />
     <ClInclude Include="ObjectTracking.hpp" />
     <ClInclude Include="UART.h" />
     <ClInclude Include="Xbox360Controller.hpp" />
