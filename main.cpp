@@ -19,7 +19,6 @@
 #define MAIN_CPP
 #include "defs.hpp"
 #include "ObjectTracking.hpp"
-//////////////#include "main.hpp"
 #ifdef RaspberryPi2Used
 	#include "uart.h"
 #endif
@@ -28,7 +27,7 @@
 
 
 
-void main(void) {
+int main(void) {
 
 	Mat src0;
 	Mat ColorThresholded_Img0, ColorThresholded_Img, outputImg0, outputImg, src, HSV_Input;;
@@ -105,5 +104,6 @@ void main(void) {
 		imshow("OutputImg", outputImg);
 		waitKey(15); //delay in milliseconds so OpenCV does not consume all processor time. "imshow" will not appear without this waitKey() command
 	}
+	return 1;
 }
 

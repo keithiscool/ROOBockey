@@ -14,4 +14,7 @@ In order to run this code on a Raspberry Pi 2, please do the following
 	When Running the ROOBockey project, only have the webcam, keyboard and mouse in the raspberry pi.
 	Anything else plugged in (namely a wireless wifi dongle will prevent the webcam from receiving enough power via USB to run)
 	
+5) NOTE!!!
+	When running the code on a Raspberry Pi, make sure a heat sync and a fan are mounted to the RaspberryPi processor
+	
 *//////////////////

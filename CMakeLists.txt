@@ -26,13 +26,12 @@ set( NAME_SRC
 )
 
 set( NAME_HEADERS       
-    #include/mytest.hpp
-	main.hpp
 	ObjectTracking.hpp
 	Beacons.hpp
+	defs.hpp
 	#UART.hpp
 	#Xbox360Controller.hpp
-	defs.hpp
+	
 )
 
 
