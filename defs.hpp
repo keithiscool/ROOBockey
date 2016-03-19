@@ -19,13 +19,16 @@ using namespace std;
 #define CALIBRATION_MODE 1 //calibrate the HSV filter for a specific color
 #define CAMERA_NUMBER 0 //flag to set source of video: "camera 0" is the builtin laptop webcam, "camera 1" is usb webcam
 #define MAX_NUM_OBJECTS 30 // Program will only track 30 objects at a time (this is just in case noise becomes a problem)
-#define MIN_OBJECT_AREA 200 //Only allow larger objects //200*200
-
+//#define MIN_OBJECT_AREA 400 //Only allow larger objects //200*200
+#define MIN_OBJECT_AREA 1000 //Only allow larger objects
 
 
 //default display capture window frame width and height (640x480 window)
 const int FRAME_WIDTH = 640;
 const int FRAME_HEIGHT = 480;
+//const int FRAME_WIDTH = 1024;
+//const int FRAME_HEIGHT = 768;
+
 
 #define BLUE (Scalar(255, 0, 0)) //BGR, not RGB (I do not know why colors are flipped for OPENCV
 #define GREEN (Scalar(0, 255, 0))

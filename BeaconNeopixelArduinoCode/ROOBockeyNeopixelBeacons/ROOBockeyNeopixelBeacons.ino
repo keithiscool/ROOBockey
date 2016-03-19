@@ -9,18 +9,19 @@
 
 //Choose which color the beacon should be for the ROOBockey LED beacon:
 //Comment out the colors that you do not want the beacon to be
-#define GREEN_BEACON 1
-//#define RED_BEACON 1
+//#define GREEN_BEACON 1
+#define RED_BEACON 1
 //#define BLUE_BEACON 1
 //#define YELLOW_BEACON 1
 
 
 // Which pin on the Arduino is connected to the NeoPixels?
 // On a Trinket or Gemma we suggest changing this to 1
-#define PIN            11
+#define PIN            11 //I chose to hook Data line for neopixels to pin "D11" with a 330 or 470 ohm resistor
 
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS      10
+//#define NUMPIXELS      10
+#define NUMPIXELS      32
 
 // When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
