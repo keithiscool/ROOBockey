@@ -1,22 +1,16 @@
-﻿Build started 4/1/2016 4:21:03 PM.
+﻿Build started 4/1/2016 5:47:33 PM.
      1>Project "C:\Users\Keith\Documents\GitHub\ROObockey\ROObockeyV1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\OpenCV-3.0.0\build\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Beacons.cpp ObjectTracking.cpp UART.cpp Xbox360Controller.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\OpenCV-3.0.0\build\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt UART.cpp Xbox360Controller.cpp main.cpp
          main.cpp
+     1>c:\users\keith\documents\github\roobockey\Xbox360Controller.hpp(6): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         Xbox360Controller.cpp
      1>c:\users\keith\documents\github\roobockey\Xbox360Controller.hpp(6): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
          UART.cpp
      1>UART.cpp(13): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
-         Generating Code...
-         Compiling...
-         Beacons.cpp
-         Generating Code...
-         Compiling...
-         Xbox360Controller.cpp
-     1>c:\users\keith\documents\github\roobockey\Xbox360Controller.hpp(6): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
-         ObjectTracking.cpp
          Generating Code...
      1>Done Building Project "C:\Users\Keith\Documents\GitHub\ROObockey\ROObockeyV1.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:03.14
+Time Elapsed 00:00:01.39

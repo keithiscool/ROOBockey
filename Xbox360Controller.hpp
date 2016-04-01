@@ -8,6 +8,18 @@
 #include <linux/joystick.h>
 #include <wiringPi.h> //Utilize the "WiringPi GPIO library"
 
+
+#ifdef USE_EXTERNAL_FUNCTIONS
+
+//Function Declarations
+int initController(void);
+void parseXbox360Controller(void);
+
+#endif
+
+
+#ifndef USE_EXTERNAL_FUNCTIONS
+
 //Function Declarations
 int initController(void);
 void parseXbox360Controller(void);
@@ -45,5 +57,6 @@ bool Ba = 0, Bb = 0, Bx = 0, By = 0, BlBump = 0, BrBump = 0, Bsel = 0, Bstart = 
 int Lx, Ly, Rx, Ry, Lt, Rt;
 
 
+#endif
 
-#endif /* OBJECTTRACKING_HPP */
+#endif /* XBOX360CONTROLLER_HPP */
