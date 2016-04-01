@@ -21,7 +21,7 @@
 #include "ObjectTracking.hpp"
 //Use wireless controller and UART TX1 for Raspberry Pi 2 if flag is set
 #ifdef RaspberryPi2Used
-#include "main.hpp"
+	#include "main.hpp"
 	#include "UART.hpp"
 	#include "Xbox360Controller.hpp"
 #endif

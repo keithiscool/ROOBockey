@@ -22,11 +22,11 @@ void initUart(void) {
 	//----- SETUP USART 0 -----
 	//-------------------------
 	//At bootup, pins 8 and 10 are already set to UART0_TXD, UART0_RXD (ie the alt0 function) respectively
-	
+	uart0_filestream = -1;
+
 	//Execute terminal command to change permissions for the UART module to allow us to use it
 	system("sudo chmod a+rw /dev/ttyAMA0");
 	
-	int uart0_filestream = -1;
 
 	//OPEN THE UART
 	//The flags (defined in fcntl.h):
@@ -64,6 +64,12 @@ void initUart(void) {
 	options.c_lflag = 0;
 	tcflush(uart0_filestream, TCIFLUSH);
 	tcsetattr(uart0_filestream, TCSANOW, &options);
+
+	int i = 0;
+	for (i = 0; i < 200; i++){
+		tx_buffer[i] = 0;
+	}
+
 }
 
 
@@ -71,14 +77,14 @@ void initUart(void) {
 //Use Simplified serial to communicate with "Sabertooth 2x25 Motor Controller V2.00"
 // Motor Left:	Full Forward==127	/ Neutral==64	/ Full Reverse==0
 // Motor Right: Full Forward==255	/ Neutral==128	/ Full Reverse==128
-void putCharRaspberryPi2(int *p_tx_buffer) {
+void putCharRaspberryPi2(unsigned char *p_tx_buffer) {
 	//----- TX BYTES -----
 
-	if (uart0_filestream != -1)
-	{
+	p_tx_buffer = &tx_buffer[0];
+	if (uart0_filestream != -1) {
 		int count = write(uart0_filestream, &tx_buffer[0], (p_tx_buffer - &tx_buffer[0]));		//Filestream, bytes to write, number of bytes to write
-		if (count < 0)
-		{
+		
+		if (count < 0) {
 			printf("UART TX error\n");
 		}
 	}

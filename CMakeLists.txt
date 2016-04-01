@@ -21,16 +21,16 @@ set( NAME_SRC
 	main.cpp
 	ObjectTracking.cpp
 	Beacons.cpp
-	#UART.cpp
-	#Xbox360Controller.cpp
+	UART.cpp
+	Xbox360Controller.cpp
 )
 
 set( NAME_HEADERS       
 	ObjectTracking.hpp
 	Beacons.hpp
 	defs.hpp
-	#UART.hpp
-	#Xbox360Controller.hpp
+	UART.hpp
+	Xbox360Controller.hpp
 	
 )
 
