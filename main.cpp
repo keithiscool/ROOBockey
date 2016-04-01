@@ -19,9 +19,12 @@
 #define MAIN_CPP
 #include "defs.hpp"
 #include "ObjectTracking.hpp"
+//Use wireless controller and UART TX1 for Raspberry Pi 2 if flag is set
 #ifdef RaspberryPi2Used
-	#include "uart.h"
+	#include "UART.hpp"
+	#include "Xbox360Controller.hpp"
 #endif
+//Multi-Core Operation Headers
 #include <thread>
 #include <mutex>
 
@@ -66,6 +69,13 @@ int main(void) {
 #endif
 	
 
+//Initialize the Xbox360 Wireless Controller and UART Module on the Raspberry Pi 2
+#ifdef RaspberryPi2Used
+	initController();
+	initUart();
+#endif
+
+
 	while (1) {
 
 
@@ -82,22 +92,21 @@ int main(void) {
 		//set HSV values from user selected region
 		mouseRecordHSV_Values(src, HSV_Input);
 
-		putText(outputImg0, "CalibrationMode", Point((FRAME_WIDTH / 2), (FRAME_HEIGHT-3)), 1, 2, Scalar(0, 0, 255), 2); //put text in output window
-			
-		if ((calibratingTrackColorFilteredObjects(src, HSV_Input, contours, hierarchy, ColorThresholded_Img0)) > 0) { //number of objects detected > 0
+		//putText(outputImg0, "CalibrationMode", Point((FRAME_WIDTH / 2), (FRAME_HEIGHT-3)), 1, 2, Scalar(0, 0, 255), 2); //put text in output window
+		
+		if ((calibratingTrackColorFilteredObjects(src, HSV_Input, contours, hierarchy, ColorThresholded_Img0)) > 0) { //number of objects detected > 0 and < "MAX_NUM_OBJECTS"
 			ColorThresholded_Img = ColorThresholded_Img0.clone(); //had to clone the image to pass a "deep copy" to the shape detection function
 			shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
 			outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
 		}
 #else
-		if ((trackColorFilteredObjects(src, HSV_Input, YellowTrianglesVector, contours, hierarchy, ColorThresholded_Img0)) > 0) { //number of objects detected > 0
+		if ((trackColorFilteredObjects(src, HSV_Input, YellowTrianglesVector, contours, hierarchy, ColorThresholded_Img0)) > 0) { //number of objects detected > 0 and < MAX_NUM_OBJECTS
 			ColorThresholded_Img = ColorThresholded_Img0.clone(); //had to clone the image to pass a "deep copy" to the shape detection function
 			shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
 			outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
 		}
 #endif
-
-
+		
 		imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
 		imshow("ColorThresholdedImg", ColorThresholded_Img0);
 		imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);

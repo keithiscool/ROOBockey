@@ -168,7 +168,7 @@
     <ClInclude Include="Beacons.hpp" />
     <ClInclude Include="defs.hpp" />
     <ClInclude Include="ObjectTracking.hpp" />
-    <ClInclude Include="UART.h" />
+    <ClInclude Include="UART.hpp" />
     <ClInclude Include="Xbox360Controller.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

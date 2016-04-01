@@ -45,15 +45,19 @@ void morphOps(Mat &thresh) {
 	//dilate with larger element so make sure object is nicely visible
 	Mat dilateElement = getStructuringElement(MORPH_RECT, Size(8, 8));
 	erode(thresh, thresh, erodeElement); //eliminate noise
-	erode(thresh, thresh, erodeElement);
+	//erode(thresh, thresh, erodeElement);
 	dilate(thresh, thresh, dilateElement); //enhance groups of pixels in thresholded image
-	dilate(thresh, thresh, dilateElement);
+	//dilate(thresh, thresh, dilateElement);
 }
 
 
 //CALIBRATION TEST FUNCTION is used to calibrate HSV filter after input BGR image and output contours detected if there are not too many
 size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vector<Point> > &contours, vector<Vec4i> &hierarchy, Mat &threshold) {
+	
+	//Generate a binary image from the HSV input image
 	inRange(HSV, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), threshold);
+	
+	//Dilate and Erode the image frame in order to filter out noise and enhance the desired color
 	morphOps(threshold);
 
 	//find contours in filtered image
@@ -65,8 +69,10 @@ size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vect
 	
 	if ((numObjects > 0) && (numObjects<MAX_NUM_OBJECTS)) { //if number of objects > MAX_NUM_OBJECTS we have a noisy filter
 		return numObjects; //function passes if objects are detected, but there are not too many detected objects (from bad filter)
+	}else {
+		putText(threshold, "TOO MUCH NOISE! ADJUST FILTER", Point(0, 50), 1, 2, Scalar(0, 0, 255), 2); //too many objects after filter
+		//putText(InputMat, "TOO MUCH NOISE! ADJUST FILTER", Point(0, 50), 1, 2, Scalar(0, 0, 255), 2); //too many objects after filter
 	}
-	else putText(threshold, "TOO MUCH NOISE! ADJUST FILTER", Point(0, 50), 1, 2, Scalar(0, 0, 255), 2); //too many objects after filter
 	return 0;
 }
 

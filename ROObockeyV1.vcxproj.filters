@@ -41,10 +41,10 @@
     <ClInclude Include="Beacons.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UART.h">
+    <ClInclude Include="Xbox360Controller.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Xbox360Controller.hpp">
+    <ClInclude Include="UART.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

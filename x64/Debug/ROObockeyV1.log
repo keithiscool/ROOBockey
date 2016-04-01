@@ -1,12 +1,16 @@
-﻿Build started 3/17/2016 5:17:07 PM.
+﻿Build started 4/1/2016 2:58:19 PM.
      1>Project "C:\Users\Keith\Documents\GitHub\ROObockey\ROObockeyV1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\OpenCV-3.0.0\build\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Beacons.cpp ObjectTracking.cpp main.cpp
-         Beacons.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\OpenCV-3.0.0\build\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Beacons.cpp ObjectTracking.cpp UART.cpp Xbox360Controller.cpp main.cpp
+         main.cpp
+         Xbox360Controller.cpp
+     1>Xbox360Controller.cpp(23): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+         UART.cpp
+     1>UART.cpp(10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
          Generating Code...
          Compiling...
-         main.cpp
          ObjectTracking.cpp
+         Beacons.cpp
          Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Keith\Documents\GitHub\ROObockey\x64\Debug\ROObockeyV1.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\OpenCV-3.0.0\build\x64\vc12\lib" opencv_ts300d.lib opencv_world300d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Keith\Documents\GitHub\ROObockey\x64\Debug\ROObockeyV1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Keith\Documents\GitHub\ROObockey\x64\Debug\ROObockeyV1.lib" /MACHINE:X64 x64\Debug\Beacons.obj
@@ -19,4 +23,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.32
+Time Elapsed 00:00:03.73
