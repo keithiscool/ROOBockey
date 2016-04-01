@@ -13,8 +13,13 @@
 
 cmake_minimum_required(VERSION 2.8)
 project( ROOBockey )
+# Locate libraries and headers
 find_package( OpenCV REQUIRED )
+find_package(WiringPi REQUIRED) )
+# Include headers
 include_directories( ${OpenCV_INCLUDE_DIRS} )
+include_directories(${WIRINGPI_INCLUDE_DIRS}) 
+
 
 
 set( NAME_SRC
@@ -31,7 +36,6 @@ set( NAME_HEADERS
 	defs.hpp
 	UART.hpp
 	Xbox360Controller.hpp
-	
 )
 
 
@@ -42,6 +46,10 @@ SET( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
 # NOW ADD THE OUTPUT EXECUTABLE FILE NAME FOLLOWED BY ALL SOURCE FILES TO THE CMAKE OUTPUT
 add_executable( ROOBockey ${NAME_SRC} ${NAME_HEADERS} )
 
+
+# Link against libraries
+target_link_libraries(ROOBockey ${OpenCV_LIBS} )
+target_link_libraries(ROOBockey ${WIRINGPI_LIBRARIES})
 
 ##################################################################################
 #I used the following libraries (located in def.hpp)
@@ -54,4 +62,3 @@ add_executable( ROOBockey ${NAME_SRC} ${NAME_HEADERS} )
 #include <string.h>
 #include <stdio.h>
 
-target_link_libraries(ROOBockey ${OpenCV_LIBS} )
