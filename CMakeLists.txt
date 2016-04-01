@@ -11,6 +11,10 @@
 # make
 
 
+#Help for using cmake with Wiring Pi:
+#https://www.raspberrypi.org/forums/viewtopic.php?t=39198&p=323138
+
+
 cmake_minimum_required(VERSION 2.8)
 project( ROOBockey )
 # Locate libraries and headers
@@ -39,8 +43,10 @@ set( NAME_HEADERS
 )
 
 
-SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
-SET( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
+#SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
+#SET( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
+SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -I/usr/local/include -L/usr/local/lib -lwiringPi")")
+SET( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread -I/usr/local/include -L/usr/local/lib -lwiringPi")")
 
 
 # NOW ADD THE OUTPUT EXECUTABLE FILE NAME FOLLOWED BY ALL SOURCE FILES TO THE CMAKE OUTPUT
