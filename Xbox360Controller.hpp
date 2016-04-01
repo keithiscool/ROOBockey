@@ -15,7 +15,7 @@
 int initController(void);
 void parseXbox360Controller(void);
 
-#endif
+#endif //USE_EXTERNAL_FUNCTIONS
 
 
 #ifndef USE_EXTERNAL_FUNCTIONS
@@ -57,6 +57,7 @@ bool Ba = 0, Bb = 0, Bx = 0, By = 0, BlBump = 0, BrBump = 0, Bsel = 0, Bstart = 
 int Lx, Ly, Rx, Ry, Lt, Rt;
 
 
-#endif
+#endif //USE_EXTERNAL_FUNCTIONS
+
 
 #endif /* XBOX360CONTROLLER_HPP */

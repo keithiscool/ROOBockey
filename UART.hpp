@@ -1,7 +1,24 @@
 #ifndef UART_HPP
 #define UART_HPP
 
+
+#ifdef USE_EXTERNAL_FUNCTIONS
+
+void initUart(void);
+
+#endif //USE_EXTERNAL_FUNCTIONS
+
+
+#ifdef OnlyUARTFunctions
+
+void sendMotorControllerSpeedByte(long LeftControllerInput, long RightControllerInput);
+
+#endif //OnlyUARTFunctions
+
+
+
 #ifndef USE_EXTERNAL_FUNCTIONS
+#ifndef OnlyUARTFunctions
 
 void sendMotorControllerSpeedByte(long LeftControllerInput, long RightControllerInput);
 void initUart(void);
@@ -16,13 +33,8 @@ unsigned char *p_tx_buffer;
 int LeftMotorSerialOutput = 0;
 int RightMotorSerialOutput = 0;
 
-#endif
+#endif //OnlyUARTFunctions
+#endif //USE_EXTERNAL_FUNCTIONS
 
-
-#ifdef USE_EXTERNAL_FUNCTIONS
-
-void initUart(void);
-
-#endif
 
 #endif /* UART_HPP */

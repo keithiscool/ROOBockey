@@ -24,6 +24,7 @@ Guide: http://wiringpi.com/download-and-install/
 
 
 #include "Xbox360Controller.hpp"
+#define OnlyUARTFunctions 1
 #include "UART.hpp"
 
 //#define bool _Bool //I had to use booleans ("bool"), but Linux uses "_Bool" for boolean variables

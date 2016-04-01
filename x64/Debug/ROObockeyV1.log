@@ -1,4 +1,4 @@
-﻿Build started 4/1/2016 5:47:33 PM.
+﻿Build started 4/1/2016 6:15:09 PM.
      1>Project "C:\Users\Keith\Documents\GitHub\ROObockey\ROObockeyV1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\OpenCV-3.0.0\build\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt UART.cpp Xbox360Controller.cpp main.cpp
@@ -13,4 +13,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:01.39
+Time Elapsed 00:00:01.81
