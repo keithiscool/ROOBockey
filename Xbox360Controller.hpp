@@ -9,7 +9,7 @@
 #include <wiringPi.h> //Utilize the "WiringPi GPIO library"
 
 //Function Declarations
-void initController(void);
+int initController(void);
 void parseXbox360Controller(void);
 extern void sendMotorControllerSpeedByte(long LeftControllerInput, long RightControllerInput);
 
@@ -22,7 +22,11 @@ char name_of_joystick[80];
 struct js_event js; //Raw input from controller event
 
 
-int shootPin = 18; //GPIO pin 18 controls the solenoid discrete output
+//Discrete Inputs/Outputs:
+int breakBeam = 17;		//GPIO pin 17 input from break beam (garage-door-like sensor)
+int powerOffPi = 21;	//GPIO pin 27 input to run script to nicely power off RPi2 PowerLED
+int breakBeamLED = 2;	//GPIO pin 2 output a test output for the Break Beam
+int shootPin = 18;		//GPIO pin 18 output controls the solenoid discrete output
 
 
 //These are the raw input values from the controller (copied from "struct js_event js")

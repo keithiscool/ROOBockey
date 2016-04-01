@@ -26,25 +26,30 @@ Guide: http://wiringpi.com/download-and-install/
 #include "Xbox360Controller.hpp"
 #include "UART.hpp"
 
-#define bool _Bool //I had to use booleans ("bool"), but Linux uses "_Bool" for boolean variables
+//#define bool _Bool //I had to use booleans ("bool"), but Linux uses "_Bool" for boolean variables
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
 
 
 void *calloc(size_t nitems, size_t size);
 
 
-void initController(void) {
+int initController(void) {
 
 	//Initialize the Configuration the desired GPIO pin (set pin to low state as first value)
 	system("gpio export 18 low");
+	system("gpio export 17 low");
 	//Initialize the Wiring Pi Libary
+	pinMode(breakBeam, INPUT);
+	pinMode(powerOffPi, INPUT);
+	pinMode(breakBeamLED, OUTPUT);
 	pinMode(shootPin, OUTPUT);
+	//Initialize WiringPi -- using Broadcom processor pin numbers
 	wiringPiSetupGpio();
 
 
 	if ((joy_fd = open(JOY_DEV, O_RDONLY)) == -1) {
 		printf("Couldn't open joystick\n");
-		return -1;
+		return (-1);
 	}
 
 	ioctl(joy_fd, JSIOCGAXES, &num_of_axis);
@@ -60,6 +65,8 @@ void initController(void) {
 		, num_of_buttons);
 
 	fcntl(joy_fd, F_SETFL, O_NONBLOCK);   /* use non-blocking mode */
+
+	return 1;
 }
 
 
@@ -142,6 +149,18 @@ void parseXbox360Controller(void) {
 		if (Ba == 0) {
 			digitalWrite(shootPin, LOW);
 		}
+		
+		if (digitalRead(breakBeam)) {
+			digitalWrite(breakBeamLED, HIGH);
+		}
+		else {
+			digitalWrite(breakBeamLED, LOW);
+		}
+		if (digitalRead(powerOffPi)) {
+			system("sudo shutdown - h now");
+		}
+		
+
 
 #ifdef PRINT_CONTROLLER_DEBUG_DATA
 		printf("\r\n%d,%d,%d,%d, %d,%d,%d,%d, %d,%d,%d: ", Ba, Bb, Bx, By, BlBump, BrBump, Bsel, Bstart, BlStick, BxboxCenterIcon, BrStick);
@@ -158,10 +177,9 @@ void parseXbox360Controller(void) {
 		fflush(stdout);
 	}
 
+	//In case the user wants to turn off the controller events:
+	//close(joy_fd);        /* too bad we never get here */
 }
 
-	close(joy_fd);        /* too bad we never get here */
-	return 0;
-}
 
 #endif
