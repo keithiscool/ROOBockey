@@ -277,7 +277,9 @@ void RecordBeaconPosition(Beacon &theBeacon, vector<vector<Point> > &contours, v
 			theBeacon.setXPos(center.x);
 			theBeacon.setYPos(center.y);
 			theBeaconsVector.push_back(theBeacon); //add additional element to the end of the BeaconsVector Vector
+#ifdef ShowDetectedObjects
 			cout<<theBeacon.getShape()<<": "<< theBeacon.getXPos()<<","<<theBeacon.getYPos()<<endl;
+#endif //ShowDetectedObjects
 		}
 	}
 }

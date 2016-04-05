@@ -27,11 +27,7 @@ Guide: http://wiringpi.com/download-and-install/
 #define OnlyUARTFunctions 1
 #include "UART.hpp"
 
-//#define bool _Bool //I had to use booleans ("bool"), but Linux uses "_Bool" for boolean variables
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
-
-
-void *calloc(size_t nitems, size_t size);
 
 
 int initController(void) {
@@ -48,8 +44,8 @@ int initController(void) {
 	pinMode(powerOffPi, INPUT);
 	pinMode(breakBeamLED, OUTPUT);
 	pinMode(shootPin, OUTPUT);
-	pullUpDnControl(breakBeam, PUD_UP); // Enable pull-up resistor on button
-	pullUpDnControl(powerOffPi, PUD_UP); // Enable pull-up resistor on button
+	//pullUpDnControl(breakBeam, PUD_UP); // Enable pull-up resistor on button
+	//pullUpDnControl(powerOffPi, PUD_UP); // Enable pull-up resistor on button
 
 
 	if ((joy_fd = open(JOY_DEV, O_RDONLY)) == -1) {
@@ -60,9 +56,6 @@ int initController(void) {
 	ioctl(joy_fd, JSIOCGAXES, &num_of_axis);
 	ioctl(joy_fd, JSIOCGBUTTONS, &num_of_buttons);
 	ioctl(joy_fd, JSIOCGNAME(80), &name_of_joystick);
-
-	//axis = (int *) calloc( num_of_axis, sizeof( int ) );
-	//button = (char *) calloc( num_of_buttons, sizeof( char ) );
 
 	printf("Joystick detected: %s\n\t%d axis\n\t%d buttons\n\n"
 		, name_of_joystick
@@ -171,11 +164,12 @@ void parseXbox360Controller(void) {
 		printf("\r\n%d,%d,%d,%d, %d,%d,%d,%d, %d,%d,%d: ", Ba, Bb, Bx, By, BlBump, BrBump, Bsel, Bstart, BlStick, BxboxCenterIcon, BrStick);
 		printf("\r\n%d, %d, %d, %d, %d, %d", Lx, Ly, Lt, Rx, Ry, Rt);
 #endif
-			
+
+
 
 		if (((abs(Ly)) >= JOYSTICK_DEADZONE) || ((abs(Ry)) >= JOYSTICK_DEADZONE)) {
 			sendMotorControllerSpeedByte(Ly, Ry); //send left and right joystick scaled values to Sabertooth 2x25 motor controller using UART
-			usleep(10000); //delay using scaled input in microseconds (10 milliseconds)
+			//usleep(10000); //delay using scaled input in microseconds (10 milliseconds)
 		}
 
 		printf("  \r\n");

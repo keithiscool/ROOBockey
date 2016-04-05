@@ -77,6 +77,7 @@ int main(void) {
 
 	while (1) {
 
+		parseXbox360Controller();
 
 #ifdef USING_WEBCAM
 		cap >> src0; //get a new frame from camera
@@ -110,7 +111,8 @@ int main(void) {
 		imshow("ColorThresholdedImg", ColorThresholded_Img0);
 		imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
 		imshow("OutputImg", outputImg);
-		waitKey(15); //delay in milliseconds so OpenCV does not consume all processor time. "imshow" will not appear without this waitKey() command
+		//waitKey(1); //delay in milliseconds so OpenCV does not consume all processor time. "imshow" will not appear without this waitKey() command
+		usleep(100); //100 microsecond delay
 	}
 	return 1;
 }
