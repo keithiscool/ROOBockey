@@ -23,7 +23,7 @@ void parseXbox360Controller(void);
 //Function Declarations
 int initController(void);
 void parseXbox360Controller(void);
-extern void sendMotorControllerSpeedByte(long LeftControllerInput, long RightControllerInput);
+extern void sendMotorControllerSpeedByte(int LeftControllerInput, int RightControllerInput);
 
 
 //int joy_fd, *axis=NULL, num_of_axis=0, num_of_buttons=0, x;

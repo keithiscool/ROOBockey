@@ -31,10 +31,9 @@ void initUart(void) {
 	//OPEN THE UART
 	//The flags (defined in fcntl.h):
 	//	Access modes (use 1 of these):
-	//		O_RDONLY - Open for reading only.
-	//		O_RDWR - Open for reading and writing.
-	//		O_WRONLY - Open for writing only.
-	//
+	//	O_RDONLY - Open for reading only.
+	//	O_RDWR - Open for reading and writing.
+	//	O_WRONLY - Open for writing only.
 	//	O_NDELAY / O_NONBLOCK (same function) - Enables nonblocking mode. When set read requests on the file can return immediately with a failure status
 	//											if there is no input immediately available (instead of blocking). Likewise, write requests can also return
 	//											immediately with a failure status if the output can't be written immediately.
@@ -93,7 +92,7 @@ void putCharRaspberryPi2(unsigned char *p_tx_buffer) {
 
 //Feed Xbox controller Joystick (16-bit integer using XboxDRV driver in Linux) as an input
 //and send the scaled output to the "Sabertooth 2x25 Motor Controller V2.00" as a Simplified Serial Input
-void sendMotorControllerSpeedByte(int &LeftControllerInput, int &RightControllerInput) {
+void sendMotorControllerSpeedByte(int LeftControllerInput, int RightControllerInput) {
 
 	int LeftMotorSerialOutput = (64 + (LeftControllerInput*(63 / 32768))); //64 is motr controller offset for Left Motor Neutral
 	int RightMotorSerialOutput = (192 + (RightControllerInput*(63 / 32768))); //192 is motr controller offset for Right Motor Neutral

@@ -20,7 +20,7 @@ void sendMotorControllerSpeedByte(long LeftControllerInput, long RightController
 #ifndef USE_EXTERNAL_FUNCTIONS
 #ifndef OnlyUARTFunctions
 
-void sendMotorControllerSpeedByte(long LeftControllerInput, long RightControllerInput);
+void sendMotorControllerSpeedByte(int LeftControllerInput, int RightControllerInput);
 void initUart(void);
 void putCharRaspberryPi2(int *p_tx_buffer);
 
