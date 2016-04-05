@@ -90,14 +90,23 @@ void putCharRaspberryPi2(unsigned char *p_tx_buffer) {
 }
 
 
-//Feed Xbox controller Joystick (16-bit integer using XboxDRV driver in Linux) as an input
+//Feed Xbox controller Joystick (16-bit integer using built-in xpad driver in Linux) as an input
 //and send the scaled output to the "Sabertooth 2x25 Motor Controller V2.00" as a Simplified Serial Input
 void sendMotorControllerSpeedByte(int LeftControllerInput, int RightControllerInput) {
+	//Left Motor:		0: Full reverse			64: Neutral			127: Full Forward
+	//Right Motor:		128: Full reverse		192: Neutral		255: Full Forward
 
-	int LeftMotorSerialOutput = (64 + (LeftControllerInput*(63 / 32768))); //64 is motr controller offset for Left Motor Neutral
-	int RightMotorSerialOutput = (192 + (RightControllerInput*(63 / 32768))); //192 is motr controller offset for Right Motor Neutral
-	putCharRaspberryPi2(&LeftMotorSerialOutput);
-	putCharRaspberryPi2(&RightMotorSerialOutput);
+	unsigned char LeftMotorSerialOutput, RightMotorSerialOutput;
+	unsigned char *MotorLeftPtr, *MotorRightPtr;
+
+	LeftMotorSerialOutput = (unsigned char)(64 + (LeftControllerInput*(63 / 32768))); //64 is motr controller offset for Left Motor Neutral
+	RightMotorSerialOutput = (unsigned char)(192 + (RightControllerInput*(63 / 32768))); //192 is motr controller offset for Right Motor Neutral
+
+	MotorLeftPtr = &LeftMotorSerialOutput;
+	MotorRightPtr = &RightMotorSerialOutput;
+
+	putCharRaspberryPi2(MotorLeftPtr);
+	putCharRaspberryPi2(MotorRightPtr);
 }
 
 #endif
