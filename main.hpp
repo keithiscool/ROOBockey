@@ -9,5 +9,6 @@
 extern void initUart(void);
 extern int initController(void);
 extern void parseXbox360Controller(void);
+extern void imageProcessingRoutine(void);
 
 #endif /* UART_HPP */

@@ -169,7 +169,7 @@ void parseXbox360Controller(void) {
 
 		if (((abs(Ly)) >= JOYSTICK_DEADZONE) || ((abs(Ry)) >= JOYSTICK_DEADZONE)) {
 			sendMotorControllerSpeedByte(Ly, Ry); //send left and right joystick scaled values to Sabertooth 2x25 motor controller using UART
-			//usleep(10000); //delay using scaled input in microseconds (10 milliseconds)
+			usleep(10000); //delay using scaled input in microseconds (10 milliseconds)
 		}
 
 		printf("  \r\n");

@@ -54,6 +54,7 @@ void mouseRecordHSV_Values(Mat frame, Mat hsv_frame);
 
 
 //Tracking Library Function Declarations
+extern void imageProcessingRoutine(void);
 void on_trackbar(int, void*);
 void createObjectTrackingParameterTrackbars(void);
 void morphOps(Mat &thresh);
