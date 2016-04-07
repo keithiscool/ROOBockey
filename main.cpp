@@ -40,8 +40,10 @@ int main(void) {
 
 	while (1) {
 
-		thread PARSE_WIRELESS_CONTROLLER(parseXbox360Controller);
-		thread IMAGE_PROCESSING_WITH_RaspPi2(imageProcessingRoutine);
+		//thread PARSE_WIRELESS_CONTROLLER(parseXbox360Controller);
+		//thread IMAGE_PROCESSING_WITH_RaspPi2(imageProcessingRoutine);
+		thread (parseXbox360Controller).detach();
+		thread (imageProcessingRoutine).detach();
 	
 	}
 
