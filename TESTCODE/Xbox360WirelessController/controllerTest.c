@@ -29,35 +29,73 @@
 
 //Feed Xbox controller Joystick (16-bit integer using built-in xpad driver in Linux) as an input
 //and send the scaled output to the "Sabertooth 2x25 Motor Controller V2.00" as a Simplified Serial Input
-void sendMotorControllerSpeedByte(int UART_PORT_ID, short int LeftYvalueControllerInput, short int RightYvalueControllerInput) {
-	//Left Motor:		0: Full reverse			64: Neutral			127: Full Forward
+void sendMotorControllerSpeedByte(int UART_PORT_ID, int LeftYvalueControllerInput, int RightYvalueControllerInput) {
+	//Left Motor:		0: Full reverse			64: Neutral		127: Full Forward
 	//Right Motor:		128: Full reverse		192: Neutral		255: Full Forward
 
-	const short int DEADZONE = 15000;
+	static int maxControllerJoystickInput = 32767;
+	static int DEADZONE = 16384; //uses only half of the joystick range as usable values (32768/2 == 2^14 == 16384)
+	unsigned char RightMotorSerialOutput=0, LeftMotorSerialOutput=0;
+	static int Ldelta = 127-63; //will have actual slope of ((127-64)/(2^14)) or ((127-64)>>14), but that will be later using fixed point and bit shifting
+	static int Rdelta = 255-191; //will have actual slope of ((255-192)/(2^14)) or ((255-192)>>14), but that will be later using fixed point and bit shifting
 
-	if(((abs(LeftYvalueControllerInput) > DEADZONE)) || ((abs(RightYvalueControllerInput)) > DEADZONE)) {
+
+	//check if the controller is outside the y-axis dead zone for each joystick
+	if(abs(LeftYvalueControllerInput) > DEADZONE) {
+
+		bool negLeftInput = 0;
+
+		if(LeftYvalueControllerInput < 0) { //set negative input flag and convert to positive value
+			LeftYvalueControllerInput = (unsigned int)LeftYvalueControllerInput; //make joystick positive
+			negLeftInput = 1;
+		}
+		//input is positive
+		if(negLeftInput == 0) { //input is positive
+			LeftMotorSerialOutput = (unsigned char)(64 + (((LeftYvalueControllerInput-DEADZONE)*Ldelta)>>14)); //64 is motr controller offset for Left Motor Neutral
+		}
+		//input is negative
+		if(negLeftInput == 1) { //input is negative
+			LeftMotorSerialOutput = (unsigned char)(-(64 - (((LeftYvalueControllerInput-DEADZONE)*Ldelta)>>14))); //64 is motr controller offset for Left Motor Neutral
+		}
+
+		//clip the maximum allowed magnitude for y-axis joystick at their expected maximum values
+  		if (LeftMotorSerialOutput > 126) LeftMotorSerialOutput = 127;
+
+		//clip the minimum allowed magnitude for y-axis joystick at their expected minimum values
+  		if (LeftMotorSerialOutput < 2) LeftMotorSerialOutput = 1;
+	}
+
+	//check if the controller is outside the y-axis dead zone for each joystick
+	if(abs(RightYvalueControllerInput) > DEADZONE) {
+
+		bool negRightInput = 0;
+
+		if(RightYvalueControllerInput < 0) { //set negative input flag and convert to positive value
+			RightYvalueControllerInput = (unsigned int)RightYvalueControllerInput; //make joystick positive
+			negRightInput = 1;
+		}
+
+		if(negRightInput == 0) { //input is positive
+			RightMotorSerialOutput = (unsigned char)(192 + (((RightYvalueControllerInput-DEADZONE)*Rdelta)>>14)); //192 is motr controller offset for Right Motor Neutral
+		}
+
+		if(negRightInput == 1) { //input is negative
+			RightMotorSerialOutput = (unsigned char)(-(192 - (((RightYvalueControllerInput-DEADZONE)*Rdelta)>>14))); //192 is motr controller offset for Right Motor Neutral
+		}
+
+		//clip the maximum allowed magnitude for y-axis joystick at their expected maximum values
+  		if (RightMotorSerialOutput > 254) RightMotorSerialOutput = 255;
+
+		//clip the minimum allowed magnitude for y-axis joystick at their expected minimum values
+  		if (RightMotorSerialOutput < 129) RightMotorSerialOutput = 128;
+	}
+
+
+
+		printf("L:%d\r\n",LeftMotorSerialOutput);
+		printf("R:%d\r\n",RightMotorSerialOutput);
 		
-		unsigned char LeftMotorSerialOutput=0, RightMotorSerialOutput=0;
-		short int maxRangeLeft = 127;
-		short int maxRangeRight = 255;
-		short int minRangeLeft = 1;
-		short int minRangeRight = 128;
-
-		short int maxInput = 32768;
-		short int slope = maxInput-DEADZONE/maxInput;
-
-		//LeftMotorSerialOutput = (unsigned char)(64 + (LeftYvalueControllerInput*(63 / 32768))>>24); //64 is motr controller offset for Left Motor Neutral
-		//RightMotorSerialOutput = (unsigned char)(192 + (RightYvalueControllerInput*(63 / 32768))>>24); //192 is motr controller offset for Right Motor Neutral
-	
-		//LeftMotorSerialOutput = (unsigned char)(64 + (LeftYvalueControllerInput>>8)*63); //64 is motr controller offset for Left Motor Neutral
-		//RightMotorSerialOutput = (unsigned char)(192 + (RightYvalueControllerInput>>8)*63); //192 is motr controller offset for Right Motor Neutral
-	
-		LeftMotorSerialOutput = (unsigned char)(((LeftYvalueControllerInput-DEADZONE)/126)*141); //64 is motr controller offset for Left Motor Neutral
-		RightMotorSerialOutput = (unsigned char)(192 + (RightYvalueControllerInput>>8)*63); //192 is motr controller offset for Right Motor Neutral
-	
-		printf("%d\r\n",LeftMotorSerialOutput);
-		
-		int nextTime = 0;
+		static int nextTime = 0;
 	
 		if (millis () > nextTime) {
 		      serialPutchar(UART_PORT_ID,LeftMotorSerialOutput);
@@ -67,7 +105,7 @@ void sendMotorControllerSpeedByte(int UART_PORT_ID, short int LeftYvalueControll
 		if (millis () > nextTime) {
 		      serialPutchar(UART_PORT_ID,RightMotorSerialOutput);
 		      nextTime += 300 ;
-		}
+
 	}
 }
 
@@ -83,7 +121,7 @@ int main() {
 	bool Ba=0,Bb=0,Bx=0,By=0,BlBump=0,BrBump=0,Bsel=0,Bstart=0,BlStick=0,BrStick=0,BxboxCenterIcon=0;
 
 	//Declare all joysticks (16 bit signed integers)
-	short int Lx=0,Ly=0,Rx=0,Ry=0,Lt=0,Rt=0;
+	int Lx=0,Ly=0,Rx=0,Ry=0,Lt=0,Rt=0;
 
 	int shootPin = 18;
 	pinMode(shootPin, OUTPUT);
@@ -98,8 +136,8 @@ int main() {
 	int UART_ID=0; //
 	
 	usleep(2000000); //wait 2 seconds (in microseconds) to act as a power up delay for the Sabertooth Motor Controller
-	putc(0xAA); //Send the autobauding character to Sabertooth first!
-	delay_ms(100); //wait 100ms (in microseconds) before commanding motors
+	serialPutchar(UART_ID,0xAA); //Send the autobauding character to Sabertooth first!
+	usleep(100000); //wait 100ms (in microseconds) before commanding motors
 	
 
 	

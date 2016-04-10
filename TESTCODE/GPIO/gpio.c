@@ -8,7 +8,7 @@
 /* keithiscool update!!!
 	oh, by the way, keith is cool!
 	1) added functionality for xbox360 wireless controller
-	2) variables are assigned so this test code can be used by others
+	2) variables are assigned so this test code can be used by others more easily
 */
 
 #include <stdio.h>
@@ -25,10 +25,7 @@ void *calloc(size_t nitems, size_t size);
 
 
 int main() {
-        //int joy_fd, *axis=NULL, num_of_axis=0, num_of_buttons=0, x;
         int joy_fd, num_of_axis=0, num_of_buttons=0, x;
-	//char *button=NULL, name_of_joystick[80];
-	//bool *button=NULL;
 	char name_of_joystick[80];
         struct js_event js;
 
@@ -51,9 +48,6 @@ int main() {
         ioctl( joy_fd, JSIOCGBUTTONS, &num_of_buttons );
         ioctl( joy_fd, JSIOCGNAME(80), &name_of_joystick );
 
-        //axis = (int *) calloc( num_of_axis, sizeof( int ) );
-        //button = (char *) calloc( num_of_buttons, sizeof( char ) );
-
 	int axis[6];
 	bool button[11];	
 
@@ -71,13 +65,11 @@ int main() {
 
         while( 1 ) {
 
-
-                        /* read the joystick state */
+                /* read the joystick state */
                 read(joy_fd, &js, sizeof(struct js_event));
 
-                        /* see what to do with the event */
+                /* see what to do with the event */
                 switch (js.type & ~JS_EVENT_INIT) {
-
 			if(goodData == 0) {
 				for(i = 0; i < sizeof(axis); i++) {
 					axis[i] = 0;
@@ -97,60 +89,59 @@ int main() {
                                 break;
 		}
 
-			//Assign Variables
-			Lx = axis[0];
-			Ly = -axis[1];
-			if(num_of_axis > 2) Lt = axis[2];
-			if(num_of_axis > 3) {
-				Rx = axis[3];
-				Ry = -axis[4];
-			}
-			if( num_of_axis > 4 ) Rt = axis[5];
-
-			Ba = button[0];
-			Bb = button[1];
-			Bx = button[2];
-			By = button[3];
-			BlBump = button[4];
-			BrBump = button[5];
-			Bsel = button[6];
-			Bstart = button[7];
-			BlStick = button[8];
-			BxboxCenterIcon = button[9];
-			BrStick = button[10];
-			
-			if(!BxboxCenterIcon) { //if center button is pressed, dont do anything
-				if(!Ba && !Bb && !Bx && !By) {
-					if(!BlBump && !BrBump) {
-						goodData = 1;
-					}
-				}
-			}else {
-				goodData = 0;
-			}
-
-			if(goodData == 1) {
-
-				while(BxboxCenterIcon); //if center button is pressed, dont do anything
-		
-				if(Ba == 1) {
-					digitalWrite(shootPin, HIGH);
-				}
-		
-				if(Ba == 0) {	
-					digitalWrite(shootPin, LOW);
-				}
-
-				usleep(10000); //scale input to milliseconds (10 milliseconds)
-				printf("\r\n%d,%d,%d,%d, %d,%d,%d,%d, %d,%d,%d: ",Ba,Bb,Bx,By,BlBump,BrBump,Bsel,Bstart,BlStick,BxboxCenterIcon,BrStick);
-				printf("\r\n%d, %d, %d, %d, %d, %d",Lx,Ly,Lt,Rx,Ry,Rt);
-		
-		                printf("  \r\n");
-		                fflush(stdout);
-			}
-
-			usleep(2000000); //wait 2 seconds (in microseconds)
+		//Assign Variables
+		Lx = axis[0];
+		Ly = -axis[1];
+		if(num_of_axis > 2) Lt = axis[2];
+		if(num_of_axis > 3) {
+			Rx = axis[3];
+			Ry = -axis[4];
 		}
+		if( num_of_axis > 4 ) Rt = axis[5];
+
+		Ba = button[0];
+		Bb = button[1];
+		Bx = button[2];
+		By = button[3];
+		BlBump = button[4];
+		BrBump = button[5];
+		Bsel = button[6];
+		Bstart = button[7];
+		BlStick = button[8];
+		BxboxCenterIcon = button[9];
+		BrStick = button[10];
+		
+		if(!BxboxCenterIcon) { //if center button is pressed, dont do anything
+			if(!Ba && !Bb && !Bx && !By) {
+				if(!BlBump && !BrBump) {
+					goodData = 1;
+				}
+			}
+		}else {
+			goodData = 0;
+		}
+
+		if(goodData == 1) {
+
+			//while(BxboxCenterIcon); //if center button is pressed, dont do anything
+	
+			if(Ba == 1) {
+				digitalWrite(shootPin, HIGH);
+			}
+	
+			if(Ba == 0) {	
+				digitalWrite(shootPin, LOW);
+			}
+
+			usleep(10000); //scale input to milliseconds (10 milliseconds)
+			printf("\r\n%d,%d,%d,%d, %d,%d,%d,%d, %d,%d,%d: ",Ba,Bb,Bx,By,BlBump,BrBump,Bsel,Bstart,BlStick,BxboxCenterIcon,BrStick);
+			printf("\r\n%d, %d, %d, %d, %d, %d",Lx,Ly,Lt,Rx,Ry,Rt);
+	
+	                printf("  \r\n");
+	                fflush(stdout);
+		}
+
+			usleep(2000); //wait 2 milliseconds (in microseconds)
         }
 
         close( joy_fd );        /* too bad we never get here */
