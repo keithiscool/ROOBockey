@@ -3,11 +3,12 @@
 #include "defs.hpp"
 
 /*Define Shapes and Colors for Known Target Beacons:
-Yellow Triangle
-Red Square
+Green Triangle
+Blue Rectangle
 Purple Pentagon
-Blue Hexagon
-Green Circle*/
+Red Octagon
+Yellow Circle
+*/
 
 Beacon::Beacon() { // Must have a "simple" declaration for the class...
 	// nothing here in the constructor
@@ -18,7 +19,7 @@ Beacon::~Beacon() { // I never have to free-up the class, so this is not run...
 }
 
 Beacon::Beacon(string name) { // this is the class declaration that I am actually using...
-	if (name == "YellowTriangle") {
+	if (name == "GreenTriangle") {
 
 		//TODO: use "calibration mode" to find HSV min
 		//and HSV max values
@@ -26,12 +27,11 @@ Beacon::Beacon(string name) { // this is the class declaration that I am actuall
 		setHSVmin(Scalar(0, 0, 0));
 		setHSVmax(Scalar(255, 255, 255));
 
-		//BGR value for Yellow:
-		setColor(YELLOW);
+		setColor(GREEN);
 		setShape("Triangle");
 	}
 
-	if (name == "RedRectangle") {
+	if (name == "BlueRectangle") {
 
 		//TODO: use "calibration mode" to find HSV min
 		//and HSV max values
@@ -39,9 +39,8 @@ Beacon::Beacon(string name) { // this is the class declaration that I am actuall
 		setHSVmin(Scalar(0, 0, 0));
 		setHSVmax(Scalar(255, 255, 255));
 
-		//BGR value for Red:
-		setColor(RED);
-		setShape("Square");
+		setColor(BLUE);
+		setShape("Rectangle");
 	}
 
 	if (name == "PurplePentagon") {
@@ -52,12 +51,11 @@ Beacon::Beacon(string name) { // this is the class declaration that I am actuall
 		setHSVmin(Scalar(0, 0, 0));
 		setHSVmax(Scalar(255, 255, 255));
 
-		//BGR value for Purple:
 		setColor(PURPLE);
 		setShape("Pentagon");
 	}
 
-	if (name == "BlueHexagon") {
+	if (name == "RedOctagon") {
 
 		//TODO: use "calibration mode" to find HSV min
 		//and HSV max values
@@ -65,12 +63,11 @@ Beacon::Beacon(string name) { // this is the class declaration that I am actuall
 		setHSVmin(Scalar(0, 0, 0));
 		setHSVmax(Scalar(255, 255, 255));
 
-		//BGR value for Blue:
-		setColor(BLUE);
-		setShape("Hexagon");
+		setColor(RED);
+		setShape("Octagon");
 	}
 
-	if (name == "GreenCircle") {
+	if (name == "YellowCircle") {
 
 		//TODO: use "calibration mode" to find HSV min
 		//and HSV max values
@@ -78,8 +75,7 @@ Beacon::Beacon(string name) { // this is the class declaration that I am actuall
 		setHSVmin(Scalar(0, 0, 0));
 		setHSVmax(Scalar(255, 255, 255));
 
-		//BGR value for Green:
-		setColor(GREEN);
+		setColor(YELLOW);
 		setShape("Circle");
 	}
 

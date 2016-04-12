@@ -308,29 +308,29 @@ void drawContours(Mat& image, const vector<vector<Point> > &contours, string tit
 	for (i = 0; i < contours.size(); i++) {
 		const Point* p = &contours[i][0];
 		int n = (int)contours[i].size();
-		//if (title == "DetectingYellowTriangles") {
+		//if (title == "DetectingGreenTriangles") {
 		if (contours[i].size() == 3) { //check if each contour is a triangle
-			polylines(image, &p, &n, 1, true, YELLOW, 3, LINE_AA); //yellow for triangles
+			polylines(image, &p, &n, 1, true, GREEN, 3, LINE_AA); //yellow for triangles
 		}
 		//if (title == "DetectingRedRectangles") {
 		if (contours[i].size() == 4) { //check if each contour is a square
-			polylines(image, &p, &n, 1, true, RED, 3, LINE_8); //red for rectangles
-			//drawContours(image, contours, i, RED, FILLED, 8, hierarchy);
-			//drawContours(test1, contours, i, RED, LINE_8, 8, hierarchy);
-			//drawContours(test2, contours, i, RED, LINE_4, 8, hierarchy);
-			//drawContours(test3, contours, i, RED, LINE_AA, 8, hierarchy);
+			polylines(image, &p, &n, 1, true, BLUE, 3, LINE_8); //blue for rectangles
+			//drawContours(image, contours, i, BLUE, FILLED, 8, hierarchy);
+			//drawContours(test1, contours, i, BLUE, LINE_8, 8, hierarchy);
+			//drawContours(test2, contours, i, BLUE, LINE_4, 8, hierarchy);
+			//drawContours(test3, contours, i, BLUE, LINE_AA, 8, hierarchy);
 		}
-		//if (title == "DetectingPurplePentagons") {
-		if (contours[i].size() == 5) { //check if each contour is a pentagon
-			polylines(image, &p, &n, 1, true, PURPLE, 3, LINE_AA); //purple for pentagons
+		if (title == "DetectingPurplePentagons") {
+			if (contours[i].size() == 5) { //check if each contour is a pentagon
+				polylines(image, &p, &n, 1, true, PURPLE, 3, LINE_AA); //purple for pentagons
 		}
-		//if (title == "DetectingBlueHexagons") {
-		if (contours[i].size() == 6) { //check if each contour is a hexagon
-			polylines(image, &p, &n, 1, true, BLUE, 3, LINE_AA); //blue for hexagons
+		if (title == "DetectingRedOctagons") {
+			if (contours[i].size() == 6) { //check if each contour is a hexagon
+				polylines(image, &p, &n, 1, true, RED, 3, LINE_AA); //red for octagons
 		}
-		//if (title == "DetectingGreenCircles") {
-		if (contours[i].size() > 6) { //check if each contour is a circle
-			polylines(image, &p, &n, 1, true, GREEN, 3, LINE_AA); //green for circles
+		if (title == "DetectingYellowCircles") {
+			if (contours[i].size() > 6) { //check if each contour is a circle
+				polylines(image, &p, &n, 1, true, YELLOW, 3, LINE_AA); //yellow for circles
 		}
 	}
 }
@@ -377,7 +377,6 @@ void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec
 	Beacon theBeacon;
 	vector<Point> approx; //each discovered contour (shape) found from approxPolyDP() function
 	outputImage = inputImage.clone(); //copy the input Mat image to get the size of the image
-	////////////////outputImage = Scalar(255, 255, 255); //white background for output image (overwrites the input image cloned values)
 	outputImage = Scalar(0, 0, 0); //black background for output image (overwrites the input image cloned values)
 
 	for (int i = 0; i < contours.size(); i++) {

@@ -32,11 +32,6 @@ Guide: http://wiringpi.com/download-and-install/
 
 int initController(void) {
 
-	//Initialize the Configuration the desired GPIO pin (set pin to low state as first value)
-	system("gpio export 18 low");
-	system("gpio export 17 low");
-	system("gpio export 2 low");
-	system("gpio export 21 low");
 	//Initialize WiringPi -- using Broadcom processor pin numbers
 	wiringPiSetupGpio();
 	//Initialize the Wiring Pi Libary
