@@ -14,9 +14,25 @@ using namespace cv;
 using namespace std;
 
 
+
+//Discrete Inputs/Outputs:
+//NOTE: THESE USE BROADCOM NUMBERS SINCE WiringPi DID NOT MAP THEM CORRECTLY
+//NOTE: Output at end of variable means "real-world output" 
+int breakBeamInput = 2;						//GPIO pin 17 input from break beam (garage-door-like sensor)
+int shutdownPiSwitchInput = 55;				//GPIO pin 27 input to run script to nicely power off RPi2 PowerLED
+
+//Input at end of variable means "real-world input"
+int breakBeamLEDOutput = 0;					//GPIO pin 2 output a test output for the Break Beam
+int shootPinOutput = 1;						//GPIO pin 18 output controls the solenoid discrete output
+int controllerConnectedLEDOutput = 888;		//GPIO pin 18 output controls the solenoid discrete output
+
+
+
 #define RaspberryPi2Used 1
+#define PRINT_CONTROLLER_DATA 1
+#define PRINT_SERIAL_DATA 1
 #define SOFTWARE_EMERGENCY_STOP 1
-#define PRINT_CONTROLLER_DEBUG_DATA 1
+#define PERMIT_SHUTDOWN_PI_USING_GPIO_OR_CONTROLLER 1
 //#define ShowDetectedObjects 1
 #define USING_WEBCAM 1 //flag that is set to control whether the user uses the camera for input or a still picture as an input
 #define CALIBRATION_MODE 1 //calibrate the HSV filter for a specific color

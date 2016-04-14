@@ -320,18 +320,18 @@ void drawContours(Mat& image, const vector<vector<Point> > &contours, string tit
 			//drawContours(test2, contours, i, BLUE, LINE_4, 8, hierarchy);
 			//drawContours(test3, contours, i, BLUE, LINE_AA, 8, hierarchy);
 		}
-		if (title == "DetectingPurplePentagons") {
+		//if (title == "DetectingPurplePentagons") {
 			if (contours[i].size() == 5) { //check if each contour is a pentagon
 				polylines(image, &p, &n, 1, true, PURPLE, 3, LINE_AA); //purple for pentagons
-		}
-		if (title == "DetectingRedOctagons") {
+			}
+		//if (title == "DetectingRedOctagons") {
 			if (contours[i].size() == 6) { //check if each contour is a hexagon
 				polylines(image, &p, &n, 1, true, RED, 3, LINE_AA); //red for octagons
-		}
-		if (title == "DetectingYellowCircles") {
+			}
+		//if (title == "DetectingYellowCircles") {
 			if (contours[i].size() > 6) { //check if each contour is a circle
 				polylines(image, &p, &n, 1, true, YELLOW, 3, LINE_AA); //yellow for circles
-		}
+			}
 	}
 }
 
@@ -353,9 +353,11 @@ void RecordBeaconPosition(Beacon &theBeacon, vector<vector<Point> > &contours, v
 			theBeacon.setXPos(center.x);
 			theBeacon.setYPos(center.y);
 			theBeaconsVector.push_back(theBeacon); //add additional element to the end of the BeaconsVector Vector
+
 #ifdef ShowDetectedObjects
 			cout<<theBeacon.getShape()<<": "<< theBeacon.getXPos()<<","<<theBeacon.getYPos()<<endl;
 #endif //ShowDetectedObjects
+		
 		}
 	}
 }

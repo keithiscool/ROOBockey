@@ -19,29 +19,21 @@ Guide: http://wiringpi.com/download-and-install/
 
 
 #include "defs.hpp"
+#include <wiringPi.h> //Utilize the "WiringPi GPIO library"
+
+
 //#if defined(__linux__)
 #ifdef RaspberryPi2Used
 
 
 #include "Xbox360Controller.hpp"
 #define OnlyUARTFunctions 1
-#include "UART.hpp"
+#include "GPIO_UART.hpp"
 
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
 
 
 int initController(void) {
-
-	//Initialize WiringPi -- using Broadcom processor pin numbers
-	wiringPiSetupGpio();
-	//Initialize the Wiring Pi Libary
-	pinMode(breakBeam, INPUT);
-	pinMode(powerOffPi, INPUT);
-	pinMode(breakBeamLED, OUTPUT);
-	pinMode(shootPin, OUTPUT);
-	//pullUpDnControl(breakBeam, PUD_UP); // Enable pull-up resistor on button
-	//pullUpDnControl(powerOffPi, PUD_UP); // Enable pull-up resistor on button
-
 
 	if ((joy_fd = open(JOY_DEV, O_RDONLY)) == -1) {
 		printf("Couldn't open joystick\n");
@@ -59,14 +51,27 @@ int initController(void) {
 
 	fcntl(joy_fd, F_SETFL, O_NONBLOCK);   /* use non-blocking mode */
 
+	//Declare all buttons (including select,start along with leftstick & rightstick presses
+	Ba = 0, Bb = 0, Bx = 0, By = 0, BlBump = 0, BrBump = 0, Bsel = 0, Bstart = 0, BlStick = 0, BrStick = 0, BxboxCenterIcon = 0;
+
+	//Declare all joysticks (16 bit signed integers)
+	Lx = 0, Ly = 0, Rx = 0, Ry = 0, Lt = 0, Rt = 0;
+
+
 	return 1;
 }
 
 
 
 void parseXbox360Controller(void) {
+	
+	//index used for parsing the input wireless Xbox360 controller data from js0 event
 	int i = 0;
-	bool goodData = 0;
+	//used to run non-blocking delay for the GPIO pins
+	static int nextMilliSecondCountGPIO = 0;
+	static short launchedPuck = 0;
+	//used to control the shutdown of the RPi2 using either GPIO or the Xbox360 controller
+	static short shutdownCount = 0;
 
 	/* read the joystick state */
 	read(joy_fd, &js, sizeof(struct js_event));
@@ -119,59 +124,85 @@ void parseXbox360Controller(void) {
 	//Check to see if the buttons are in their neutral state
 	if (!BxboxCenterIcon) { //if center button is pressed, dont do anything (center button is software E-Stop for robot)
 		if (!Bstart && !Bsel && !BlStick && !BrStick) {
-			if (!BlBump && !BrBump) {
+			if (!BlBump) {
 				goodData = 1;
 			}
 		}
 	}else {
 		goodData = 0;
+		return 0;
 	}
 
 
 
+
+
+
+	//check to see if the wireless Xbox360 controller is giving valid data and if so, start using the GPIO pins in the RPi2
 	if (goodData == 1) {
 
 #ifdef SOFTWARE_EMERGENCY_STOP
-		while (BxboxCenterIcon); //if center button is pressed, dont do anything
+		while (BxboxCenterIcon == 1); //if center button is pressed, dont do anything
 #endif
 
-		if (Ba == 1) {
-			digitalWrite(shootPin, HIGH);
+		if (millis() > nextMilliSecondCountGPIO) {
+
+			digitalWrite(controllerConnectedLED, HIGH);
+
+			//BrBump is override for shooting permissive
+			if ((BrBump) || (shootPermissive)) {
+				if (Ba == 1) {
+					digitalWrite(shootPin, HIGH);
+					launchedPuck++;
+					printf("launchedPuck %d times\r\n", launchedPuck);
+					shootPermissive = 0;
+				}
+			}
+
+			nextMilliSecondCountGPIO += 300;
 		}
 
 		if (Ba == 0) {
 			digitalWrite(shootPin, LOW);
 		}
 		
-		if (digitalRead(breakBeam)) {
+		//Read active high input for breakBeam sensor (garage door obstruction sensor)
+		if (digitalRead(breakBeam) == 1) {
 			digitalWrite(breakBeamLED, HIGH);
 		}
 		else {
 			digitalWrite(breakBeamLED, LOW);
 		}
-		if (digitalRead(powerOffPi)) {
-			system("sudo shutdown - h now");
+
+		//shutdown the RPi2 safely using either the controller or the controller buttons
+		if ((digitalRead(ShutdownPiSwitch) == 1) || (Ba && Bb && Bx && By)) {
+			if (shutdownCount > 5) {
+				system("sudo shutdown -P now");
+			}
+			shutdownCount++;
+		}else {
+			shutdownCount = 0; //reset shutdown counter
 		}
 		
+		
+		sendMotorControllerSpeedBytes(UART_ID, Ly, Ry); //send left and right joystick scaled values to Sabertooth 2x25 motor controller using UART
 
 
 #ifdef PRINT_CONTROLLER_DEBUG_DATA
 		printf("\r\n%d,%d,%d,%d, %d,%d,%d,%d, %d,%d,%d: ", Ba, Bb, Bx, By, BlBump, BrBump, Bsel, Bstart, BlStick, BxboxCenterIcon, BrStick);
 		printf("\r\n%d, %d, %d, %d, %d, %d", Lx, Ly, Lt, Rx, Ry, Rt);
-#endif
+		printf("\r\n");
+		fflush(stdout);
+#endif //PRINT_CONTROLLER_DEBUG_DATA
 
-
-
-		if (((abs(Ly)) >= JOYSTICK_DEADZONE) || ((abs(Ry)) >= JOYSTICK_DEADZONE)) {
-			sendMotorControllerSpeedByte(Ly, Ry); //send left and right joystick scaled values to Sabertooth 2x25 motor controller using UART
-			usleep(10000); //delay using scaled input in microseconds (10 milliseconds)
-		}
-
+		
 		printf("  \r\n");
 		fflush(stdout);
+
+		return 1;
 	}
 
-	//In case the user wants to turn off the controller events:
+	//In case the user wants to turn off the controller events by closing the controller event js0 file:
 	//close(joy_fd);        /* too bad we never get here */
 }
 

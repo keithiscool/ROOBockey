@@ -6,7 +6,14 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <linux/joystick.h>
-#include <wiringPi.h> //Utilize the "WiringPi GPIO library"
+
+/*GLOBAL VARIABLES TO SHARE WITH GPIO_UART.CPP*/
+//flag used to eliminate random noise from when wireless Xbox360 controller connects with all values @ 1
+short goodData = 0;
+//user needs the breakbeam sensor to operate the puck launcher
+short shootPermissive = 0;
+//UART port ID for Tx to motor controller
+int UART_ID = 0;
 
 
 #ifdef USE_EXTERNAL_FUNCTIONS
@@ -23,22 +30,12 @@ void parseXbox360Controller(void);
 //Function Declarations
 int initController(void);
 void parseXbox360Controller(void);
-extern void sendMotorControllerSpeedByte(int LeftControllerInput, int RightControllerInput);
+extern void sendMotorControllerSpeedBytes(int UART_PORT_ID, int LeftYvalueControllerInput, int RightYvalueControllerInput);
 
-
-//int joy_fd, *axis=NULL, num_of_axis=0, num_of_buttons=0, x;
+//Joystick Interfacing with Linux Event File js0
 int joy_fd, num_of_axis = 0, num_of_buttons = 0, x;
-//char *button=NULL, name_of_joystick[80];
-//bool *button=NULL;
 char name_of_joystick[80];
 struct js_event js; //Raw input from controller event
-
-
-//Discrete Inputs/Outputs:
-int breakBeam = 17;			//GPIO pin 17 input from break beam (garage-door-like sensor)
-int ShutdownPiSwitch = 21;	//GPIO pin 27 input to run script to nicely power off RPi2 PowerLED
-int breakBeamLED = 2;		//GPIO pin 2 output a test output for the Break Beam
-int shootPin = 18;			//GPIO pin 18 output controls the solenoid discrete output
 
 
 //These are the raw input values from the controller (copied from "struct js_event js")

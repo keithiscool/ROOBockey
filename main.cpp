@@ -17,6 +17,7 @@
 
 #define USE_EXTERNS
 #define MAIN_CPP
+
 #include "defs.hpp"
 #include "ObjectTracking.hpp"
 //Use wireless controller and UART TX1 for Raspberry Pi 2 if flag is set
@@ -35,15 +36,19 @@ int main(void) {
 //Initialize the Xbox360 Wireless Controller and UART Module on the Raspberry Pi 2
 #ifdef RaspberryPi2Used
 	initController();
-	initUart();
+	initGPIO_Uart();
 #endif
 
 	while (1) {
 
 		//thread PARSE_WIRELESS_CONTROLLER(parseXbox360Controller);
 		//thread IMAGE_PROCESSING_WITH_RaspPi2(imageProcessingRoutine);
-		thread (parseXbox360Controller).detach();
-		thread (imageProcessingRoutine).detach();
+		//thread (parseXbox360Controller).detach();
+		//thread (imageProcessingRoutine).detach();
+
+		parseXbox360Controller();
+		gpioPinOperations();
+		imageProcessingRoutine();
 	
 	}
 
