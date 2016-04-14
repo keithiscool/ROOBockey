@@ -14,6 +14,15 @@ using namespace cv;
 using namespace std;
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*GLOBAL VARIABLES TO SHARE WITH GPIO_UART.CPP*/
+//flag used to eliminate random noise from when wireless Xbox360 controller connects with all values @ 1
+extern int goodData;
+//user needs the breakbeam sensor to operate the puck launcher
+extern int shootPermissive;
+//UART port ID for Tx to motor controller
+extern int UART_ID;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 

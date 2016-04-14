@@ -13,7 +13,7 @@
 
 //#define bool _Bool //I had to use booleans ("bool"), but Linux uses "_Bool" for boolean variables
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
-
+#define UART_TXD0 "/dev/ttyAMA0"
 
 
 //initialize the GPIO and UART pins for the Raspberry Pi 2
@@ -33,7 +33,7 @@ int initGPIO_Uart(void) {
 	system("gpio mode 1 out"); //force shootPin to output, configure pin using terminal command
 	
 	//initialize the UART @ 19200 BAUD
-	if ((UART_ID = serialOpen("/dev/ttyAMA0", 19200)) < 0) {
+	if ((UART_ID = serialOpen(UART_TXD0, 19200)) < 0) {
 		fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
 		return 0;
 	}
