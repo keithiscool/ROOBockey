@@ -208,7 +208,7 @@ int gpioPinOperations(void) {
 			digitalWrite(breakBeamLEDOutput, LOW);
 			printf("BreakBeam OFF\r\n");
 		}
-		nextMilliSecondCountLEDS += 300;
+		nextMilliSecondCountLEDS += 150;
 	}
 
 

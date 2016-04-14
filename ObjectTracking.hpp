@@ -2,36 +2,6 @@
 #define OBJECTTRACKING_HPP
 
 
-class Beacon {
-
-public:
-	Beacon(); //constructor for class
-	~Beacon(); //deconstructor for class
-	Beacon(string name);
-
-	int getXPos();
-	void setXPos(int x);
-	int getYPos();
-	void setYPos(int y);
-
-	Scalar getHSVmin();
-	Scalar getHSVmax();
-	void setHSVmin(Scalar min);
-	void setHSVmax(Scalar max);
-
-	Scalar getColor();
-	void setColor(Scalar c);
-	String getShape();
-	void setShape(string s);
-
-
-private:
-	int xPos, yPos;
-	String Shape;
-	Scalar Color;
-	Scalar HSVmin, HSVmax;
-};
-
 
 //This allows the user to calibrate the HSV threshold color filter to detect an object within the camera image
 class MouseCalibrateFilter {
@@ -70,19 +40,19 @@ void mouseRecordHSV_Values(Mat frame, Mat hsv_frame);
 
 //Tracking Library Function Declarations
 extern void imageProcessingRoutine(void);
-void on_trackbar(int, void*);
-void createObjectTrackingParameterTrackbars(void);
-void morphOps(Mat &thresh);
-static double angle(Point pt1, Point pt2, Point pt0);
-void setLabel(Mat& im, const string label, vector<Point> &contour);
-void drawContours(Mat& image, const vector<vector<Point> > &contours, string title);
-void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec4i> hierarchy, Mat& outputImage);
-size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vector<Point> > &contours, vector<Vec4i> &hierarchy, Mat &threshold);
-size_t trackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<Beacon> &theBeacon, vector<vector<Point> > &contours, vector<Vec4i> hierarchy, Mat &threshold);
-void RecordBeaconPosition(Beacon &theBeacon, vector<vector<Point> > &contours, vector<Beacon> &theBeaconsVector);
-void DrawTarget(int x, int y, Mat &frame);
-string intToString(int number);
-int chooseBeaconToShootAt(void);
+//void on_trackbar(int, void*);
+//void createObjectTrackingParameterTrackbars(void);
+//void morphOps(Mat &thresh);
+//static double angle(Point pt1, Point pt2, Point pt0);
+//void setLabel(Mat& im, const string label, vector<Point> &contour);
+//void drawContours(Mat& image, const vector<vector<Point> > &contours, string title);
+//void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec4i> hierarchy, Mat& outputImage);
+//size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vector<Point> > &contours, vector<Vec4i> &hierarchy, Mat &threshold);
+//size_t trackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<Beacon> &theBeacon, vector<vector<Point> > &contours, vector<Vec4i> hierarchy, Mat &threshold);
+//void RecordBeaconPosition(Beacon &theBeacon, vector<vector<Point> > &contours, vector<Beacon> &theBeaconsVector);
+//void DrawTarget(int x, int y, Mat &frame);
+//string intToString(int number);
+//int chooseBeaconToShootAt(void);
 extern void sendMotorControllerSpeedBytes(int UART_PORT_ID, int LeftYvalueControllerInput, int RightYvalueControllerInput);
 
 

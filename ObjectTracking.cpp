@@ -1,7 +1,7 @@
 #include "defs.hpp"
 #include "ObjectTracking.hpp"
 #include "Xbox360Controller.hpp"
-#include "Beacons.hpp"
+//#include "Beacons.hpp"
 #include <thread>
 #include <wiringPi.h>
 
