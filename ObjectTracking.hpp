@@ -37,6 +37,8 @@ extern bool Ba, Bb, Bx, By, BlBump, BrBump, Bsel, Bstart, BlStick, BrStick, Bxbo
 void clickAndDragRectangle(int event, int x, int y, int flags, void* param);
 void mouseRecordHSV_Values(Mat frame, Mat hsv_frame);
 
+int alignWithBeacon(int);
+
 
 //Tracking Library Function Declarations
 extern void imageProcessingRoutine(void);

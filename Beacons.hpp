@@ -8,6 +8,8 @@ class Beacon {
 
 public:
 	Beacon(std::string name);
+	Beacon() = delete;
+	~Beacon();
 
 	int getXPos();
 	void setXPos(int x);
@@ -26,8 +28,6 @@ public:
 
 
 private:
-	Beacon(); //constructor for class
-	~Beacon(); //deconstructor for class
 	int xPos, yPos;
 	String Shape;
 	Scalar Color;

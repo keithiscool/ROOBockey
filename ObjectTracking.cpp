@@ -548,7 +548,7 @@ int chooseBeaconToShootAt(void) {
 	}
 
 	if (Ba == 1) { //green beacon was chosen by the user pressing the green button on the wireless controller
-		int numGreenTriangleBeacons = GreenTriangleVector.size;
+		int numGreenTriangleBeacons = GreenTriangleVector.size();
 		if (numGreenTriangleBeacons == 0) { //see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
 			/*if (millis() > MillisWaitTime) {
 				sendMotorControllerSpeedBytes(UART_ID, 80, 176); //rotate the robot clockwise in order to find the beacon
@@ -557,20 +557,16 @@ int chooseBeaconToShootAt(void) {
 			}*/
 		}else { //some beacons were found
 			for (i = 0; i < numGreenTriangleBeacons; i++) {
-				avgXValue += GreenTriangleVector[i].getXPos; //average the x coordinates of the detected Green Triangles
+				avgXValue += GreenTriangleVector[i].getXPos(); //average the x coordinates of the detected Green Triangles
 			}
 			avgXValue = avgXValue / numGreenTriangleBeacons; //average the x coordinates of the detected Green Triangles
-			alignment = abs((FRAME_WIDTH / 2) - avgXValue);
-			if (avgXValue < 0) {
-				return alignment*(-1);
-			}else {
-				return alignment;
-			}
+			alignment = (FRAME_WIDTH / 2) - avgXValue;
+			return alignment;
 		}
 	}
-
+ 
 	if (Bx == 1) { //blue beacon was chosen
-		int numBlueRectangleBeacons = BlueRectangleVector.size;
+		int numBlueRectangleBeacons = BlueRectangleVector.size();
 		if (numBlueRectangleBeacons == 0) { //see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
 			/*if (millis() > MillisWaitTime) {
 				sendMotorControllerSpeedBytes(UART_ID, 80, 176); //rotate the robot clockwise in order to find the beacon
@@ -579,22 +575,17 @@ int chooseBeaconToShootAt(void) {
 			}*/
 		}else { //some beacons were found
 			for (i = 0; i < numBlueRectangleBeacons; i++) {
-				avgXValue += BlueRectangleVector[i].getXPos; //average the x coordinates of the detected Green Triangles
+				avgXValue += BlueRectangleVector[i].getXPos(); //average the x coordinates of the detected Green Triangles
 			}
 			avgXValue = avgXValue / numBlueRectangleBeacons; //average the x coordinates of the detected Green Triangles
-			alignment = abs((FRAME_WIDTH / 2) - avgXValue);
-			//if (avgXValue < 0) {
-			//	return alignment*(-1);
-			//}else {
-			//	return alignment;
-			//}
-			if (alignment == )
+			alignment = (FRAME_WIDTH / 2) - avgXValue;
+			return alignment;
 		}
 	}
 
 
 	if (Bb == 1) { //red beacon was chosen
-		int numRedOctagonBeacons = RedOctagonVector.size;
+		int numRedOctagonBeacons = RedOctagonVector.size();
 		if (numRedOctagonBeacons == 0) { //see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
 			/*if (millis() >= MillisWaitTime) {
 				sendMotorControllerSpeedBytes(UART_ID, 80, 176); //rotate the robot clockwise in order to find the beacon
@@ -603,22 +594,20 @@ int chooseBeaconToShootAt(void) {
 			}*/	
 		}else { //some beacons were found
 			for (i = 0; i < numRedOctagonBeacons; i++) {
-				avgXValue += RedOctagonVector[i].getXPos; //average the x coordinates of the detected Green Triangles
+				avgXValue += RedOctagonVector[i].getXPos(); //average the x coordinates of the detected Green Triangles
 			}
 			avgXValue = avgXValue / numRedOctagonBeacons; //average the x coordinates of the detected Green Triangles
-			alignment = abs((FRAME_WIDTH / 2) - avgXValue);
-			if (avgXValue < 0) {
-				return alignment*(-1);
-			}else {
-				return alignment;
-			}
+			alignment = (FRAME_WIDTH / 2) - avgXValue;
+            return alignment;
 		}
 	}
 
 	return 0;
 }
 
-
+void sendMotorCommand(int right, int left) {
+    sendMotorControllerSpeedBytes(UART_ID, right, left + 128);
+}
 
 //Resulution for output images are:
 //const int FRAME_WIDTH x FRAME_HEIGHT == (640x480 window)
@@ -632,16 +621,19 @@ int alignWithBeacon(int pixelsFromCenter) {
 
 	if (pixelsFromCenter > 240) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot right to center the beacon with the center of the camera frame
+        sendMotorControllerSpeedBytes(UART_ID,)
 		return 1;
 	}
 
 	if (pixelsFromCenter > 160) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot right to center the beacon with the center of the camera frame
+        sendMotorControllerSpeedBytes(UART_ID,)
 		return 1;
 	}
 
 	if (pixelsFromCenter > 50) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot right to center the beacon with the center of the camera frame
+        sendMotorControllerSpeedBytes(UART_ID,)
 		return 1;
 	}
 
