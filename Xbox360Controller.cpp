@@ -17,7 +17,7 @@ This code works on Raspberry Pi 2, but I am not sure about RPi1 or RPi3
 Guide: http://wiringpi.com/download-and-install/
 */
 
-#define XBOX360CONTROLLER
+
 #include "defs.hpp"
 #include <wiringPi.h> //Utilize the "WiringPi GPIO library"
 #include "Xbox360Controller.hpp"

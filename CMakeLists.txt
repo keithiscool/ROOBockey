@@ -53,6 +53,7 @@ set( NAME_SRC
 	main.cpp
 	ObjectTracking.cpp
 	Beacons.cpp
+	defs.cpp
 	GPIO_UART.cpp
 	Xbox360Controller.cpp
 )

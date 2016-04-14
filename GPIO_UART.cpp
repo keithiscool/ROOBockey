@@ -1,10 +1,8 @@
 //File utilizes some of the I/O on the pin headers for the RaspberryPi2
 //The pins used are discrete I/O and UART (TX only, not RX)
 
-#define GPIO_UART_CPP
 
-
-
+#include "defs.hpp"
 #include "GPIO_UART.hpp"
 #include <unistd.h>			//Used for UART
 #include <fcntl.h>			//Used for UART
@@ -15,8 +13,6 @@
 
 //#define bool _Bool //I had to use booleans ("bool"), but Linux uses "_Bool" for boolean variables
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
-#define PRINT_CONTROLLER_DATA 1
-#define PRINT_SERIAL_DATA 1
 
 
 

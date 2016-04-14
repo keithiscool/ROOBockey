@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Beacons.cpp" />
+    <ClCompile Include="defs.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectTracking.cpp" />
     <ClCompile Include="GPIO_UART.cpp" />
