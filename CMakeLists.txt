@@ -41,7 +41,7 @@ set( CMAKE_MODULE_PATH "/usr/local/lib/cmake/${CMAKE_MODULE_PATH}")
 # Locate libraries and headers (locates .cmake files)
 find_package( OpenCV REQUIRED )
 find_package( Threads REQUIRED ) 
-find_package( WiringPi REQUIRED )
+#find_package( WiringPi REQUIRED )
 
 
 # Include headers
@@ -53,15 +53,16 @@ set( NAME_SRC
 	main.cpp
 	ObjectTracking.cpp
 	Beacons.cpp
-	UART.cpp
+	GPIO_UART.cpp
 	Xbox360Controller.cpp
 )
 
-set( NAME_HEADERS       
+set( NAME_HEADERS
+	main.hpp
 	ObjectTracking.hpp
 	Beacons.hpp
 	defs.hpp
-	UART.hpp
+	GPIO_UART.hpp
 	Xbox360Controller.hpp
 )
 

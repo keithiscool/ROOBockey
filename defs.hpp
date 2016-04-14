@@ -14,18 +14,38 @@ using namespace cv;
 using namespace std;
 
 
+#ifdef GPIO_UART_CPP
 
 //Discrete Inputs/Outputs:
 //NOTE: THESE USE BROADCOM NUMBERS SINCE WiringPi DID NOT MAP THEM CORRECTLY
 //NOTE: Output at end of variable means "real-world output" 
-int breakBeamInput = 2;						//GPIO pin 17 input from break beam (garage-door-like sensor)
-int shutdownPiSwitchInput = 55;				//GPIO pin 27 input to run script to nicely power off RPi2 PowerLED
+int breakBeamInput = 2;						//GPIO pin 27 input from break beam (garage-door-like sensor)
+int shutdownPiSwitchInput = 5;					//GPIO pin 24 input to run script to nicely power off RPi2 PowerLED
 
 //Input at end of variable means "real-world input"
-int breakBeamLEDOutput = 0;					//GPIO pin 2 output a test output for the Break Beam
+int breakBeamLEDOutput = 0;					//GPIO pin 17 output a test output for the Break Beam
 int shootPinOutput = 1;						//GPIO pin 18 output controls the solenoid discrete output
-int controllerConnectedLEDOutput = 888;		//GPIO pin 18 output controls the solenoid discrete output
+int controllerConnectedLEDOutput = 3;				//GPIO pin 22 output controls the solenoid discrete output
+int outputEnableAndGate = 4;					//GPIO pin 23 output controls the solenoid discrete output
 
+#endif //GPIO_UART_CPP
+
+
+#ifdef XBOX360CONTROLLER
+
+//Discrete Inputs/Outputs:
+//NOTE: THESE USE BROADCOM NUMBERS SINCE WiringPi DID NOT MAP THEM CORRECTLY
+//NOTE: Output at end of variable means "real-world output" 
+int breakBeamInput = 2;						//GPIO pin 27 input from break beam (garage-door-like sensor)
+int shutdownPiSwitchInput = 5;					//GPIO pin 24 input to run script to nicely power off RPi2 PowerLED
+
+//Input at end of variable means "real-world input"
+int breakBeamLEDOutput = 0;					//GPIO pin 17 output a test output for the Break Beam
+int shootPinOutput = 1;						//GPIO pin 18 output controls the solenoid discrete output
+int controllerConnectedLEDOutput = 3;				//GPIO pin 22 output controls the solenoid discrete output
+int outputEnableAndGate = 4;					//GPIO pin 23 output controls the solenoid discrete output
+
+#endif //XBOX360CONTROLLER
 
 
 #define RaspberryPi2Used 1

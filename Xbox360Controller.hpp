@@ -7,29 +7,66 @@
 #include <sys/ioctl.h>
 #include <linux/joystick.h>
 
+
+#ifdef GPIO_UART_CPP
+
 /*GLOBAL VARIABLES TO SHARE WITH GPIO_UART.CPP*/
 //flag used to eliminate random noise from when wireless Xbox360 controller connects with all values @ 1
-short goodData = 0;
+int goodData = 0;
 //user needs the breakbeam sensor to operate the puck launcher
-short shootPermissive = 0;
+int shootPermissive = 0;
+//UART port ID for Tx to motor controller
+int UART_ID = 0;
+
+#endif //GPIO_UART_CPP
+
+
+
+#ifdef XBOX360CONTROLLER
+
+
+/*GLOBAL VARIABLES TO SHARE WITH GPIO_UART.CPP*/
+//flag used to eliminate random noise from when wireless Xbox360 controller connects with all values @ 1
+int goodData = 0;
+//user needs the breakbeam sensor to operate the puck launcher
+int shootPermissive = 0;
 //UART port ID for Tx to motor controller
 int UART_ID = 0;
 
 
-#ifdef USE_EXTERNAL_FUNCTIONS
+//Discrete Inputs/Outputs:
+//NOTE: THESE USE BROADCOM NUMBERS SINCE WiringPi DID NOT MAP THEM CORRECTLY
+//NOTE: Output at end of variable means "real-world output" 
+extern int breakBeamInput;						//GPIO pin 17 input from break beam (garage-door-like sensor)
+extern int shutdownPiSwitchInput;				//GPIO pin 27 input to run script to nicely power off RPi2 PowerLED
+
+//Input at end of variable means "real-world input"
+extern int breakBeamLEDOutput;					//GPIO pin 2 output a test output for the Break Beam
+extern int shootPinOutput;						//GPIO pin 18 output controls the solenoid discrete output
+extern int controllerConnectedLEDOutput;		//GPIO pin 18 output controls the solenoid discrete output
+
+#endif //XBOX360CONTROLLER
+
+
+#ifdef MAIN_CPP
 
 //Function Declarations
 int initController(void);
-void parseXbox360Controller(void);
+int parseXbox360Controller(void);
+extern void sendMotorControllerSpeedBytes(int UART_PORT_ID, int LeftYvalueControllerInput, int RightYvalueControllerInput);
 
-#endif //USE_EXTERNAL_FUNCTIONS
+#endif //MAIN_CPP
 
 
-#ifndef USE_EXTERNAL_FUNCTIONS
+
+#ifndef MAIN_CPP
+
+
+#ifdef XBOX360CONTROLLER
 
 //Function Declarations
 int initController(void);
-void parseXbox360Controller(void);
+int parseXbox360Controller(void);
 extern void sendMotorControllerSpeedBytes(int UART_PORT_ID, int LeftYvalueControllerInput, int RightYvalueControllerInput);
 
 //Joystick Interfacing with Linux Event File js0
@@ -53,8 +90,10 @@ bool Ba = 0, Bb = 0, Bx = 0, By = 0, BlBump = 0, BrBump = 0, Bsel = 0, Bstart = 
 //Declare all joysticks (16 bit signed integers)
 int Lx, Ly, Rx, Ry, Lt, Rt;
 
+#endif //XBOX360CONTROLLER
 
-#endif //USE_EXTERNAL_FUNCTIONS
+
+#endif //MAIN_CPP
 
 
 #endif /* XBOX360CONTROLLER_HPP */

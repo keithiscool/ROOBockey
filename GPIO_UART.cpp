@@ -1,23 +1,24 @@
 //File utilizes some of the I/O on the pin headers for the RaspberryPi2
 //The pins used are discrete I/O and UART (TX only, not RX)
 
-#include "defs.hpp"
+#define GPIO_UART_CPP
+
 
 #ifdef RaspberryPi2Used //only use this file if the "RaspberryPi2Used" flag is set
 
-
+#include "GPIO_UART.hpp"
 #include <unistd.h>			//Used for UART
 #include <fcntl.h>			//Used for UART
-#include <termios.h>		//Used for UART
-#include "GPIO_UART.hpp"
+#include <termios.h>			//Used for UART
 #include <wiringPi.h>
 #include <wiringSerial.h>
 #include <errno.h>
 
-#define bool _Bool //I had to use booleans ("bool"), but Linux uses "_Bool" for boolean variables
+//#define bool _Bool //I had to use booleans ("bool"), but Linux uses "_Bool" for boolean variables
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
 #define PRINT_CONTROLLER_DATA 1
 #define PRINT_SERIAL_DATA 1
+
 
 
 //initialize the GPIO and UART pins for the Raspberry Pi 2
@@ -30,8 +31,8 @@ int initGPIO_Uart(void) {
 	pinMode(breakBeamInput, INPUT);
 	pullUpDnControl(breakBeamInput, PUD_DOWN); // Enable pull-down resistor on button
 	system("gpio mode 2 in"); //force shootPin to input, configure pin using terminal command
-	pinMode(ShutdownPiSwitchInput, INPUT);
-	pullUpDnControl(ShutdownPiSwitchInput, PUD_DOWN); // Enable pull-down resistor on button
+	pinMode(shutdownPiSwitchInput, INPUT);
+	pullUpDnControl(shutdownPiSwitchInput, PUD_DOWN); // Enable pull-down resistor on button
 	pinMode(breakBeamLEDOutput, OUTPUT);
 	pinMode(shootPinOutput, OUTPUT);
 	system("gpio mode 1 out"); //force shootPin to output, configure pin using terminal command

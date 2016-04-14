@@ -17,7 +17,7 @@ This code works on Raspberry Pi 2, but I am not sure about RPi1 or RPi3
 Guide: http://wiringpi.com/download-and-install/
 */
 
-
+#define XBOX360CONTROLLER
 #include "defs.hpp"
 #include <wiringPi.h> //Utilize the "WiringPi GPIO library"
 
@@ -27,10 +27,11 @@ Guide: http://wiringpi.com/download-and-install/
 
 
 #include "Xbox360Controller.hpp"
-#define OnlyUARTFunctions 1
 #include "GPIO_UART.hpp"
 
+
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
+
 
 
 int initController(void) {
@@ -63,7 +64,7 @@ int initController(void) {
 
 
 
-void parseXbox360Controller(void) {
+int parseXbox360Controller(void) {
 	
 	//index used for parsing the input wireless Xbox360 controller data from js0 event
 	int i = 0;
@@ -147,12 +148,12 @@ void parseXbox360Controller(void) {
 
 		if (millis() > nextMilliSecondCountGPIO) {
 
-			digitalWrite(controllerConnectedLED, HIGH);
+			digitalWrite(controllerConnectedLEDOutput, HIGH);
 
 			//BrBump is override for shooting permissive
 			if ((BrBump) || (shootPermissive)) {
 				if (Ba == 1) {
-					digitalWrite(shootPin, HIGH);
+					digitalWrite(shootPinOutput, HIGH);
 					launchedPuck++;
 					printf("launchedPuck %d times\r\n", launchedPuck);
 					shootPermissive = 0;
@@ -163,19 +164,19 @@ void parseXbox360Controller(void) {
 		}
 
 		if (Ba == 0) {
-			digitalWrite(shootPin, LOW);
+			digitalWrite(shootPinOutput, LOW);
 		}
 		
 		//Read active high input for breakBeam sensor (garage door obstruction sensor)
-		if (digitalRead(breakBeam) == 1) {
-			digitalWrite(breakBeamLED, HIGH);
+		if (digitalRead(breakBeamInput) == 1) {
+			digitalWrite(breakBeamLEDOutput, HIGH);
 		}
 		else {
-			digitalWrite(breakBeamLED, LOW);
+			digitalWrite(breakBeamLEDOutput, LOW);
 		}
 
 		//shutdown the RPi2 safely using either the controller or the controller buttons
-		if ((digitalRead(ShutdownPiSwitch) == 1) || (Ba && Bb && Bx && By)) {
+		if ((digitalRead(shutdownPiSwitchInput) == 1) || (Ba && Bb && Bx && By)) {
 			if (shutdownCount > 5) {
 				system("sudo shutdown -P now");
 			}
