@@ -11,8 +11,10 @@
 #include <wiringSerial.h>
 #include <errno.h>
 
+
 //#define bool _Bool //I had to use booleans ("bool"), but Linux uses "_Bool" for boolean variables
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
+
 #define UART_TXD0 "/dev/ttyAMA0"
 
 /*

@@ -1,13 +1,12 @@
 #ifndef BEACONS_HPP
 #define BEACONS_HPP
 
+#include <string>
 
 class Beacon {
 
 public:
-	Beacon(); //constructor for class
-	~Beacon(); //deconstructor for class
-	Beacon(string name);
+	Beacon(std::string name);
 
 	int getXPos();
 	void setXPos(int x);
@@ -26,6 +25,8 @@ public:
 
 
 private:
+	Beacon(); //constructor for class
+	~Beacon(); //deconstructor for class
 	int xPos, yPos;
 	String Shape;
 	Scalar Color;

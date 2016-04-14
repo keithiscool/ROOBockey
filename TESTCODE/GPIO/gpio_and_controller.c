@@ -333,7 +333,7 @@ int main() {
 
 			}
 
-			nextMilliSecondCountBreakBeam += 300;
+			nextMilliSecondCountBreakBeam += 150;
 
 		}
 		
@@ -358,7 +358,7 @@ int main() {
 				digitalWrite(breakBeamLED, LOW);
 				printf("BreakBeam OFF\r\n");
 			}
-			nextMilliSecondCountLEDS += 300 ;
+			nextMilliSecondCountLEDS += 150 ;
 		}
 		
 

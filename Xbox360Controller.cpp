@@ -98,18 +98,6 @@ int parseXbox360Controller(void) {
 	/* see what to do with the event */
 	switch (js.type & ~JS_EVENT_INIT) {
 
-		//Check to see if the controller is spitting back useful data (if not, reset/ignore the incoming data)
-		if (goodData == 0) {
-			for (i = 0; i < sizeof(axis); i++) {
-				axis[i] = 0;
-			}
-
-			for (i = 0; i < sizeof(button); i++) {
-				button[i] = 0;
-			}
-			js.value = 0;
-		}
-
 		case JS_EVENT_AXIS:
 			axis[js.number] = js.value;
 			break;
@@ -117,6 +105,19 @@ int parseXbox360Controller(void) {
 			button[js.number] = js.value;
 			break;
 	}
+
+
+	//Check to see if the controller is spitting back useful data (if not, reset/ignore the incoming data)
+	if (goodData == 0) {
+		for (i = 0; i < sizeof(axis); i++) {
+			axis[i] = 0;
+		}
+		for (i = 0; i < sizeof(button); i++) {
+			button[i] = 0;
+		}
+		js.value = 0;
+	}
+
 
 	//Assign Variables
 	Lx = axis[0];
