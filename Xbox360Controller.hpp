@@ -25,4 +25,4 @@ extern bool Ba, Bb, Bx, By, BlBump, BrBump, Bsel, Bstart, BlStick, BrStick, Bxbo
 extern int Lx, Ly, Rx, Ry, Lt, Rt;
 
 
-endif //XBOX360CONTROLLER_HPP
+#endif //XBOX360CONTROLLER_HPP
