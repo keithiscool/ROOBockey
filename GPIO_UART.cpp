@@ -15,23 +15,49 @@
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
 #define UART_TXD0 "/dev/ttyAMA0"
 
+/*
+//PIN ASSIGNMENTS -- Discrete Inputs/Outputs:
+//NOTE: THESE USE BROADCOM NUMBERS SINCE WiringPi DID NOT MAP THEM CORRECTLY
+//NOTE: Output at end of variable means "real-world output" 
+//PLEASE LOOK HERE FOR CORRECT PINOUT DIAGRAM:
+http://wiringpi.com/pins/
+
+int breakBeamInput = 2;						//GPIO pin 27 input from break beam (garage-door-like sensor)
+int shutdownPiSwitchInput = 5;				//GPIO pin 24 input to run script to nicely power off RPi2 PowerLED
+
+//Input at end of variable means "real-world input"
+int breakBeamLEDOutput = 0;					//GPIO pin 17 output a test LED output for the Break Beam
+int shootPinOutput = 1;						//GPIO pin 18 output controls the discrete output solenoid valve for the launching mechanism
+int controllerConnectedLEDOutput = 3;		//GPIO pin 22 output controls the solenoid discrete output
+int enableAndGateOutput = 4;				//GPIO pin 23 output permits the motor controller and shootpin from turning on during the Pi's boot-up (the Pi turns all I/O on during bootup)
+*/
 
 //initialize the GPIO and UART pins for the Raspberry Pi 2
 int initGPIO_Uart(void) {
 
-	system("gpio mode 1 out"); //set GPIO pin 1 to output
-	system("gpio mode 2 in"); //set GPIO pin 2 to input
+	//manually configure the GPIO pins for inputs or outputs using terminal commands
+	//terminal commands: https://projects.drogon.net/raspberry-pi/wiringpi/the-gpio-utility/
+	system("gpio mode 0 out"); //set GPIO pin 1 to output (breakBeamLEDOutput) indicates puck is held by robot
+	system("gpio mode 1 out"); //set GPIO pin 1 to output (shootpin)
+	system("gpio mode 3 out"); //set GPIO pin 3 to output (controllerConnectedLEDOutput)
+	system("gpio mode 4 out"); //set GPIO pin 4 to output //GPIO pin 23 output controls the solenoid discrete output
+	
+	system("gpio mode 2 in"); //set GPIO pin 2 to input //GPIO pin 27 input from break beam (garage-door-like sensor)
+	system("gpio mode 5 in"); //set GPIO pin 2 to input //GPIO pin 27 input from break beam (garage-door-like sensor)
+
 
 	//Initialize the Wiring Pi Libary
 	pinMode(breakBeamInput, INPUT);
 	pullUpDnControl(breakBeamInput, PUD_DOWN); // Enable pull-down resistor on button
-	system("gpio mode 2 in"); //force shootPin to input, configure pin using terminal command
 	pinMode(shutdownPiSwitchInput, INPUT);
 	pullUpDnControl(shutdownPiSwitchInput, PUD_DOWN); // Enable pull-down resistor on button
+	
 	pinMode(breakBeamLEDOutput, OUTPUT);
 	pinMode(shootPinOutput, OUTPUT);
-	system("gpio mode 1 out"); //force shootPin to output, configure pin using terminal command
-	
+	pinMode(controllerConnectedLEDOutput, OUTPUT);
+	pinMode(enableAndGateOutput, OUTPUT);
+
+
 	//initialize the UART @ 19200 BAUD
 	if ((UART_ID = serialOpen(UART_TXD0, 19200)) < 0) {
 		fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));

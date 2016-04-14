@@ -18,7 +18,10 @@ int UART_ID = 0;
 
 //PIN ASSIGNMENTS -- Discrete Inputs/Outputs:
 //NOTE: THESE USE BROADCOM NUMBERS SINCE WiringPi DID NOT MAP THEM CORRECTLY
-//NOTE: Output at end of variable means "real-world output" 
+//NOTE: Output at end of variable means "real-world output"
+//PLEASE LOOK HERE FOR CORRECT PINOUT DIAGRAM: 
+//http://wiringpi.com/pins/
+
 int breakBeamInput = 2;						//GPIO pin 27 input from break beam (garage-door-like sensor)
 int shutdownPiSwitchInput = 5;					//GPIO pin 24 input to run script to nicely power off RPi2 PowerLED
 
@@ -26,7 +29,7 @@ int shutdownPiSwitchInput = 5;					//GPIO pin 24 input to run script to nicely p
 int breakBeamLEDOutput = 0;					//GPIO pin 17 output a test output for the Break Beam
 int shootPinOutput = 1;						//GPIO pin 18 output controls the solenoid discrete output
 int controllerConnectedLEDOutput = 3;				//GPIO pin 22 output controls the solenoid discrete output
-int outputEnableAndGate = 4;					//GPIO pin 23 output controls the solenoid discrete output
+int enableAndGateOutput = 4;					//GPIO pin 23 output controls the solenoid discrete output
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
