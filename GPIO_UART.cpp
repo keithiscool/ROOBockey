@@ -37,13 +37,13 @@ int initGPIO_Uart(void) {
 
 	//manually configure the GPIO pins for inputs or outputs using terminal commands
 	//terminal commands: https://projects.drogon.net/raspberry-pi/wiringpi/the-gpio-utility/
-	system("gpio mode 0 out"); //set GPIO pin 1 to output (breakBeamLEDOutput) indicates puck is held by robot
-	system("gpio mode 1 out"); //set GPIO pin 1 to output (shootpin)
-	system("gpio mode 3 out"); //set GPIO pin 3 to output (controllerConnectedLEDOutput)
+	system("gpio mode 0 out"); //set GPIO pin 1 to output (breakBeamLEDOutput pin 17) indicates puck is held by robot
+	system("gpio mode 1 out"); //set GPIO pin 1 to output (shootpin pin 18)
+	system("gpio mode 3 out"); //set GPIO pin 3 to output (controllerConnectedLEDOutput pin 22)
 	system("gpio mode 4 out"); //set GPIO pin 4 to output //GPIO pin 23 output controls the solenoid discrete output
 	
 	system("gpio mode 2 in"); //set GPIO pin 2 to input //GPIO pin 27 input from break beam (garage-door-like sensor)
-	system("gpio mode 5 in"); //set GPIO pin 2 to input //GPIO pin 27 input from break beam (garage-door-like sensor)
+	system("gpio mode 5 in"); //set GPIO pin 5 to input //GPIO pin 24 input from break beam (garage-door-like sensor)
 
 
 	//Initialize the Wiring Pi Libary
@@ -67,7 +67,7 @@ int initGPIO_Uart(void) {
 	//Initialize WiringPi -- using Broadcom processor pin numbers
 	wiringPiSetupGpio();
 
-
+	digitalWrite(enableAndGateOutput, HIGH); //enable the AND GATE and allow the UART and breakBeam outputs to turn on
 
 	usleep(2000000); //wait 2 seconds (in microseconds) to act as a power up delay for the Sabertooth Motor Controller
 	serialPutchar(UART_ID, 0xAA); //Send the autobauding character to Sabertooth first to stop motors from twitching!
@@ -175,6 +175,8 @@ void sendMotorControllerSpeedBytes(int UART_PORT_ID, int LeftYvalueControllerInp
 		serialPutchar(UART_PORT_ID, RightMotorSerialOutput);
 		nextMilliSecondCountRightUART += 80; //run this "if() statement in 80 milliseconds
 	}
+
+	printf("afterMotorDataSend\r\n");
 }
 
 
@@ -213,9 +215,9 @@ int gpioPinOperations(void) {
 #ifdef PERMIT_SHUTDOWN_PI_USING_GPIO_OR_CONTROLLER
 	/*Now read the input GPIO pins for things that dont need a high update rate*/
 	if (millis() > nextMilliSecondCountGPIO) {
-		if (digitalRead(shutdownPiSwitchInput) == 1) {
-			//if shutdown counter reaches 5 seconds, shutdown the Pi
-			if (shutdownCount > 5) {
+		if ((digitalRead(shutdownPiSwitchInput)) == 1 || ) {
+			//if shutdown counter reaches 10 seconds, shutdown the Pi
+			if (shutdownCount > 10) {
 				//system("sudo shutdown -k now"); //send test shutdown message
 				system("sudo shutdown -P now"); //shutdown Pi and power off immediately
 			}

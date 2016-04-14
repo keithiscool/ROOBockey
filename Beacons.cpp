@@ -5,10 +5,10 @@
 /*Define Shapes and Colors for Known Target Beacons:
 Green Triangle
 Blue Rectangle
-Purple Pentagon
 Red Octagon
-Yellow Circle
 */
+
+
 
 Beacon::Beacon() { // Must have a "simple" declaration for the class...
 	// nothing here in the constructor
@@ -25,7 +25,7 @@ Beacon::Beacon(string name) { // this is the class declaration that I am actuall
 		//and HSV max values
 
 		setHSVmin(Scalar(0, 0, 0));
-		setHSVmax(Scalar(255, 255, 255));
+		setHSVmax(Scalar(0, 255, 0));
 
 		setColor(GREEN);
 		setShape("Triangle");
@@ -37,23 +37,12 @@ Beacon::Beacon(string name) { // this is the class declaration that I am actuall
 		//and HSV max values
 
 		setHSVmin(Scalar(0, 0, 0));
-		setHSVmax(Scalar(255, 255, 255));
+		setHSVmax(Scalar(255, 0, 0));
 
 		setColor(BLUE);
 		setShape("Rectangle");
 	}
 
-	if (name == "PurplePentagon") {
-
-		//TODO: use "calibration mode" to find HSV min
-		//and HSV max values
-
-		setHSVmin(Scalar(0, 0, 0));
-		setHSVmax(Scalar(255, 255, 255));
-
-		setColor(PURPLE);
-		setShape("Pentagon");
-	}
 
 	if (name == "RedOctagon") {
 
@@ -61,23 +50,12 @@ Beacon::Beacon(string name) { // this is the class declaration that I am actuall
 		//and HSV max values
 
 		setHSVmin(Scalar(0, 0, 0));
-		setHSVmax(Scalar(255, 255, 255));
+		setHSVmax(Scalar(0, 0, 255));
 
 		setColor(RED);
 		setShape("Octagon");
 	}
 
-	if (name == "YellowCircle") {
-
-		//TODO: use "calibration mode" to find HSV min
-		//and HSV max values
-
-		setHSVmin(Scalar(0, 0, 0));
-		setHSVmax(Scalar(255, 255, 255));
-
-		setColor(YELLOW);
-		setShape("Circle");
-	}
 
 	if (name == "TestingObjectDetecting_NOT_Recording_Locations") { //do not record any locations of the beacons (this beacon is used for testing)
 		setShape("TestingObjectDetecting_NOT_Recording_Locations");
@@ -125,3 +103,16 @@ String Beacon::getShape() {
 void Beacon::setShape(string s) {
 	Shape = s;
 }
+
+
+
+/*Define Shapes and Colors for Known Target Beacon Colors and Shapes:
+* create some Beacon objects so that we can use their member functions/information
+* the text "Color_shape" tells the class definition (In "Beacons.c") what shape and color category the beacon falls in*/
+Beacon RedOctagon("RedOctagon");
+Beacon BlueRectangle("BlueRectangle");
+Beacon GreenTriangle("GreenTriangle");
+//Now define the vectors in case multiple beacons need to be tracked
+vector<Beacon> RedOctagonVector;
+vector<Beacon> BlueRectangleVector;
+vector<Beacon> GreenTriangleVector;

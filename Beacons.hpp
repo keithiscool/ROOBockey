@@ -1,7 +1,6 @@
 #ifndef BEACONS_HPP
 #define BEACONS_HPP
 
-#include "defs.hpp"
 
 class Beacon {
 
@@ -33,27 +32,19 @@ private:
 	Scalar HSVmin, HSVmax;
 };
 
-#ifdef USE_EXTERNS
-	extern vector<Beacon> YellowTrianglesVector;
-	extern vector<Beacon> RedSquaresVector;
-	extern vector<Beacon> PurplePentagonsVector;
-	extern vector<Beacon> BlueHexagonsVector;
-	extern vector<Beacon> GreenCirclesVector;
-#else
-	/*Define Shapes and Colors for Known Target Beacon Colors and Shapes:
-	* create some Beacon objects so that we can use their member functions/information
-	* the text "Color_shape" tells the class definition (In "Beacons.c") what shape and color category the beacon falls in*/
-	Beacon YellowTriangle("YellowTriangle");
-	Beacon RedSquare("RedRectangle");
-	Beacon PurplePentagon("PurplePentagon");
-	Beacon BlueHexagon("BlueHexagon");
-	Beacon GreenCircle("GreenCircle");
-	//Now define the vectors in case multiple beacons need to be tracked
-	vector<Beacon> YellowTrianglesVector;
-	vector<Beacon> RedSquaresVector;
-	vector<Beacon> PurplePentagonsVector;
-	vector<Beacon> BlueHexagonsVector;
-	vector<Beacon> GreenCirclesVector;
-#endif
+
+
+/*Define Shapes and Colors for Known Target Beacon Colors and Shapes:
+* create some Beacon objects so that we can use their member functions/information
+* the text "Color_shape" tells the class definition (In "Beacons.c") what shape and color category the beacon falls in*/
+extern Beacon RedOctagon("RedOctagon");
+extern Beacon BlueRectangle("BlueRectangle");
+extern Beacon GreenTriangle("GreenTriangle");
+//Now define the vectors in case multiple beacons need to be tracked
+extern vector<Beacon> RedOctagonVector;
+extern vector<Beacon> BlueRectangleVector;
+extern vector<Beacon> GreenTriangleVector;
+
+
 
 #endif /* BEACONS_HPP */

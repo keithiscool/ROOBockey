@@ -1,21 +1,150 @@
-﻿Build started 4/14/2016 6:47:47 AM.
+﻿Build started 4/14/2016 11:57:05 AM.
      1>Project "C:\Users\Keith\Documents\GitHub\ROObockey\ROObockeyV1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\OpenCV-3.0.0\build\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Beacons.cpp GPIO_UART.cpp ObjectTracking.cpp Xbox360Controller.cpp defs.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\OpenCV-3.0.0\build\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Beacons.cpp GPIO_UART.cpp ObjectTracking.cpp Xbox360Controller.cpp main.cpp
          main.cpp
      1>c:\users\keith\documents\github\roobockey\Xbox360Controller.hpp(6): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
-         defs.cpp
          Xbox360Controller.cpp
      1>Xbox360Controller.cpp(22): fatal error C1083: Cannot open include file: 'wiringPi.h': No such file or directory
+         ObjectTracking.cpp
+     1>c:\users\keith\documents\github\roobockey\Xbox360Controller.hpp(6): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
          GPIO_UART.cpp
      1>GPIO_UART.cpp(7): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
-         Generating Code...
-         Compiling...
-         ObjectTracking.cpp
          Beacons.cpp
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(10): error C2061: syntax error : identifier 'string'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(10): error C2535: 'Beacon::Beacon(void)' : member function already defined or declared
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(8) : see declaration of 'Beacon::Beacon'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(17): error C2146: syntax error : missing ';' before identifier 'getHSVmin'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(17): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(17): warning C4183: 'getHSVmin': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(18): error C2146: syntax error : missing ';' before identifier 'getHSVmax'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(18): warning C4183: 'getHSVmax': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(19): error C2061: syntax error : identifier 'Scalar'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(20): error C2061: syntax error : identifier 'Scalar'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(22): error C2146: syntax error : missing ';' before identifier 'getColor'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(22): warning C4183: 'getColor': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(23): error C2061: syntax error : identifier 'Scalar'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(24): error C2146: syntax error : missing ';' before identifier 'getShape'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(24): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(24): warning C4183: 'getShape': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(25): error C2061: syntax error : identifier 'string'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(30): error C2146: syntax error : missing ';' before identifier 'Shape'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(30): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(31): error C2146: syntax error : missing ';' before identifier 'Color'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(32): error C2146: syntax error : missing ';' before identifier 'HSVmin'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(32): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(32): error C2143: syntax error : missing ';' before ','
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(32): error C2238: unexpected token(s) preceding ';'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(40): error C2664: 'Beacon::Beacon(const Beacon &)' : cannot convert argument 1 from 'const char [11]' to 'const Beacon &'
+                 Reason: cannot convert from 'const char [11]' to 'const Beacon'
+                 No constructor could take the source type, or constructor overload resolution was ambiguous
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(41): error C2664: 'Beacon::Beacon(const Beacon &)' : cannot convert argument 1 from 'const char [14]' to 'const Beacon &'
+                 Reason: cannot convert from 'const char [14]' to 'const Beacon'
+                 No constructor could take the source type, or constructor overload resolution was ambiguous
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(42): error C2664: 'Beacon::Beacon(const Beacon &)' : cannot convert argument 1 from 'const char [14]' to 'const Beacon &'
+                 Reason: cannot convert from 'const char [14]' to 'const Beacon'
+                 No constructor could take the source type, or constructor overload resolution was ambiguous
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(44): error C2143: syntax error : missing ';' before '<'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(44): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(45): error C2143: syntax error : missing ';' before '<'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(45): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(46): error C2143: syntax error : missing ';' before '<'
+     1>c:\users\keith\documents\github\roobockey\Beacons.hpp(46): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Beacons.cpp(21): error C2511: 'Beacon::Beacon(std::string)' : overloaded member function not found in 'Beacon'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(5) : see declaration of 'Beacon'
+     1>Beacons.cpp(27): error C2660: 'Beacon::setHSVmin' : function does not take 1 arguments
+     1>Beacons.cpp(28): error C2660: 'Beacon::setHSVmax' : function does not take 1 arguments
+     1>Beacons.cpp(30): error C2660: 'Beacon::setColor' : function does not take 1 arguments
+     1>Beacons.cpp(31): error C2660: 'Beacon::setShape' : function does not take 1 arguments
+     1>Beacons.cpp(39): error C2660: 'Beacon::setHSVmin' : function does not take 1 arguments
+     1>Beacons.cpp(40): error C2660: 'Beacon::setHSVmax' : function does not take 1 arguments
+     1>Beacons.cpp(42): error C2660: 'Beacon::setColor' : function does not take 1 arguments
+     1>Beacons.cpp(43): error C2660: 'Beacon::setShape' : function does not take 1 arguments
+     1>Beacons.cpp(52): error C2660: 'Beacon::setHSVmin' : function does not take 1 arguments
+     1>Beacons.cpp(53): error C2660: 'Beacon::setHSVmax' : function does not take 1 arguments
+     1>Beacons.cpp(55): error C2660: 'Beacon::setColor' : function does not take 1 arguments
+     1>Beacons.cpp(56): error C2660: 'Beacon::setShape' : function does not take 1 arguments
+     1>Beacons.cpp(61): error C2660: 'Beacon::setShape' : function does not take 1 arguments
+     1>Beacons.cpp(80): error C2556: 'cv::Scalar Beacon::getHSVmin(void)' : overloaded function differs only by return type from 'int Beacon::getHSVmin(void)'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(17) : see declaration of 'Beacon::getHSVmin'
+     1>Beacons.cpp(80): error C2371: 'Beacon::getHSVmin' : redefinition; different basic types
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(17) : see declaration of 'Beacon::getHSVmin'
+     1>Beacons.cpp(81): error C2039: 'HSVmin' : is not a member of 'Beacon'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(5) : see declaration of 'Beacon'
+     1>Beacons.cpp(81): error C2065: 'HSVmin' : undeclared identifier
+     1>Beacons.cpp(83): error C2556: 'cv::Scalar Beacon::getHSVmax(void)' : overloaded function differs only by return type from 'int Beacon::getHSVmax(void)'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(18) : see declaration of 'Beacon::getHSVmax'
+     1>Beacons.cpp(83): error C2371: 'Beacon::getHSVmax' : redefinition; different basic types
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(18) : see declaration of 'Beacon::getHSVmax'
+     1>Beacons.cpp(84): error C2039: 'HSVmax' : is not a member of 'Beacon'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(5) : see declaration of 'Beacon'
+     1>Beacons.cpp(84): error C2065: 'HSVmax' : undeclared identifier
+     1>Beacons.cpp(86): error C2511: 'void Beacon::setHSVmin(cv::Scalar)' : overloaded member function not found in 'Beacon'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(5) : see declaration of 'Beacon'
+     1>Beacons.cpp(87): error C2039: 'HSVmin' : is not a member of 'Beacon'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(5) : see declaration of 'Beacon'
+     1>Beacons.cpp(87): error C2065: 'HSVmin' : undeclared identifier
+     1>Beacons.cpp(89): error C2511: 'void Beacon::setHSVmax(cv::Scalar)' : overloaded member function not found in 'Beacon'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(5) : see declaration of 'Beacon'
+     1>Beacons.cpp(90): error C2039: 'HSVmax' : is not a member of 'Beacon'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(5) : see declaration of 'Beacon'
+     1>Beacons.cpp(90): error C2065: 'HSVmax' : undeclared identifier
+     1>Beacons.cpp(94): error C2556: 'cv::Scalar Beacon::getColor(void)' : overloaded function differs only by return type from 'int Beacon::getColor(void)'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(22) : see declaration of 'Beacon::getColor'
+     1>Beacons.cpp(94): error C2371: 'Beacon::getColor' : redefinition; different basic types
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(22) : see declaration of 'Beacon::getColor'
+     1>Beacons.cpp(95): error C2065: 'Color' : undeclared identifier
+     1>Beacons.cpp(97): error C2511: 'void Beacon::setColor(cv::Scalar)' : overloaded member function not found in 'Beacon'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(5) : see declaration of 'Beacon'
+     1>Beacons.cpp(98): error C2065: 'Color' : undeclared identifier
+     1>Beacons.cpp(100): error C2556: 'cv::String Beacon::getShape(void)' : overloaded function differs only by return type from 'int Beacon::getShape(void)'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(24) : see declaration of 'Beacon::getShape'
+     1>Beacons.cpp(100): error C2371: 'Beacon::getShape' : redefinition; different basic types
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(24) : see declaration of 'Beacon::getShape'
+     1>Beacons.cpp(101): error C2065: 'Shape' : undeclared identifier
+     1>Beacons.cpp(103): error C2511: 'void Beacon::setShape(std::string)' : overloaded member function not found in 'Beacon'
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(5) : see declaration of 'Beacon'
+     1>Beacons.cpp(104): error C2065: 'Shape' : undeclared identifier
+     1>Beacons.cpp(112): error C2374: 'RedOctagon' : redefinition; multiple initialization
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(40) : see declaration of 'RedOctagon'
+     1>Beacons.cpp(112): error C2664: 'Beacon::Beacon(const Beacon &)' : cannot convert argument 1 from 'const char [11]' to 'const Beacon &'
+                 Reason: cannot convert from 'const char [11]' to 'const Beacon'
+                 No constructor could take the source type, or constructor overload resolution was ambiguous
+     1>Beacons.cpp(113): error C2374: 'BlueRectangle' : redefinition; multiple initialization
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(41) : see declaration of 'BlueRectangle'
+     1>Beacons.cpp(113): error C2664: 'Beacon::Beacon(const Beacon &)' : cannot convert argument 1 from 'const char [14]' to 'const Beacon &'
+                 Reason: cannot convert from 'const char [14]' to 'const Beacon'
+                 No constructor could take the source type, or constructor overload resolution was ambiguous
+     1>Beacons.cpp(114): error C2374: 'GreenTriangle' : redefinition; multiple initialization
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(42) : see declaration of 'GreenTriangle'
+     1>Beacons.cpp(114): error C2664: 'Beacon::Beacon(const Beacon &)' : cannot convert argument 1 from 'const char [14]' to 'const Beacon &'
+                 Reason: cannot convert from 'const char [14]' to 'const Beacon'
+                 No constructor could take the source type, or constructor overload resolution was ambiguous
+     1>Beacons.cpp(116): error C2872: 'vector' : ambiguous symbol
+                 could be 'c:\users\keith\documents\github\roobockey\Beacons.hpp(44) : int vector'
+                 or       'C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\vector(650) : std::vector'
+     1>Beacons.cpp(116): error C2143: syntax error : missing ';' before '<'
+     1>Beacons.cpp(116): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Beacons.cpp(117): error C2872: 'vector' : ambiguous symbol
+                 could be 'c:\users\keith\documents\github\roobockey\Beacons.hpp(44) : int vector'
+                 or       'C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\vector(650) : std::vector'
+     1>Beacons.cpp(117): error C2143: syntax error : missing ';' before '<'
+     1>Beacons.cpp(117): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Beacons.cpp(117): error C2086: 'int vector' : redefinition
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(44) : see declaration of 'vector'
+     1>Beacons.cpp(118): error C2872: 'vector' : ambiguous symbol
+                 could be 'c:\users\keith\documents\github\roobockey\Beacons.hpp(44) : int vector'
+                 or       'C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\vector(650) : std::vector'
+     1>Beacons.cpp(118): error C2143: syntax error : missing ';' before '<'
+     1>Beacons.cpp(118): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Beacons.cpp(118): error C2086: 'int vector' : redefinition
+                 c:\users\keith\documents\github\roobockey\Beacons.hpp(44) : see declaration of 'vector'
          Generating Code...
      1>Done Building Project "C:\Users\Keith\Documents\GitHub\ROObockey\ROObockeyV1.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:12.40
+Time Elapsed 00:00:10.27

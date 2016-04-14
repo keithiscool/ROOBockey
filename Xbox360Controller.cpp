@@ -154,14 +154,18 @@ int parseXbox360Controller(void) {
 
 
 
-
-
-
 	//check to see if the wireless Xbox360 controller is giving valid data and if so, start using the GPIO pins in the RPi2
 	if (goodData == 1) {
 
 #ifdef SOFTWARE_EMERGENCY_STOP
-		while (BxboxCenterIcon == 1); //if center button is pressed, dont do anything
+		while (BxboxCenterIcon == 1) { //if center button is pressed, dont do anything
+			sendMotorControllerSpeedBytes(UART_ID, 64, 192); //halt motors
+			digitalWrite(shootPinOutput, LOW);
+			int breakBeamLEDOutput = 0;					//GPIO pin 17 output a test output for the Break Beam
+			int shootPinOutput = 1;						//GPIO pin 18 output controls the solenoid discrete output
+			int controllerConnectedLEDOutput = 3;				//GPIO pin 22 output controls the solenoid discrete output
+			int enableAndGateOutput = 4;					//GPIO pin 23 output controls the solenoid discrete output
+		}
 #endif
 
 		if (millis() > nextMilliSecondCountGPIO) {

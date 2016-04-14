@@ -1,11 +1,30 @@
+#include "defs.hpp"
 #include "ObjectTracking.hpp"
-
-//This file has functions that detects whether shapes of predetermined color and shape are within the camera frames
+#include "Xbox360Controller.hpp"
+#include "Beacons.hpp"
+#include <thread>
+#include <wiringPi.h>
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*Color Detection Stuff Here*/
 /*Shape Detection Stuff At the Bottom*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+const string trackbarWindowName = "Trackbars";
+
+MouseCalibrateFilter MouseInfo; //create class declaration (create the object that stores the mouse information)
+MouseCalibrateFilter *MouseHSVCalibrationPtr = &MouseInfo; //use pointer to modify the values within the functions "clickAndDragRectangle() and mouseRecordHSV_Values()"
+
+//initial min and max HSV filter values.
+//these will be changed using trackbars
+int H_MIN = 0;
+int H_MAX = 256;
+int S_MIN = 0;
+int S_MAX = 256;
+int V_MIN = 0;
+int V_MAX = 256;
+
 
 
 void imageProcessingRoutine(void){
@@ -49,36 +68,32 @@ void imageProcessingRoutine(void){
 	cap >> src0; //get a new frame from camera
 #endif
 
-	while (1) {
-
-		src = src0.clone(); //get a "deep copy" (physical, not pointer) copy the input video frame
-		cvtColor(src, HSV_Input, COLOR_BGR2HSV); //convert the input BGR color image to a HSV image
+	src = src0.clone(); //get a "deep copy" (physical, not pointer) copy the input video frame
+	cvtColor(src, HSV_Input, COLOR_BGR2HSV); //convert the input BGR color image to a HSV image
 
 
 #ifdef CALIBRATION_MODE 
-		//set HSV values from user selected region
-		mouseRecordHSV_Values(src, HSV_Input);
+	//set HSV values from user selected region
+	mouseRecordHSV_Values(src, HSV_Input);
 
-		if ((calibratingTrackColorFilteredObjects(src, HSV_Input, contours, hierarchy, ColorThresholded_Img0)) > 0) { //number of objects detected > 0 and < "MAX_NUM_OBJECTS"
-			ColorThresholded_Img = ColorThresholded_Img0.clone(); //had to clone the image to pass a "deep copy" to the shape detection function
-			shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
-			outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
-		}
+	if ((calibratingTrackColorFilteredObjects(src, HSV_Input, contours, hierarchy, ColorThresholded_Img0)) > 0) { //number of objects detected > 0 and < "MAX_NUM_OBJECTS"
+		ColorThresholded_Img = ColorThresholded_Img0.clone(); //had to clone the image to pass a "deep copy" to the shape detection function
+		shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
+		outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
+	}
 #else
-		if ((trackColorFilteredObjects(src, HSV_Input, YellowTrianglesVector, contours, hierarchy, ColorThresholded_Img0)) > 0) { //number of objects detected > 0 and < MAX_NUM_OBJECTS
-			ColorThresholded_Img = ColorThresholded_Img0.clone(); //had to clone the image to pass a "deep copy" to the shape detection function
-			shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
-			outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
-		}
+	if ((trackColorFilteredObjects(src, HSV_Input, YellowTrianglesVector, contours, hierarchy, ColorThresholded_Img0)) > 0) { //number of objects detected > 0 and < MAX_NUM_OBJECTS
+		ColorThresholded_Img = ColorThresholded_Img0.clone(); //had to clone the image to pass a "deep copy" to the shape detection function
+		shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
+		outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
+	}
 #endif //CALIBRATION_MODE
 
-		imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
-		imshow("ColorThresholdedImg", ColorThresholded_Img0);
-		imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
-		imshow("OutputImg", outputImg);
-		waitKey(1); //delay in milliseconds so OpenCV does not consume all processor time. "imshow" will not appear without this waitKey() command
-		//usleep(100); //100 microsecond delay
-	}
+	imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
+	imshow("ColorThresholdedImg", ColorThresholded_Img0);
+	imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
+	imshow("OutputImg", outputImg);
+	waitKey(5); //delay in milliseconds so OpenCV does not consume all processor time. "imshow" will not appear without this waitKey() command
 
 }
 
@@ -393,7 +408,7 @@ void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec
 		if (vertices == 3) {
 			setLabel(outputImage, "TRI", contours[i]); //label triangles on output image
 			drawContours(outputImage, contours, "DetectingTriangles");
-			RecordBeaconPosition(YellowTriangle, contours, YellowTrianglesVector); //show YellowTriangle x,y pixel coordinates to terminal window
+			RecordBeaconPosition(GreenTriangle, contours, GreenTrianglesVector); //show YellowTriangle x,y pixel coordinates to terminal window
 		}
 
 		if ((vertices >= 4) && (vertices <= 6)) {
@@ -413,8 +428,9 @@ void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec
 			if ((vertices == 4) && (mincos >= -0.25) && (maxcos <= 0.3125)) { //angles between 72 and 105 are acceptable (90 is ideal)
 				setLabel(outputImage, "RECT", contours[i]); //label rectangles on output image
 				drawContours(outputImage, contours, "DetectingRectangles");
-				RecordBeaconPosition(RedSquare, contours, RedSquaresVector); //show RedRectangle x,y pixel coordinates to terminal window
+				RecordBeaconPosition(RedOctagon, contours, BlueSquaresVector); //show RedRectangle x,y pixel coordinates to terminal window
 			}
+/*			
 			// Detect and label pentagons (vertices == 5)
 			//else if (vtc == 5 && mincos >= -0.34 && maxcos <= -0.27) {
 			else if ((vertices == 5) && (mincos >= -0.42) && (maxcos <= -0.17)) { //angles between 100 & 115 are acceptable (108 is ideal)
@@ -422,11 +438,12 @@ void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec
 				drawContours(outputImage, contours, "DetectingPentagons");
 				RecordBeaconPosition(PurplePentagon, contours, PurplePentagonsVector); //show PurplePentagon x,y pixel coordinates to terminal window
 			}
-			// Detect and label hexagons (vertices == 6)
-			else if ((vertices == 6) && (mincos >= -0.55) && (maxcos <= -0.45)) {
+*/
+			// Detect and label octagons (vertices == 8)
+			else if ((vertices == 6) && (mincos >= -0.875) && (maxcos <= -0.625)) { //angle b/t 128.68 and 151.045 degrees (ideally 135 degrees for octagon)
 				setLabel(outputImage, "HEX", contours[i]); //label hexagons on output image
 				drawContours(outputImage, contours, "DetectingHexagons");
-				RecordBeaconPosition(BlueHexagon, contours, BlueHexagonsVector); //show BlueHexagon x,y pixel coordinates to terminal window
+				RecordBeaconPosition(BlueHexagon, contours, RedOctagonsVector); //show BlueHexagon x,y pixel coordinates to terminal window
 			}
 		}
 		else {
@@ -473,4 +490,79 @@ void DrawTarget(int x, int y, Mat &frame) {
 
 	putText(frame, intToString(x) + "," + intToString(y), Point(x, y + 30), 1, 1, GREEN, 2);
 
+}
+
+
+int chooseBeaconToShootAt(void) {
+	int i = 0;
+	int avgXValue = 0;
+	int MillisWaitTime = 300; //milliseconds until the code is run again
+
+	if (Ba == 1) { //green beacon was chosen by the user pressing the green button on the wireless controller
+		int numGreenTriangleBeacons = GreenTriangleVector.size;
+		//see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
+		if (numGreenTriangleBeacons == 0) {
+			if (millis() >= MillisWaitTime)
+			sendMotorControllerSpeedBytes(UART_ID, 96, 160); //rotate the robot clockwise in order to find the beacon
+			return 0;
+		}
+		else {
+			for (i = 0; i < numGreenTriangleBeacons; i++) {
+				avgXValue += GreenTriangleVector[i].getXPos; //average the x coordinates of the detected Green Triangles
+			}
+			avgXValue = avgXValue / i; //average the x coordinates of the detected Green Triangles
+			int alignment = abs(((FRAME_WIDTH / 2) - avgXValue) > 50);
+
+			if (alignment > 320) { //check to see if the center of the frame is lined up with the beacon
+				//move the robot to center the beacon with the center of the camera frame
+			}
+
+			if (alignment > 240) { //check to see if the center of the frame is lined up with the beacon
+				//move the robot to center the beacon with the center of the camera frame
+			}
+
+			if (alignment > 160) { //check to see if the center of the frame is lined up with the beacon
+				//move the robot to center the beacon with the center of the camera frame
+			}
+
+			if (alignment > 50) { //check to see if the center of the frame is lined up with the beacon
+				//move the robot to center the beacon with the center of the camera frame
+
+			}
+
+
+
+
+			
+
+
+	}
+
+
+
+
+	if (Bx == 1) { //green beacon was chosen
+		//see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
+		if (BlueRectangleVector.size == 0) {
+			sendMotorControllerSpeedBytes(UART_ID, 96, 160); //rotate the robot clockwise in order to find the beacon
+		}
+	}
+
+	if (Bb == 1) { //green beacon was chosen
+		//see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
+		if (RedOctagonVector.size == 0) {
+			sendMotorControllerSpeedBytes(UART_ID, 96, 160); //rotate the robot clockwise in order to find the beacon
+		}
+	}
+
+
+
+	return 0;
+}
+
+
+int alignWithBeacon(void) {
+
+
+	return 0;
 }
