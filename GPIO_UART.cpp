@@ -4,7 +4,6 @@
 #define GPIO_UART_CPP
 
 
-#ifdef RaspberryPi2Used //only use this file if the "RaspberryPi2Used" flag is set
 
 #include "GPIO_UART.hpp"
 #include <unistd.h>			//Used for UART
@@ -212,4 +211,3 @@ int gpioPinOperations(void) {
 	return 1;
 }
 
-#endif

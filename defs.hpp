@@ -48,7 +48,6 @@ int outputEnableAndGate = 4;					//GPIO pin 23 output controls the solenoid disc
 #endif //XBOX360CONTROLLER
 
 
-#define RaspberryPi2Used 1
 #define PRINT_CONTROLLER_DATA 1
 #define PRINT_SERIAL_DATA 1
 #define SOFTWARE_EMERGENCY_STOP 1

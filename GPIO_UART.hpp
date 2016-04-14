@@ -2,7 +2,11 @@
 #define UART_HPP
 
 
+#ifdef GPIO_UART_CPP
+
 #include "defs.hpp"
+
+#endif //GPIO_UART_CPP
 
 
 #ifdef GPIO_UART_CPP

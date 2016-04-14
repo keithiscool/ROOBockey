@@ -20,14 +20,11 @@ Guide: http://wiringpi.com/download-and-install/
 #define XBOX360CONTROLLER
 #include "defs.hpp"
 #include <wiringPi.h> //Utilize the "WiringPi GPIO library"
+#include "Xbox360Controller.hpp"
+#include "GPIO_UART.hpp"
 
 
 //#if defined(__linux__)
-#ifdef RaspberryPi2Used
-
-
-#include "Xbox360Controller.hpp"
-#include "GPIO_UART.hpp"
 
 
 #define JOY_DEV "/dev/input/js0" //Define the device that the controller data is pulled from
@@ -207,5 +204,3 @@ int parseXbox360Controller(void) {
 	//close(joy_fd);        /* too bad we never get here */
 }
 
-
-#endif
