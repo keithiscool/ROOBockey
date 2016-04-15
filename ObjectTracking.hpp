@@ -30,8 +30,6 @@ extern int V_MIN;
 extern int V_MAX;
 
 
-extern bool Ba, Bb, Bx, By, BlBump, BrBump, Bsel, Bstart, BlStick, BrStick, BxboxCenterIcon;
-
 
 //functions used for calibrating the HSV values used for filtering the color detections
 void clickAndDragRectangle(int event, int x, int y, int flags, void* param);
