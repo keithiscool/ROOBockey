@@ -39,14 +39,15 @@ int main(void) {
 	initController();
 	initGPIO_Uart();
 
-	std::thread imageProcessingThread([]() -> void {		
+	std::thread imageProcessingThread([]() -> void {
 		while(1) {
 			auto start = std::chrono::high_resolution_clock::now();
 			imageProcessingRoutine();
 			auto end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double, std::milli> elapsed = end - start;
+			std::chrone::seconds second(1.0);
 
-			(elapsed.count() > 0.0) ? std::this_thread::sleep_for(1.0 - elapsed.count()) : ;
+			(elapsed.count() > 0.0) ? std::this_thread::sleep_for(second - elapsed) : ;
 		}
 	});
 
