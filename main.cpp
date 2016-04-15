@@ -39,9 +39,7 @@ int main(void) {
 	initController();
 	initGPIO_Uart();
 
-	std::thread imageProcessingThread([]() -> void {
-		using namespace std::chrono_literals;
-		
+	std::thread imageProcessingThread([]() -> void {		
 		while(1) {
 			auto start = std::chrono::high_resolution_clock::now();
 			imageProcessingRoutine();
