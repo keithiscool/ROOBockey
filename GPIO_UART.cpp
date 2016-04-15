@@ -50,7 +50,7 @@ int initGPIO_Uart(void) {
 
 	//Initialize the Wiring Pi Libary
 	pinMode(breakBeamInput, INPUT);
-	pullUpDnControl(breakBeamInput, PUD_DOWN); // Enable pull-down resistor on button
+	pullUpDnControl(breakBeamInput, PUD_UP); // Enable pull-down resistor on button
 	pinMode(shutdownPiSwitchInput, INPUT);
 	pullUpDnControl(shutdownPiSwitchInput, PUD_DOWN); // Enable pull-down resistor on button
 	
