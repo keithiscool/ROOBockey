@@ -45,9 +45,9 @@ int main(void) {
 			imageProcessingRoutine();
 			auto end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double, std::milli> elapsed = end - start;
-			std::chrone::seconds second(1.0);
+			std::chrono::duraion<double> second(1.0);
 
-			(elapsed.count() > 0.0) ? std::this_thread::sleep_for(second - elapsed) : ;
+			(elapsed.count() >= 1.0) ? std::this_thread::sleep_for(second - elapsed) : ;
 		}
 	});
 
