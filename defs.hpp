@@ -32,12 +32,12 @@ extern int UART_ID;
 //http://wiringpi.com/pins/
 
 extern int breakBeamInput;						//GPIO pin 27 input from break beam (garage-door-like sensor)
-extern int shutdownPiSwitchInput;					//GPIO pin 24 input to run script to nicely power off RPi2 PowerLED
+extern int shutdownPiSwitchInput;				//GPIO pin 24 input to run script to nicely power off RPi2 PowerLED
 
 //Input at end of variable means "real-world input"
 extern int breakBeamLEDOutput;					//GPIO pin 17 output a test output for the Break Beam
 extern int shootPinOutput;						//GPIO pin 18 output controls the solenoid discrete output
-extern int controllerConnectedLEDOutput;				//GPIO pin 22 output controls the solenoid discrete output
+extern int controllerConnectedLEDOutput;		//GPIO pin 22 output controls the solenoid discrete output
 extern int enableAndGateOutput;					//GPIO pin 23 output controls the solenoid discrete output
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
