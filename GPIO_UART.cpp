@@ -217,7 +217,7 @@ int gpioPinOperations(void) {
 #ifdef PERMIT_SHUTDOWN_PI_USING_GPIO_OR_CONTROLLER
 	/*Now read the input GPIO pins for things that dont need a high update rate*/
 	if (millis() > nextMilliSecondCountGPIO) {
-		if ((digitalRead(shutdownPiSwitchInput)) == 1 || ) {
+		if ((digitalRead(shutdownPiSwitchInput) == 1) || (BxboxCenterIcon == 1)) {
 			//if shutdown counter reaches 10 seconds, shutdown the Pi
 			if (shutdownCount > 10) {
 				//system("sudo shutdown -k now"); //send test shutdown message

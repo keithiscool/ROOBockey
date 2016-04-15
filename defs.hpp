@@ -49,10 +49,21 @@ extern const int FRAME_HEIGHT;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//THESE ARE THE PROTECTED WIRELESS CONTROLLER VALUES FOR THE XBOX360 WIRELESS CONTROLLER
+//THESE VARIABLES ARE THE FINAL OUTPUT VALUES THAT CAN BE USED FOR THE CONTROLLER
+//THIS WAS IMPLEMENTED BECAUSE THE ***CONTROLLER INPUTS ALL 1's WHEN IT CONNECTS***
+//TO GET PAST THIS ISSUE, THE CODE WAITS UNTIL THE BUTTONS RETURN TO A ZERO STATE BEFORE IT CONTINUES
+//Declare all buttons (including select,start along with leftstick & rightstick presses
+bool Ba = 0, Bb = 0, Bx = 0, By = 0, BlBump = 0, BrBump = 0, Bsel = 0, Bstart = 0, BlStick = 0, BrStick = 0, BxboxCenterIcon = 0;
+
+//Declare all joysticks (16 bit signed integers)
+int Lx = 0, Ly = 0, Rx = 0, Ry = 0, Lt = 0, Rt = 0;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define PRINT_CONTROLLER_DATA 1
 #define PRINT_SERIAL_DATA 1
-#define SOFTWARE_EMERGENCY_STOP 1
+//#define SOFTWARE_EMERGENCY_STOP 1
 #define PERMIT_SHUTDOWN_PI_USING_GPIO_OR_CONTROLLER 1
 
 //#define ShowDetectedObjects 1
