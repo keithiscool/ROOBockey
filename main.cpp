@@ -34,16 +34,18 @@ int main(void) {
 
 //Initialize the Xbox360 Wireless Controller and UART Module on the Raspberry Pi 2
 
-	using namespace std::chrono_literals;
+
 
 	initController();
 	initGPIO_Uart();
 
 	std::thread imageProcessingThread([]() -> void {
+		using namespace std::chrono_literals;
+		
 		while(1) {
-			std::chrono start = std::chrono::high_resolution_clock::now();
+			auto start = std::chrono::high_resolution_clock::now();
 			imageProcessingRoutine();
-			std::chrono end = std::chrono::high_resolution_clock::now();
+			auto end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double, std::milli> elapsed = end - start;
 
 			(elapsed.count() > 0.0) ? std::this_thread::sleep_for(1.0 - elapsed.count()) : ;
