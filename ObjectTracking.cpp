@@ -3,6 +3,7 @@
 #include "Xbox360Controller.hpp"
 #include <thread>
 #include <wiringPi.h>
+#include <string>
 
 #define OBJECTTRACKING_CPP
 
@@ -40,6 +41,7 @@ vector<Beacon> BlueRectangleVector;
 vector<Beacon> GreenTriangleVector;
 
 
+int averageBeaconPosition = 0;
 
 
 void imageProcessingRoutine(void){
@@ -102,7 +104,8 @@ void imageProcessingRoutine(void){
 			ColorThresholded_Img = ColorThresholded_Img0.clone(); //had to clone the image to pass a "deep copy" to the shape detection function
 			shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
 			outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
-			chooseBeaconToShootAt();
+			averageBeaconPosition = chooseBeaconToShootAt();
+			alignWithBeacon(averageBeaconPosition);
 		}
 	}
 	if (Bx == 1) { //check if button on controller for beacon color was pressed
@@ -110,7 +113,8 @@ void imageProcessingRoutine(void){
 			ColorThresholded_Img = ColorThresholded_Img0.clone(); //had to clone the image to pass a "deep copy" to the shape detection function
 			shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
 			outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
-			chooseBeaconToShootAt();
+			averageBeaconPosition = chooseBeaconToShootAt();
+			alignWithBeacon(averageBeaconPosition);
 		}
 	}
 	if (Bb == 1) { //check if button on controller for beacon color was pressed
@@ -118,7 +122,8 @@ void imageProcessingRoutine(void){
 			ColorThresholded_Img = ColorThresholded_Img0.clone(); //had to clone the image to pass a "deep copy" to the shape detection function
 			shapeDetection(ColorThresholded_Img, contours, hierarchy, outputImg0); //search for shapes in the color filtered thresholded image
 			outputImg = outputImg0.clone(); //had to clone the image to pass a "deep copy" to the output "imshow"
-			chooseBeaconToShootAt();
+			averageBeaconPosition = chooseBeaconToShootAt();
+			alignWithBeacon(averageBeaconPosition);
 		}
 	}
 
@@ -129,6 +134,7 @@ void imageProcessingRoutine(void){
 
 #ifdef SHOW_OPENCV_IMAGES
 
+	const string mouseWindowName = "Mouse Operations";
 	imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
 	imshow("ColorThresholdedImg", ColorThresholded_Img0);
 	imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
@@ -434,7 +440,7 @@ static double angle(Point pt1, Point pt2, Point pt0) {
 //Function to locate all contours (shapes) within a given image
 void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec4i> hierarchy, Mat& outputImage) {
 
-	Beacon theBeacon;
+	Beacon theBeacon("unknown_shape");
 	vector<Point> approx; //each discovered contour (shape) found from approxPolyDP() function
 	outputImage = inputImage.clone(); //copy the input Mat image to get the size of the image
 	outputImage = Scalar(0, 0, 0); //black background for output image (overwrites the input image cloned values)
@@ -451,10 +457,11 @@ void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec
 		if (vertices == 3) {
 			setLabel(outputImage, "TRI", contours[i]); //label triangles on output image
 			drawContours(outputImage, contours, "DetectingTriangles");
-			RecordBeaconPosition(GreenTriangle, contours, GreenTrianglesVector); //show YellowTriangle x,y pixel coordinates to terminal window
+			RecordBeaconPosition(GreenTriangle, contours, GreenTriangleVector); //show YellowTriangle x,y pixel coordinates to terminal window
 		}
 
-		if ((vertices >= 4) && (vertices <= 6)) {
+		//if ((vertices >= 4) && (vertices <= 6)) {
+		if ((vertices > 3) && (vertices < 7)) {
 			// Get the cosines of all corners
 			vector<double> cos;
 			for (int j = 2; j < vertices + 1; j++)
@@ -471,25 +478,18 @@ void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec
 			if ((vertices == 4) && (mincos >= -0.25) && (maxcos <= 0.3125)) { //angles between 72 and 105 are acceptable (90 is ideal)
 				setLabel(outputImage, "RECT", contours[i]); //label rectangles on output image
 				drawContours(outputImage, contours, "DetectingRectangles");
-				RecordBeaconPosition(RedOctagon, contours, BlueSquaresVector); //show RedRectangle x,y pixel coordinates to terminal window
+				RecordBeaconPosition(RedOctagon, contours, BlueRectangleVector); //show RedRectangle x,y pixel coordinates to terminal window
 			}
-/*			
-			// Detect and label pentagons (vertices == 5)
-			//else if (vtc == 5 && mincos >= -0.34 && maxcos <= -0.27) {
-			else if ((vertices == 5) && (mincos >= -0.42) && (maxcos <= -0.17)) { //angles between 100 & 115 are acceptable (108 is ideal)
-				setLabel(outputImage, "PENT", contours[i]); //label pentagons on output image
-				drawContours(outputImage, contours, "DetectingPentagons");
-				RecordBeaconPosition(PurplePentagon, contours, PurplePentagonsVector); //show PurplePentagon x,y pixel coordinates to terminal window
-			}
-*/
+
 			// Detect and label octagons (vertices == 8)
 			else if ((vertices == 8) && (mincos >= -0.875) && (maxcos <= -0.625)) { //angle b/t 128.68 and 151.045 degrees (ideally 135 degrees for octagon)
 				setLabel(outputImage, "OCT", contours[i]); //label hexagons on output image
-				drawContours(outputImage, contours, "DetectingHexagons");
-				RecordBeaconPosition(RedOctagon, contours, RedOctagonsVector); //show BlueHexagon x,y pixel coordinates to terminal window
+				drawContours(outputImage, contours, "DetectingOctagons");
+				RecordBeaconPosition(RedOctagon, contours, RedOctagonVector); //show BlueHexagon x,y pixel coordinates to terminal window
 			}
-		}
-		else {
+
+			//Now detect circles using better method that "Houghcircles"
+/*		}else {
 			// Detect and label circles (vertices > 6)
 			double area = contourArea(contours[i]);
 			Rect r = boundingRect(contours[i]);
@@ -501,6 +501,7 @@ void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec
 				drawContours(outputImage, contours, "DetectingCircles");
 				RecordBeaconPosition(GreenCircle, contours, GreenCircleVector);
 			}
+*/
 		}
 	}
 }
@@ -549,11 +550,11 @@ int chooseBeaconToShootAt(void) {
 	if (Ba == 1) { //green beacon was chosen by the user pressing the green button on the wireless controller
 		int numGreenTriangleBeacons = GreenTriangleVector.size;
 		if (numGreenTriangleBeacons == 0) { //see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
-			if (millis() > MillisWaitTime) {
+			/*if (millis() > MillisWaitTime) {
 				sendMotorControllerSpeedBytes(UART_ID, 80, 176); //rotate the robot clockwise in order to find the beacon
 				MillisWaitTime += MillisWaitTime;
 				return 0;
-			}
+			}*/
 		}else { //some beacons were found
 			for (i = 0; i < numGreenTriangleBeacons; i++) {
 				avgXValue += GreenTriangleVector[i].getXPos; //average the x coordinates of the detected Green Triangles
@@ -571,32 +572,35 @@ int chooseBeaconToShootAt(void) {
 	if (Bx == 1) { //blue beacon was chosen
 		int numBlueRectangleBeacons = BlueRectangleVector.size;
 		if (numBlueRectangleBeacons == 0) { //see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
-			if (millis() > MillisWaitTime) {
+			/*if (millis() > MillisWaitTime) {
 				sendMotorControllerSpeedBytes(UART_ID, 80, 176); //rotate the robot clockwise in order to find the beacon
+				MillisWaitTime += MillisWaitTime;
 				return 0;
-			}
+			}*/
 		}else { //some beacons were found
 			for (i = 0; i < numBlueRectangleBeacons; i++) {
 				avgXValue += BlueRectangleVector[i].getXPos; //average the x coordinates of the detected Green Triangles
 			}
 			avgXValue = avgXValue / numBlueRectangleBeacons; //average the x coordinates of the detected Green Triangles
 			alignment = abs((FRAME_WIDTH / 2) - avgXValue);
-			if (avgXValue < 0) {
-				return alignment*(-1);
-			}else {
-				return alignment;
-			}
+			//if (avgXValue < 0) {
+			//	return alignment*(-1);
+			//}else {
+			//	return alignment;
+			//}
+			if (alignment == )
 		}
 	}
 
 
 	if (Bb == 1) { //red beacon was chosen
 		int numRedOctagonBeacons = RedOctagonVector.size;
-		if (numGreenTriangleBeacons == 0) { //see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
-			if (millis() >= MillisWaitTime) {
+		if (numRedOctagonBeacons == 0) { //see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
+			/*if (millis() >= MillisWaitTime) {
 				sendMotorControllerSpeedBytes(UART_ID, 80, 176); //rotate the robot clockwise in order to find the beacon
+				MillisWaitTime += MillisWaitTime;
 				return 0;
-			}	
+			}*/	
 		}else { //some beacons were found
 			for (i = 0; i < numRedOctagonBeacons; i++) {
 				avgXValue += RedOctagonVector[i].getXPos; //average the x coordinates of the detected Green Triangles
@@ -616,30 +620,54 @@ int chooseBeaconToShootAt(void) {
 
 
 
-
-int alignWithBeacon(short pixelsFromCenter) {
-	short millisDuration = 0;
+//Resulution for output images are:
+//const int FRAME_WIDTH x FRAME_HEIGHT == (640x480 window)
+int alignWithBeacon(int pixelsFromCenter) {
 
 	if (pixelsFromCenter > 320) { //check to see if the center of the frame is lined up with the beacon
-		//move the robot to center the beacon with the center of the camera frame
-		
+		//move the robot right to center the beacon with the center of the camera frame
+		sendMotorControllerSpeedBytes(UART_ID,)
 		return 1;
 	}
 
-	if (alignment > 240) { //check to see if the center of the frame is lined up with the beacon
-		//move the robot to center the beacon with the center of the camera frame
+	if (pixelsFromCenter > 240) { //check to see if the center of the frame is lined up with the beacon
+		//move the robot right to center the beacon with the center of the camera frame
 		return 1;
 	}
 
-	if (alignment > 160) { //check to see if the center of the frame is lined up with the beacon
-		//move the robot to center the beacon with the center of the camera frame
+	if (pixelsFromCenter > 160) { //check to see if the center of the frame is lined up with the beacon
+		//move the robot right to center the beacon with the center of the camera frame
 		return 1;
 	}
 
-	if (alignment > 50) { //check to see if the center of the frame is lined up with the beacon
-		//move the robot to center the beacon with the center of the camera frame
+	if (pixelsFromCenter > 50) { //check to see if the center of the frame is lined up with the beacon
+		//move the robot right to center the beacon with the center of the camera frame
 		return 1;
 	}
+
+	if (pixelsFromCenter > -50) { //check to see if the center of the frame is lined up with the beacon
+		//move the robot left to center the beacon with the center of the camera frame
+		//void sendMotorControllerSpeedBytes(int UART_PORT_ID, int LeftYvalueControllerInput, int RightYvalueControllerInput)
+		sendMotorControllerSpeedBytes(UART_ID, )
+			return 1;
+	}
+
+	if (pixelsFromCenter > -160) { //check to see if the center of the frame is lined up with the beacon
+		//move the robot left to center the beacon with the center of the camera frame
+		return 1;
+	}
+
+	if (pixelsFromCenter > -240) { //check to see if the center of the frame is lined up with the beacon
+		//move the robot left to center the beacon with the center of the camera frame
+		return 1;
+	}
+
+	if (pixelsFromCenter > -320) { //check to see if the center of the frame is lined up with the beacon
+		//move the robot left to center the beacon with the center of the camera frame
+		sendMotorControllerSpeedBytes(UART_ID, )
+		return 1;
+	}
+
 
 	return 0;
 }
