@@ -28,13 +28,13 @@
 #include <thread>
 #include <chrono>
 
-using namespace std::chrono_literals;
 
 int main(void) {
 
 
 //Initialize the Xbox360 Wireless Controller and UART Module on the Raspberry Pi 2
 
+	using namespace std::chrono_literals;
 
 	initController();
 	initGPIO_Uart();
