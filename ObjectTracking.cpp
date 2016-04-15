@@ -135,22 +135,22 @@ void imageProcessingRoutine(void){
 #ifdef SHOW_OPENCV_IMAGES
 
 	const string mouseWindowName = "Mouse Operations";
-	if(!src.data)
+	if(src.data)
 	{
 		imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
 	}
 
-	if(!ColorThresholded_Img0.data)
+	if(ColorThresholded_Img0.data)
 	{
 		imshow("ColorThresholdedImg", ColorThresholded_Img0);
 	}
 
-	if(!ColorThresholded_Img.data)
+	if(ColorThresholded_Img.data)
 	{
 		imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
 	}
 
-	if(!outputImg.data)
+	if(outputImg.data)
 	{
 		imshow("OutputImg", outputImg);
 	}
