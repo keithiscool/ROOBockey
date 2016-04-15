@@ -135,26 +135,26 @@ void imageProcessingRoutine(void){
 #ifdef SHOW_OPENCV_IMAGES
 
 	const string mouseWindowName = "Mouse Operations";
-	if(src != NULL)
+	if(!src.data)
 	{
 		imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
 	}
 
-	if(ColorThresholded_Img0 != NULL)
+	if(!ColorThresholded_Img0.data)
 	{
 		imshow("ColorThresholdedImg", ColorThresholded_Img0);
 	}
 
-	if(ColorThresholded_Img != NULL)
+	if(!ColorThresholded_Img.data)
 	{
 		imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
 	}
 
-	if(OutputImg != NULL)
+	if(!OutputImg.data)
 	{
 		imshow("OutputImg", outputImg);
 	}
-	
+
 	waitKey(5); //delay in milliseconds so OpenCV does not consume all processor time. "imshow" will not appear without this waitKey() command
 
 #endif //SHOW_OPENCV_IMAGES
