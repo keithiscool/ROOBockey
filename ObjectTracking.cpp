@@ -136,7 +136,7 @@ void imageProcessingRoutine(void){
 
 #ifdef SHOW_OPENCV_IMAGES
 
-	
+
 	if(src.data)
 	{
 		imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
@@ -630,7 +630,8 @@ void sendMotorCommand(int right, int left) {
 //Resulution for output images are:
 //const int FRAME_WIDTH x FRAME_HEIGHT == (640x480 window)
 int alignWithBeacon(int pixelsFromCenter) {
-
+	std::lock_guard lock(inputLock);
+	
 	if (pixelsFromCenter > 320) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot right to center the beacon with the center of the camera frame
 		sendMotorCommand(96, 32);

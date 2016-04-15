@@ -6,12 +6,17 @@
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
+#include <mutex>
+#include <thread>
+
 using namespace cv;
 using namespace std;
 
 
 #ifndef DEFS_HPP
 #define DEFS_HPP
+
+extern std::mutex inputLock;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 

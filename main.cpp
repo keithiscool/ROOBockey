@@ -45,8 +45,6 @@ int main(void) {
 			auto start = std::chrono::high_resolution_clock::now();
 
 			{
-				std::lock_guard<std::mutex> lock(inputLock);
-
 				imageProcessingRoutine();
 			}
 
