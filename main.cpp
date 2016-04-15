@@ -28,6 +28,7 @@
 #include <thread>
 #include <chrono>
 
+using namespace std::chrono_literals;
 
 int main(void) {
 
@@ -45,7 +46,7 @@ int main(void) {
 			std::chrono end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double, std::milli> elapsed = end - start;
 
-			(elapsed.count() > 0.0) ? std::this_thread::sleep_(1.0 - elapsed.count()) : ;
+			(elapsed.count() > 0.0) ? std::this_thread::sleep_for(1.0 - elapsed.count()) : ;
 		}
 	});
 
