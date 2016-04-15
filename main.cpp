@@ -43,8 +43,8 @@ int main(void) {
 
 		while(1) {
 			imageProcessingRoutine();
-			std::chrono now = std::chrono::high_resolution_clock::now();
-			std::this_thread::sleep_until(now + delay);
+			std::chrono current = std::chrono::high_resolution_clock::now();
+			std::this_thread::sleep_until(current + delay);
 		}
 	});
 
