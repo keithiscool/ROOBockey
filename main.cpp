@@ -39,7 +39,7 @@ int main(void) {
 	initGPIO_Uart();
 
 	std::thread imageProcessingThread([]() -> void {
-		std::chrono::duration<double, std::milli> delay = 1000.0;
+		std::chrono::duration<double, std::milli> delay = std::chrono::milliseconds(1000);
 
 		while(1) {
 			imageProcessingRoutine();
