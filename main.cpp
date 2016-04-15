@@ -39,12 +39,13 @@ int main(void) {
 	initGPIO_Uart();
 
 	std::thread imageProcessingThread([]() -> void {
-		std::chrono::duration<double, std::milli> delay = std::chrono::milliseconds(1000);
-
 		while(1) {
+			std::chrono start = std::chrono::high_resolution_clock::now();
 			imageProcessingRoutine();
-			std::chrono current = std::chrono::high_resolution_clock::now();
-			std::this_thread::sleep_until(current + delay);
+			std::chrono end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<double, std::milli> elapsed = end - start;
+
+			(elapsed.count() > 0.0) ? std::this_thread::sleep_(1.0 - elapsed.count()) : ;
 		}
 	});
 
