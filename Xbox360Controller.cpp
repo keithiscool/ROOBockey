@@ -61,12 +61,6 @@ int initController(void) {
 
 	fcntl(joy_fd, F_SETFL, O_NONBLOCK);   /* use non-blocking mode */
 
-	//Declare all buttons (including select,start along with leftstick & rightstick presses
-	Ba = 0, Bb = 0, Bx = 0, By = 0, BlBump = 0, BrBump = 0, Bsel = 0, Bstart = 0, BlStick = 0, BrStick = 0, BxboxCenterIcon = 0;
-
-	//Declare all joysticks (16 bit signed integers)
-	Lx = 0, Ly = 0, Rx = 0, Ry = 0, Lt = 0, Rt = 0;
-
 
 	return 1;
 }
