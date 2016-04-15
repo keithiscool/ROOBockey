@@ -615,48 +615,50 @@ int alignWithBeacon(int pixelsFromCenter) {
 
 	if (pixelsFromCenter > 320) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot right to center the beacon with the center of the camera frame
-		sendMotorControllerSpeedBytes(UART_ID,)
+		sendMotorCommand(96, 32);
 		return 1;
 	}
 
-	if (pixelsFromCenter > 240) { //check to see if the center of the frame is lined up with the beacon
+	else if (pixelsFromCenter > 240) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot right to center the beacon with the center of the camera frame
-        sendMotorControllerSpeedBytes(UART_ID,)
+		sendMotorCommand(96, 32);
 		return 1;
 	}
 
-	if (pixelsFromCenter > 160) { //check to see if the center of the frame is lined up with the beacon
+	else if (pixelsFromCenter > 160) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot right to center the beacon with the center of the camera frame
-        sendMotorControllerSpeedBytes(UART_ID,)
+		sendMotorCommand(80, 48);
 		return 1;
 	}
 
-	if (pixelsFromCenter > 50) { //check to see if the center of the frame is lined up with the beacon
+	else if (pixelsFromCenter > 50) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot right to center the beacon with the center of the camera frame
-        sendMotorControllerSpeedBytes(UART_ID,)
+		sendMotorCommand(72, 56);
 		return 1;
 	}
 
-	if (pixelsFromCenter > -50) { //check to see if the center of the frame is lined up with the beacon
+	else if (pixelsFromCenter > -50) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot left to center the beacon with the center of the camera frame
 		//void sendMotorControllerSpeedBytes(int UART_PORT_ID, int LeftYvalueControllerInput, int RightYvalueControllerInput)
-		sendMotorControllerSpeedBytes(UART_ID, )
+		sendMotorCommand(56, 72);
 			return 1;
 	}
 
-	if (pixelsFromCenter > -160) { //check to see if the center of the frame is lined up with the beacon
+	else if (pixelsFromCenter > -160) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot left to center the beacon with the center of the camera frame
+		sendMotorCommand(48, 80);
 		return 1;
 	}
 
-	if (pixelsFromCenter > -240) { //check to see if the center of the frame is lined up with the beacon
+	else if (pixelsFromCenter > -240) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot left to center the beacon with the center of the camera frame
+		sendMotorCommand(32, 96);
 		return 1;
 	}
 
-	if (pixelsFromCenter > -320) { //check to see if the center of the frame is lined up with the beacon
+	else if (pixelsFromCenter > -320) { //check to see if the center of the frame is lined up with the beacon
 		//move the robot left to center the beacon with the center of the camera frame
-		sendMotorControllerSpeedBytes(UART_ID, )
+		sendMotorCommand(32, 96);
 		return 1;
 	}
 
