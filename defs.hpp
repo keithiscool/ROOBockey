@@ -1,7 +1,3 @@
-#ifndef DEFS_HPP
-#define DEFS_HPP
-
-
 #include "opencv2/core/core.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/imgcodecs.hpp"
@@ -13,6 +9,9 @@
 using namespace cv;
 using namespace std;
 
+
+#ifndef DEFS_HPP
+#define DEFS_HPP
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -28,8 +27,8 @@ extern int UART_ID;
 
 //PIN ASSIGNMENTS -- Discrete Inputs/Outputs:
 //NOTE: THESE USE BROADCOM NUMBERS SINCE WiringPi DID NOT MAP THEM CORRECTLY
-//NOTE: Output at end of variable means "real-world output" 
-//PLEASE LOOK HERE FOR CORRECT PINOUT DIAGRAM: 
+//NOTE: Output at end of variable means "real-world output"
+//PLEASE LOOK HERE FOR CORRECT PINOUT DIAGRAM:
 //http://wiringpi.com/pins/
 
 extern int breakBeamInput;						//GPIO pin 27 input from break beam (garage-door-like sensor)
