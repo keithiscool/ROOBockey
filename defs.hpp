@@ -90,9 +90,10 @@ extern int Rt;
 #define USING_WEBCAM 1 //flag that is set to control whether the user uses the camera for input or a still picture as an input
 #define CALIBRATION_MODE 1 //calibrate the HSV filter for a specific color
 #define CAMERA_NUMBER 0 //flag to set source of video: "camera 0" is the builtin laptop webcam, "camera 1" is usb webcam
-#define MAX_NUM_OBJECTS 30 // Program will only track 30 objects at a time (this is just in case noise becomes a problem)
+#define MAX_NUM_OBJECTS 15 // Program will only track 30 objects at a time (this is just in case noise becomes a problem)
 //#define MIN_OBJECT_AREA 400 //Only allow larger objects //200*200
-#define MIN_OBJECT_AREA 1000 //Only allow larger objects
+//#define MIN_OBJECT_AREA 1000 //Only allow larger objects
+#define MIN_OBJECT_AREA 20000 //Only allow larger objects
 #define JOYSTICK_DEADZONE 10000 //only care about joystick values outside of the deadzone + & - around 0
 
 
