@@ -53,10 +53,25 @@ extern const int FRAME_HEIGHT;
 //THIS WAS IMPLEMENTED BECAUSE THE ***CONTROLLER INPUTS ALL 1's WHEN IT CONNECTS***
 //TO GET PAST THIS ISSUE, THE CODE WAITS UNTIL THE BUTTONS RETURN TO A ZERO STATE BEFORE IT CONTINUES
 //Declare all buttons (including select,start along with leftstick & rightstick presses
-bool Ba = 0, Bb = 0, Bx = 0, By = 0, BlBump = 0, BrBump = 0, Bsel = 0, Bstart = 0, BlStick = 0, BrStick = 0, BxboxCenterIcon = 0;
+extern bool Ba;
+extern bool Bb;
+extern bool Bx;
+extern bool By;
+extern bool BlBump;
+extern bool BrBump;
+extern bool Bsel;
+extern bool Bstart;
+extern bool BlStick;
+extern bool BrStick;
+extern bool BxboxCenterIcon;
 
 //Declare all joysticks (16 bit signed integers)
-int Lx = 0, Ly = 0, Rx = 0, Ry = 0, Lt = 0, Rt = 0;
+extern int Lx;
+extern int Ly;
+extern int Rx;
+extern int Ry;
+extern int Lt;
+extern int Rt;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
