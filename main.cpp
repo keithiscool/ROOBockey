@@ -52,9 +52,9 @@ int main(void) {
 
 			auto end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double, std::milli> elapsed = end - start;
-			std::chrono::duration<double> second(1.0);
+			std::chrono::duration<double> second(2.0);
 
-			if(elapsed.count() >= 1.0) {
+			if(elapsed.count() >= 2.0) {
 				 std::this_thread::sleep_for(second - elapsed);
 			}
 		}
