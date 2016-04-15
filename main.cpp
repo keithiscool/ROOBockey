@@ -53,12 +53,29 @@ int main(void) {
 		}
 	});
 
+	std::thread inputOutputThread([]() -> void {
+		while(1) {
+			auto start = std::chrono::high_resolution_clock::now();
+			parseXbox360Controller();
+			gpioPinOperations();
+			auto end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<double, std::milli> elapsed = end - start;
+			std::chrono::duration<double> second(0.1);
+
+			if(elapsed.count() >= 0.1) {
+				 std::this_thread::sleep_for(second - elapsed);
+			}
+		}
+	});
+
 	while (1) {
-		parseXbox360Controller();
-		gpioPinOperations();
+
 		//imageProcessingRoutine();
 
 	}
+
+	imageProcessingThread.join();
+	inputOutputThread.join();
 
 	return 1;
 }
