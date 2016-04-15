@@ -9,11 +9,6 @@ Red Octagon
 */
 
 
-
-Beacon::Beacon() { // Must have a "simple" declaration for the class...
-	// nothing here in the constructor
-}
-
 Beacon::~Beacon() { // I never have to free-up the class, so this is not run...
 	// nothing here in the deconstructor
 }
@@ -103,5 +98,3 @@ String Beacon::getShape() {
 void Beacon::setShape(string s) {
 	Shape = s;
 }
-
-
