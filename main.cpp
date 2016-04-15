@@ -27,10 +27,11 @@
 //Multi-Core Operation Headers
 #include <thread>
 #include <chrono>
+#include <mutex>
 
 
 int main(void) {
-
+	std::mutex inputLock;
 
 //Initialize the Xbox360 Wireless Controller and UART Module on the Raspberry Pi 2
 
@@ -39,10 +40,16 @@ int main(void) {
 	initController();
 	initGPIO_Uart();
 
-	std::thread imageProcessingThread([]() -> void {
+	std::thread imageProcessingThread([inputLock]() -> void {
 		while(1) {
 			auto start = std::chrono::high_resolution_clock::now();
-			imageProcessingRoutine();
+			
+			{
+				std::lock_guard<std::mutex> lock(inputLock);
+
+				imageProcessingRoutine();
+			}
+
 			auto end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double, std::milli> elapsed = end - start;
 			std::chrono::duration<double> second(1.0);
@@ -53,11 +60,17 @@ int main(void) {
 		}
 	});
 
-	std::thread inputOutputThread([]() -> void {
+	std::thread inputOutputThread([inputLock]() -> void {
 		while(1) {
 			auto start = std::chrono::high_resolution_clock::now();
-			parseXbox360Controller();
-			gpioPinOperations();
+
+			{
+				std::lock_guard<std::mutex> lock(inputLock);
+
+				parseXbox360Controller();
+				gpioPinOperations();
+			}
+
 			auto end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double, std::milli> elapsed = end - start;
 			std::chrono::duration<double> second(0.1);
