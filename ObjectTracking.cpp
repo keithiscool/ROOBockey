@@ -29,6 +29,9 @@ int V_MIN = 0;
 int V_MAX = 256;
 
 
+const string mouseWindowName = "Mouse Operations";
+
+
 /*Define Shapes and Colors for Known Target Beacon Colors and Shapes:
 * create some Beacon objects so that we can use their member functions/information
 * the text "Color_shape" tells the class definition (In "Beacons.c") what shape and color category the beacon falls in*/
@@ -71,7 +74,6 @@ void imageProcessingRoutine(void){
 	//The HSV filter is calibrated using the mouse in CALIBRATION_MODE or hardcoded to the class HSV values in Beacons.cpp when each beacon object is created
 	//createObjectTrackingParameterTrackbars();
 
-	const string mouseWindowName = "Mouse Operations";
 	//create a window before setting mouse callback
 	namedWindow(mouseWindowName);
 	//set mouse callback function to be active on "Webcam Feed" window
@@ -134,7 +136,7 @@ void imageProcessingRoutine(void){
 
 #ifdef SHOW_OPENCV_IMAGES
 
-	const string mouseWindowName = "Mouse Operations";
+	
 	if(src.data)
 	{
 		imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window

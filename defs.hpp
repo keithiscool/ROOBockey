@@ -83,7 +83,7 @@ extern int Rt;
 //#define ShowDetectedObjects 1
 #define SHOW_OPENCV_IMAGES 1
 #define USING_WEBCAM 1 //flag that is set to control whether the user uses the camera for input or a still picture as an input
-//#define CALIBRATION_MODE 1 //calibrate the HSV filter for a specific color
+#define CALIBRATION_MODE 1 //calibrate the HSV filter for a specific color
 #define CAMERA_NUMBER 0 //flag to set source of video: "camera 0" is the builtin laptop webcam, "camera 1" is usb webcam
 #define MAX_NUM_OBJECTS 30 // Program will only track 30 objects at a time (this is just in case noise becomes a problem)
 //#define MIN_OBJECT_AREA 400 //Only allow larger objects //200*200
