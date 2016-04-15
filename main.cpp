@@ -29,9 +29,9 @@
 #include <chrono>
 #include <mutex>
 
+std::mutex inputLock;
 
 int main(void) {
-	std::mutex inputLock;
 
 //Initialize the Xbox360 Wireless Controller and UART Module on the Raspberry Pi 2
 
@@ -40,10 +40,10 @@ int main(void) {
 	initController();
 	initGPIO_Uart();
 
-	std::thread imageProcessingThread([inputLock]() -> void {
+	std::thread imageProcessingThread([]() -> void {
 		while(1) {
 			auto start = std::chrono::high_resolution_clock::now();
-			
+
 			{
 				std::lock_guard<std::mutex> lock(inputLock);
 
@@ -60,7 +60,7 @@ int main(void) {
 		}
 	});
 
-	std::thread inputOutputThread([inputLock]() -> void {
+	std::thread inputOutputThread([]() -> void {
 		while(1) {
 			auto start = std::chrono::high_resolution_clock::now();
 
