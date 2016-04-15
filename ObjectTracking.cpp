@@ -150,7 +150,7 @@ void imageProcessingRoutine(void){
 		imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
 	}
 
-	if(!OutputImg.data)
+	if(!outputImg.data)
 	{
 		imshow("OutputImg", outputImg);
 	}
