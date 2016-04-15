@@ -31,13 +31,14 @@ int V_MAX = 256;
 /*Define Shapes and Colors for Known Target Beacon Colors and Shapes:
 * create some Beacon objects so that we can use their member functions/information
 * the text "Color_shape" tells the class definition (In "Beacons.c") what shape and color category the beacon falls in*/
-extern Beacon RedOctagon("RedOctagon");
-extern Beacon BlueRectangle("BlueRectangle");
-extern Beacon GreenTriangle("GreenTriangle");
+Beacon RedOctagon("RedOctagon");
+Beacon BlueRectangle("BlueRectangle");
+Beacon GreenTriangle("GreenTriangle");
 //Now define the vectors in case multiple beacons need to be tracked
-extern vector<Beacon> RedOctagonVector;
-extern vector<Beacon> BlueRectangleVector;
-extern vector<Beacon> GreenTriangleVector;
+vector<Beacon> RedOctagonVector;
+vector<Beacon> BlueRectangleVector;
+vector<Beacon> GreenTriangleVector;
+
 
 
 
@@ -498,7 +499,7 @@ void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec
 				(abs(1 - (area / (CV_PI * pow(radius, 2)))) <= 0.2)) {
 				setLabel(outputImage, "CIR", contours[i]);
 				drawContours(outputImage, contours, "DetectingCircles");
-				RecordBeaconPosition(GreenCircle, contours, GreenCirclesVector);
+				RecordBeaconPosition(GreenCircle, contours, GreenCircleVector);
 			}
 		}
 	}

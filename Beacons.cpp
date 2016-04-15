@@ -1,6 +1,6 @@
 #define USE_EXTERNS
 #include "Beacons.hpp"
-#include "defs.hpp"
+
 
 /*Define Shapes and Colors for Known Target Beacons:
 Green Triangle
@@ -105,14 +105,3 @@ void Beacon::setShape(string s) {
 }
 
 
-
-/*Define Shapes and Colors for Known Target Beacon Colors and Shapes:
-* create some Beacon objects so that we can use their member functions/information
-* the text "Color_shape" tells the class definition (In "Beacons.c") what shape and color category the beacon falls in*/
-Beacon RedOctagon("RedOctagon");
-Beacon BlueRectangle("BlueRectangle");
-Beacon GreenTriangle("GreenTriangle");
-//Now define the vectors in case multiple beacons need to be tracked
-vector<Beacon> RedOctagonVector;
-vector<Beacon> BlueRectangleVector;
-vector<Beacon> GreenTriangleVector;
