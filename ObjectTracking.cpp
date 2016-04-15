@@ -89,7 +89,7 @@ void imageProcessingRoutine(void){
 	cvtColor(src, HSV_Input, COLOR_BGR2HSV); //convert the input BGR color image to a HSV image
 
 
-#ifdef CALIBRATION_MODE 
+#ifdef CALIBRATION_MODE
 	//set HSV values from user selected region
 	mouseRecordHSV_Values(src, HSV_Input);
 
@@ -135,10 +135,26 @@ void imageProcessingRoutine(void){
 #ifdef SHOW_OPENCV_IMAGES
 
 	const string mouseWindowName = "Mouse Operations";
-	imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
-	imshow("ColorThresholdedImg", ColorThresholded_Img0);
-	imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
-	imshow("OutputImg", outputImg);
+	if(src != NULL)
+	{
+		imshow(mouseWindowName, src); //show Input BGR Mat video frame in new window
+	}
+
+	if(ColorThresholded_Img0 != NULL)
+	{
+		imshow("ColorThresholdedImg", ColorThresholded_Img0);
+	}
+
+	if(ColorThresholded_Img != NULL)
+	{
+		imshow("OutputColor&ShapeDetectedImg", ColorThresholded_Img);
+	}
+
+	if(OutputImg != NULL)
+	{
+		imshow("OutputImg", outputImg);
+	}
+	
 	waitKey(5); //delay in milliseconds so OpenCV does not consume all processor time. "imshow" will not appear without this waitKey() command
 
 #endif //SHOW_OPENCV_IMAGES
@@ -166,7 +182,7 @@ void createObjectTrackingParameterTrackbars(void) {
 	sprintf(TrackbarName, "V_MAX", V_MAX);
 
 	//3 parameters are: the address of the variable that is changing when the trackbar is moved(eg.H_LOW),
-	//the max value the trackbar can move (eg. H_HIGH), 
+	//the max value the trackbar can move (eg. H_HIGH),
 	//and the function that is called whenever the trackbar is moved(eg. on_trackbar)
 	createTrackbar("H_MIN", trackbarWindowName, &H_MIN, H_MAX, on_trackbar);
 	createTrackbar("H_MAX", trackbarWindowName, &H_MAX, H_MAX, on_trackbar);
@@ -193,10 +209,10 @@ void morphOps(Mat &thresh) {
 
 //CALIBRATION TEST FUNCTION is used to calibrate HSV filter after input BGR image and output contours detected if there are not too many
 size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vector<Point> > &contours, vector<Vec4i> &hierarchy, Mat &threshold) {
-	
+
 	//Generate a binary image from the HSV input image
 	inRange(HSV, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), threshold);
-	
+
 	//Dilate and Erode the image frame in order to filter out noise and enhance the desired color
 	morphOps(threshold);
 
@@ -206,7 +222,7 @@ size_t calibratingTrackColorFilteredObjects(Mat &InputMat, Mat &HSV, vector<vect
 	double refArea = 0;
 	//////////////size_t numObjects = hierarchy.size(); //counts the objects seen after applied threshold
 	size_t numObjects = contours.size(); //counts the objects seen after applied threshold
-	
+
 	if ((numObjects > 0) && (numObjects<MAX_NUM_OBJECTS)) { //if number of objects > MAX_NUM_OBJECTS we have a noisy filter
 		return numObjects; //function passes if objects are detected, but there are not too many detected objects (from bad filter)
 	}else {
@@ -315,9 +331,9 @@ void mouseRecordHSV_Values(Mat frame, Mat hsv_frame) {
 				}
 			}
 		}
-		
+
 		MouseHSVCalibrationPtr->rectangleSelected = false; //reset rectangleSelected so user can select another region if necessary
-		
+
 		//set min and max HSV values from min and max elements of each array
 		if (MouseHSVCalibrationPtr->H_ROI.size()>0) {
 			//NOTE: min_element and max_element return iterators so we must dereference them with "*"
@@ -421,7 +437,7 @@ void RecordBeaconPosition(Beacon &theBeacon, vector<vector<Point> > &contours, v
 #ifdef ShowDetectedObjects
 			cout<<theBeacon.getShape()<<": "<< theBeacon.getXPos()<<","<<theBeacon.getYPos()<<endl;
 #endif //ShowDetectedObjects
-		
+
 		}
 	}
 }
@@ -471,7 +487,7 @@ void shapeDetection(Mat& inputImage, vector<vector<Point> > contours, vector<Vec
 			// Get the lowest and the highest cosine
 			double mincos = cos.front();
 			double maxcos = cos.back();
-			
+
 			// Detect and label squares (vertices == 4)
 			// Use the degrees obtained above and the number of vertices to determine the shape of the contour
 			//if (vtc == 4 && mincos >= -0.1 && maxcos <= 0.3) {
@@ -564,7 +580,7 @@ int chooseBeaconToShootAt(void) {
 			return alignment;
 		}
 	}
- 
+
 	if (Bx == 1) { //blue beacon was chosen
 		int numBlueRectangleBeacons = BlueRectangleVector.size();
 		if (numBlueRectangleBeacons == 0) { //see if beacon is on image frame (if vector is empty, rotate the robot clockwise)
@@ -591,7 +607,7 @@ int chooseBeaconToShootAt(void) {
 				sendMotorControllerSpeedBytes(UART_ID, 80, 176); //rotate the robot clockwise in order to find the beacon
 				MillisWaitTime += MillisWaitTime;
 				return 0;
-			}*/	
+			}*/
 		}else { //some beacons were found
 			for (i = 0; i < numRedOctagonBeacons; i++) {
 				avgXValue += RedOctagonVector[i].getXPos(); //average the x coordinates of the detected Green Triangles
