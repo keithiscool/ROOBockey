@@ -1,0 +1,57 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2244550597/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2244550597.dir/build.make CMakeFiles/cmTryCompileExec2244550597.dir/build
+make[1]: Entering directory '/home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2244550597.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2244550597.dir/CheckSymbolExists.c.o   -c /home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2244550597
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2244550597.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2244550597.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2244550597 -rdynamic 
+CMakeFiles/cmTryCompileExec2244550597.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x38): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec2244550597.dir/build.make:88: recipe for target 'cmTryCompileExec2244550597' failed
+make[1]: *** [cmTryCompileExec2244550597] Error 1
+make[1]: Leaving directory '/home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp'
+Makefile:118: recipe for target 'cmTryCompileExec2244550597/fast' failed
+make: *** [cmTryCompileExec2244550597/fast] Error 2
+
+File /home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4241516448/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4241516448.dir/build.make CMakeFiles/cmTryCompileExec4241516448.dir/build
+make[1]: Entering directory '/home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4241516448.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec4241516448.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.0/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec4241516448
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4241516448.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec4241516448.dir/CheckFunctionExists.c.o  -o cmTryCompileExec4241516448 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec4241516448.dir/build.make:88: recipe for target 'cmTryCompileExec4241516448' failed
+make[1]: Leaving directory '/home/pi/Downloads/ROOBockey-dd278aac59f2aaafec650d1d6b623fd2c7cba700/CMakeFiles/CMakeTmp'
+make[1]: *** [cmTryCompileExec4241516448] Error 1
+Makefile:118: recipe for target 'cmTryCompileExec4241516448/fast' failed
+make: *** [cmTryCompileExec4241516448/fast] Error 2
+
+

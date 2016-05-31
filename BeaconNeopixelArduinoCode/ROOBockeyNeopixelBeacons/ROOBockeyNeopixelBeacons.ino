@@ -1,5 +1,6 @@
 // NeoPixel Ring simple sketch (c) 2013 Shae Erisson
 // released under the GPLv3 license to match the rest of the AdaFruit NeoPixel library
+//Modified by Keith Martin
 
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
@@ -9,10 +10,10 @@
 
 //Choose which color the beacon should be for the ROOBockey LED beacon:
 //Comment out the colors that you do not want the beacon to be
-//#define GREEN_BEACON 1
+#define GREEN_BEACON 1
 //#define RED_BEACON 1
 //#define BLUE_BEACON 1
-#define YELLOW_BEACON 1
+//#define YELLOW_BEACON 1
 
 
 // Which pin on the Arduino is connected to the NeoPixels?

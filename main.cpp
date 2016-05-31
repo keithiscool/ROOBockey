@@ -1,5 +1,4 @@
-////////////Originally Written by  Kyle Hounslow 2013 - https://www.youtube.com/watch?v=4KYlHgQQAts
-////////////Modified by Keith Martin 2015-2016 - ROObockey Senior Design Team E - University of Akron : Design of a floor hockey puck shooting robot
+////////////Keith Martin 2015-2016 - ROObockey Senior Design Team E - University of Akron : Design of a floor hockey puck shooting robot
 ////////////main.cpp - Project Used to Track Various Target Beacons of Different Shapes and Colors
 //////////
 ////////////Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software")
@@ -34,12 +33,10 @@ std::mutex inputLock;
 int main(void) {
 
 //Initialize the Xbox360 Wireless Controller and UART Module on the Raspberry Pi 2
-
-
-
 	initController();
 	initGPIO_Uart();
 
+//Launch the thread for the Image Processing on the Raspberry Pi 2
 	std::thread imageProcessingThread([]() -> void {
 		while(1) {
 			auto start = std::chrono::high_resolution_clock::now();
@@ -58,6 +55,7 @@ int main(void) {
 		}
 	});
 
+//Launch the thread for the Xbox 360 Wireless Controller and GPIO polling
 	std::thread inputOutputThread([]() -> void {
 		while(1) {
 			auto start = std::chrono::high_resolution_clock::now();
@@ -79,12 +77,7 @@ int main(void) {
 		}
 	});
 
-	while (1) {
-
-		//imageProcessingRoutine();
-
-	}
-
+//the code should never get to this point because it is stuck in the above while() loops
 	imageProcessingThread.join();
 	inputOutputThread.join();
 
